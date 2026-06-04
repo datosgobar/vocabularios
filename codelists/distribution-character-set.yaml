@@ -1,0 +1,196 @@
+id: distribution-character-set
+name:
+  es: Codificación de caracteres de la distribución
+  en: Distribution Character Set
+description:
+  es: >
+    Codificación de caracteres usada en el archivo de la distribución.
+    Basada en el registro IANA Character Sets
+    (https://www.iana.org/assignments/character-sets/).
+    El nombre preferido de cada codificación es el del registro IANA.
+    Se recomienda UTF-8 para todos los archivos nuevos.
+  en: >
+    Character encoding used in the distribution file.
+    Based on the IANA Character Sets registry
+    (https://www.iana.org/assignments/character-sets/).
+    The preferred name for each encoding is the one in the IANA registry.
+    UTF-8 is recommended for all new files.
+source: https://www.iana.org/assignments/character-sets/
+display_property: cnt:characterEncoding
+
+values:
+  # ── Unicode (recomendados) ─────────────────────────────────────────────────
+  - id: UTF-8
+    label:
+      es: UTF-8 — Unicode (recomendado)
+      en: UTF-8 — Unicode (recommended)
+    description:
+      es: Codificación Unicode de longitud variable. Compatible con todos los idiomas y caracteres especiales. Recomendada para todos los archivos nuevos.
+      en: Variable-length Unicode encoding. Compatible with all languages and special characters. Recommended for all new files.
+    note: recomendado
+
+  - id: UTF-16
+    label:
+      es: UTF-16 — Unicode de 16 bits
+      en: UTF-16 — 16-bit Unicode
+    description:
+      es: Codificación Unicode de 16 bits. Común en entornos Windows y Java.
+      en: 16-bit Unicode encoding. Common in Windows and Java environments.
+
+  - id: UTF-16BE
+    label:
+      es: UTF-16BE — Unicode 16 bits Big Endian
+      en: UTF-16BE — 16-bit Unicode Big Endian
+    description:
+      es: Variante Big Endian de UTF-16. El byte más significativo va primero.
+      en: Big Endian variant of UTF-16. The most significant byte comes first.
+
+  - id: UTF-16LE
+    label:
+      es: UTF-16LE — Unicode 16 bits Little Endian
+      en: UTF-16LE — 16-bit Unicode Little Endian
+    description:
+      es: Variante Little Endian de UTF-16. El byte menos significativo va primero.
+      en: Little Endian variant of UTF-16. The least significant byte comes first.
+
+  - id: UTF-32
+    label:
+      es: UTF-32 — Unicode de 32 bits
+      en: UTF-32 — 32-bit Unicode
+    description:
+      es: Codificación Unicode de longitud fija de 32 bits por carácter. Mayor consumo de espacio.
+      en: Fixed-length 32-bit Unicode encoding. Higher space consumption.
+
+  # ── ISO-8859 (Latin) ───────────────────────────────────────────────────────
+  - id: ISO-8859-1
+    label:
+      es: ISO-8859-1 — Latin-1 (Europa Occidental)
+      en: ISO-8859-1 — Latin-1 (Western Europe)
+    description:
+      es: Codificación de un byte para Europa Occidental. Soporta español pero sin el símbolo €. Muy común en archivos legacy argentinos.
+      en: Single-byte encoding for Western Europe. Supports Spanish but not the € symbol. Very common in Argentine legacy files.
+
+  - id: ISO-8859-2
+    label:
+      es: ISO-8859-2 — Latin-2 (Europa Central y del Este)
+      en: ISO-8859-2 — Latin-2 (Central and Eastern Europe)
+    description:
+      es: Codificación de un byte para idiomas de Europa Central y del Este (polaco, checo, húngaro, etc.).
+      en: Single-byte encoding for Central and Eastern European languages (Polish, Czech, Hungarian, etc.).
+
+  - id: ISO-8859-15
+    label:
+      es: ISO-8859-15 — Latin-9 (Latin-1 con símbolo €)
+      en: ISO-8859-15 — Latin-9 (Latin-1 with € symbol)
+    description:
+      es: Actualización de ISO-8859-1 que incluye el símbolo € y algunos caracteres adicionales.
+      en: Update of ISO-8859-1 that includes the € symbol and some additional characters.
+
+  # ── Windows (legacy, muy comunes en archivos del cono sur) ─────────────────
+  - id: windows-1252
+    label:
+      es: windows-1252 — Windows Latin-1 (legacy cono sur)
+      en: windows-1252 — Windows Latin-1 (Southern Cone legacy)
+    description:
+      es: Superconjunto de ISO-8859-1 usado por defecto en Windows en español. Muy frecuente en archivos legacy de Argentina y América Latina.
+      en: Superset of ISO-8859-1 used by default in Spanish Windows. Very common in legacy files from Argentina and Latin America.
+
+  - id: windows-1250
+    label:
+      es: windows-1250 — Windows Latin-2 (Europa Central)
+      en: windows-1250 — Windows Latin-2 (Central Europe)
+    description:
+      es: Codificación Windows para Europa Central. Equivalente aproximado de ISO-8859-2.
+      en: Windows encoding for Central Europe. Approximate equivalent of ISO-8859-2.
+
+  - id: windows-1251
+    label:
+      es: windows-1251 — Windows Cirílico
+      en: windows-1251 — Windows Cyrillic
+    description:
+      es: Codificación Windows para idiomas con alfabeto cirílico (ruso, búlgaro, serbio, etc.).
+      en: Windows encoding for Cyrillic alphabet languages (Russian, Bulgarian, Serbian, etc.).
+
+  # ── ASCII ──────────────────────────────────────────────────────────────────
+  - id: US-ASCII
+    label:
+      es: US-ASCII — ASCII estándar de 7 bits
+      en: US-ASCII — 7-bit standard ASCII
+    description:
+      es: Estándar ASCII original de 7 bits. Solo cubre inglés básico (128 caracteres). No soporta ñ, acentos ni caracteres especiales del español.
+      en: Original 7-bit ASCII standard. Covers only basic English (128 characters). Does not support Spanish accents or special characters.
+
+  # ── Alias para geodatos (SIG) ──────────────────────────────────────────────
+  - id: LATIN1
+    label:
+      es: LATIN1 — Alias de ISO-8859-1 (shapefiles dBASE)
+      en: LATIN1 — Alias of ISO-8859-1 (dBASE shapefiles)
+    description:
+      es: Alias de ISO-8859-1 usado por defecto en archivos .dbf de shapefiles. Muy común en geodatos argentinos legacy.
+      en: Alias of ISO-8859-1 used by default in shapefile .dbf files. Very common in legacy Argentine geodata.
+
+  - id: LATIN2
+    label:
+      es: LATIN2 — Alias de ISO-8859-2 (shapefiles Europa Central)
+      en: LATIN2 — Alias of ISO-8859-2 (Central Europe shapefiles)
+    description:
+      es: Alias de ISO-8859-2 usado en shapefiles de Europa Central.
+      en: Alias of ISO-8859-2 used in Central European shapefiles.
+
+  # ── Asiáticas (interoperabilidad internacional) ────────────────────────────
+  - id: Shift_JIS
+    label:
+      es: Shift_JIS — Japonés
+      en: Shift_JIS — Japanese
+    description:
+      es: Codificación japonesa. Común en datos de SIG de origen japonés.
+      en: Japanese encoding. Common in GIS data of Japanese origin.
+
+  - id: EUC-JP
+    label:
+      es: EUC-JP — Japonés (Unix/Linux)
+      en: EUC-JP — Japanese (Unix/Linux)
+    description:
+      es: Codificación japonesa para sistemas Unix/Linux.
+      en: Japanese encoding for Unix/Linux systems.
+
+  - id: GB2312
+    label:
+      es: GB2312 — Chino Simplificado
+      en: GB2312 — Simplified Chinese
+    description:
+      es: Codificación estándar china para caracteres simplificados.
+      en: Standard Chinese encoding for simplified characters.
+
+  - id: Big5
+    label:
+      es: Big5 — Chino Tradicional
+      en: Big5 — Traditional Chinese
+    description:
+      es: Codificación para chino tradicional. Común en Taiwán y Hong Kong.
+      en: Encoding for Traditional Chinese. Common in Taiwan and Hong Kong.
+
+  - id: EUC-KR
+    label:
+      es: EUC-KR — Coreano
+      en: EUC-KR — Korean
+    description:
+      es: Codificación estándar para el idioma coreano en sistemas Unix.
+      en: Standard encoding for the Korean language on Unix systems.
+
+  # ── Otros ──────────────────────────────────────────────────────────────────
+  - id: KOI8-R
+    label:
+      es: KOI8-R — Ruso (Unix)
+      en: KOI8-R — Russian (Unix)
+    description:
+      es: Codificación rusa para sistemas Unix.
+      en: Russian encoding for Unix systems.
+
+  - id: macintosh
+    label:
+      es: macintosh — Mac Roman (archivos legacy de Apple)
+      en: macintosh — Mac Roman (Apple legacy files)
+    description:
+      es: Codificación usada por defecto en sistemas Macintosh clásicos. Frecuente en archivos muy antiguos.
+      en: Encoding used by default on classic Macintosh systems. Common in very old files.

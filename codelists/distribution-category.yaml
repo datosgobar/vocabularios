@@ -1,0 +1,170 @@
+id: distribution-category
+name:
+  es: Categoría de distribución
+  en: Distribution Category
+description:
+  es: >
+    Naturaleza o género de la distribución. Usa el vocabulario controlado
+    Dublin Core Type (DCMI Type, http://purl.org/dc/dcmitype/) y ADMS
+    (http://www.w3.org/ns/adms#), con tipos complementarios para geodatos
+    y recursos semánticos.
+  en: >
+    Nature or genre of the distribution. Uses the Dublin Core Type (DCMI Type)
+    controlled vocabulary and ADMS, with complementary types for geospatial
+    data and semantic resources.
+source: http://purl.org/dc/dcmitype/
+display_property: dct:type
+
+values:
+  - id: Dataset
+    uri: http://purl.org/dc/dcmitype/Dataset
+    label:
+      es: Conjunto de datos
+      en: Dataset
+    description:
+      es: Archivo de datos tabulares o estructurados (CSV, XLSX, JSON, XML, etc.).
+      en: Tabular or structured data file (CSV, XLSX, JSON, XML, etc.).
+
+  - id: Text
+    uri: http://purl.org/dc/dcmitype/Text
+    label:
+      es: Texto
+      en: Text
+    description:
+      es: Documento, informe o recurso escrito (PDF, DOC, TXT, HTML, etc.).
+      en: Document, report or written resource (PDF, DOC, TXT, HTML, etc.).
+
+  - id: Image
+    uri: http://purl.org/dc/dcmitype/Image
+    label:
+      es: Imagen
+      en: Image
+    description:
+      es: Fotografía, mapa, diagrama o gráfico en formato de imagen.
+      en: Photograph, map, diagram or graphic in image format.
+
+  - id: StillImage
+    uri: http://purl.org/dc/dcmitype/StillImage
+    label:
+      es: Imagen estática
+      en: Still Image
+    description:
+      es: Archivo de imagen fija (PNG, JPG, TIFF). Subclase de Image.
+      en: Static image file (PNG, JPG, TIFF). Subclass of Image.
+
+  - id: MovingImage
+    uri: http://purl.org/dc/dcmitype/MovingImage
+    label:
+      es: Imagen en movimiento
+      en: Moving Image
+    description:
+      es: Archivo de vídeo o animación. Subclase de Image.
+      en: Video or animation file. Subclass of Image.
+
+  - id: Sound
+    uri: http://purl.org/dc/dcmitype/Sound
+    label:
+      es: Sonido
+      en: Sound
+    description:
+      es: Grabación o archivo de audio.
+      en: Audio recording or file.
+
+  - id: Software
+    uri: http://purl.org/dc/dcmitype/Software
+    label:
+      es: Software
+      en: Software
+    description:
+      es: Aplicación, script o programa ejecutable.
+      en: Application, script or executable program.
+
+  - id: InteractiveResource
+    uri: http://purl.org/dc/dcmitype/InteractiveResource
+    label:
+      es: Recurso interactivo
+      en: Interactive Resource
+    description:
+      es: Tablero, formulario, visualización dinámica o herramienta interactiva.
+      en: Dashboard, form, dynamic visualization or interactive tool.
+
+  - id: Collection
+    uri: http://purl.org/dc/dcmitype/Collection
+    label:
+      es: Colección
+      en: Collection
+    description:
+      es: Agregación de múltiples recursos que funciona como un conjunto.
+      en: Aggregation of multiple resources functioning as a set.
+
+  - id: Event
+    uri: http://purl.org/dc/dcmitype/Event
+    label:
+      es: Evento
+      en: Event
+    description:
+      es: Ocurrencia temporal (conferencia, acto público, operativo, etc.).
+      en: A non-persistent, time-based occurrence (conference, public event, etc.).
+
+  - id: PhysicalObject
+    uri: http://purl.org/dc/dcmitype/PhysicalObject
+    label:
+      es: Objeto físico
+      en: Physical Object
+    description:
+      es: Objeto tridimensional inanimado. Usar para inventarios de bienes.
+      en: An inanimate, three-dimensional object. Use for asset inventories.
+
+  - id: AssetDistribution
+    uri: http://www.w3.org/ns/adms#AssetDistribution
+    label:
+      es: Distribución de activo semántico
+      en: Asset Distribution
+    description:
+      es: Forma distribuible de un activo semántico (ADMS). Ej. serialización de una ontología.
+      en: Distributable form of a semantic asset (ADMS). E.g. an ontology serialization.
+
+  - id: Dataset-geographic
+    uri: http://purl.org/dc/dcmitype/Dataset#geographic
+    label:
+      es: Datos geográficos
+      en: Geographic Dataset
+    description:
+      es: Archivo de datos espaciales o cartográficos (Shapefile, GeoJSON, GeoTIFF, KML, etc.).
+      en: Spatial or cartographic data file (Shapefile, GeoJSON, GeoTIFF, KML, etc.).
+
+  - id: ConceptScheme
+    uri: http://www.w3.org/2004/02/skos/core#ConceptScheme
+    label:
+      es: Tesauro / Taxonomía
+      en: Thesaurus / Taxonomy
+    description:
+      es: Esquema de conceptos SKOS o vocabulario controlado (TTL, RDF/XML, JSON-LD, etc.).
+      en: SKOS concept scheme or controlled vocabulary (TTL, RDF/XML, JSON-LD, etc.).
+
+  - id: Ontology
+    uri: http://www.w3.org/2002/07/owl#Ontology
+    label:
+      es: Ontología
+      en: Ontology
+    description:
+      es: Representación formal de un dominio de conocimiento en OWL/RDF.
+      en: Formal representation of a knowledge domain in OWL/RDF.
+
+  - id: Text-documentation
+    uri: http://purl.org/dc/dcmitype/Text#documentation
+    label:
+      es: Documentación técnica
+      en: Documentation
+    description:
+      es: Manual técnico, diccionario de datos, metodología u otro documento de referencia.
+      en: Technical manual, data dictionary, methodology or other reference document.
+
+  - id: other
+    uri: ~
+    label:
+      es: Otro
+      en: Other
+    description:
+      es: Tipo no contemplado en las categorías anteriores. Especificar en la descripción del recurso.
+      en: Type not covered by the above categories. Specify in the resource description.

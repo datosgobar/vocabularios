@@ -1,0 +1,781 @@
+[
+  {
+    "id": "ipc-indice",
+    "nombre_preferido": "Índice de Precios al Consumidor (Índice base dic 2016=100)",
+    "nombre_preferido_en": "Consumer Price Index (Index base Dec 2016=100)",
+    "siglas": [
+      "IPC",
+      "CPI"
+    ],
+    "definicion": "Número índice base diciembre 2016=100 que mide el nivel de precios de la canasta de bienes y servicios representativos del gasto de consumo de los hogares residentes en áreas urbanas de la Argentina. Se publica para el total nacional y para seis regiones estadísticas: GBA, Pampeana, Noroeste, Noreste, Cuyo y Patagonia. La canasta está clasificada según la COICOP Argentina 2019 (adaptación de COICOP 1999 de Naciones Unidas), con aperturas por división (12), grupos y clases, así como por categorías (Estacional, Núcleo, Regulados) y por tipo de bien o servicio (Bienes, Servicios).",
+    "unidad_de_medida": "número índice base diciembre 2016=100",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://sdmx.org/resources/sdmx-io/wp-content/uploads/2023/06/CL_UNIT_MEASURE.html",
+      "codigo": "IX",
+      "nota": "IX: Index (número índice)"
+    },
+    "ano_base": "2016",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional, GBA, Pampeana, Noroeste, Noreste, Cuyo y Patagonia",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_05_17.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/ipc_metodologia_17_07_16.pdf"
+    ],
+    "publicacion_id": "indice-de-precios-al-consumidor-ipc",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "ipc-variacion-mensual",
+        "ipc-variacion-interanual"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [
+      {
+        "nombre": "region_estadistica",
+        "etiqueta_humana": "Región estadística",
+        "vocabularios_externos": [
+          {
+            "nombre": "Vocabulario de territorio — Argentina",
+            "uri": "https://infra.datos.gob.ar/vocabulario/territorio-argentina/",
+            "codigo": "aradm:Region",
+            "etiqueta": "Región estadística del INDEC"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "nacional",
+            "etiqueta": "Total nacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 5 col. A; CSV serie_ipc_divisiones.csv col. Region='Nacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "gba",
+            "etiqueta": "GBA",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 35 col. A — 'Región GBA'; CSV serie_ipc_divisiones.csv col. Region='GBA'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "pampeana",
+            "etiqueta": "Pampeana",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 65 col. A — 'Región Pampeana'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noroeste",
+            "etiqueta": "Noroeste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 95 col. A — 'Región Noroeste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noreste",
+            "etiqueta": "Noreste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 125 col. A — 'Región Noreste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "cuyo",
+            "etiqueta": "Cuyo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 155 col. A — 'Región Cuyo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "patagonia",
+            "etiqueta": "Patagonia",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 185 col. A — 'Región Patagonia'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional': 7 bloques regionales (filas 5, 35, 65, 95, 125, 155, 185); CSV serie_ipc_divisiones.csv columna 'Region'",
+        "nivel_confianza": "alto",
+        "notas": "GBA en los cuadros del INDEC corresponde a Region/AMBA (Área Metropolitana de Buenos Aires) en el vocabulario de territorio, que incluye CABA y los 24 partidos del conurbano bonaerense."
+      },
+      {
+        "nombre": "clasificacion_coicop",
+        "etiqueta_humana": "Clasificación COICOP",
+        "vocabularios_externos": [
+          {
+            "nombre": "COICOP Argentina 2019",
+            "uri": "https://infra.datos.gob.ar/vocabulario/clasificadores/coicop/esquema-2019",
+            "codigo": "coicop:esquema-2019",
+            "etiqueta": "Clasificación del Consumo Individual por Finalidades — adaptación argentina 2019"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "0",
+            "etiqueta": "Nivel general",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 9 col. A; CSV serie_ipc_divisiones.csv Codigo='0' Descripcion='NIVEL GENERAL'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "01",
+            "etiqueta": "Alimentos y bebidas no alcohólicas",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 10; ponderadores_ipc.xls fila 4 Código='01'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "02",
+            "etiqueta": "Bebidas alcohólicas y tabaco",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 11; ponderadores_ipc.xls fila 18 Código='02'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "03",
+            "etiqueta": "Prendas de vestir y calzado",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 12; ponderadores_ipc.xls fila 24 Código='03'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "04",
+            "etiqueta": "Vivienda, agua, electricidad, gas y otros combustibles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 13; ponderadores_ipc.xls fila 33 Código='04'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "05",
+            "etiqueta": "Equipamiento y mantenimiento del hogar",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 14; ponderadores_ipc.xls fila 44 Código='05'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "06",
+            "etiqueta": "Salud",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 15; ponderadores_ipc.xls fila 53 Código='06'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "07",
+            "etiqueta": "Transporte",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 16; ponderadores_ipc.xls fila 63 Código='07'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "08",
+            "etiqueta": "Comunicación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 17; ponderadores_ipc.xls fila 78 Código='08'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "09",
+            "etiqueta": "Recreación y cultura",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 18; ponderadores_ipc.xls fila 87 Código='09'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "10",
+            "etiqueta": "Educación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 19; ponderadores_ipc.xls fila 105 Código='10'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "11",
+            "etiqueta": "Restaurantes y hoteles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 20; ponderadores_ipc.xls fila 110 Código='11'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "12",
+            "etiqueta": "Bienes y servicios varios",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 21; ponderadores_ipc.xls fila 113 Código='12'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' bloque 'Nivel general y divisiones COICOP' filas 7–21 (en cada bloque regional); ponderadores_ipc.xls columnas Código y Descripción; Metodología N°32 Cuadro 3 p.9",
+        "nivel_confianza": "alto",
+        "notas": "13 valores: nivel general + 12 divisiones COICOP. El clasificador completo (grupos y clases) está declarado en coicop:esquema-2019 del TTL de vocabularios. Los cuadros de aperturas (sh_ipc_aperturas.xls) publican desagregación hasta grupos y clases para algunas regiones."
+      },
+      {
+        "nombre": "categoria_ipc",
+        "etiqueta_humana": "Categoría IPC",
+        "valores": [
+          {
+            "codigo": "estacional",
+            "etiqueta": "Estacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 24 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Estacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "nucleo",
+            "etiqueta": "Núcleo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 25 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Núcleo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "regulados",
+            "etiqueta": "Regulados",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 26 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Regulados'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' bloque 'Categorías' filas 23–26 (en cada bloque regional); CSV serie_ipc_divisiones.csv Clasificador='Categorias'",
+        "nivel_confianza": "alto",
+        "notas": "Clasificación analítica propia del IPC argentino, no parte de COICOP. Se publica solo a nivel general (sin desagregación por división). Núcleo excluye estacionales y regulados; Regulados incluye precios fijados o fuertemente influidos por el Estado."
+      },
+      {
+        "nombre": "tipo_bien_servicio",
+        "etiqueta_humana": "Tipo de bien o servicio",
+        "valores": [
+          {
+            "codigo": "bienes",
+            "etiqueta": "Bienes",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 29 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='B'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "servicios",
+            "etiqueta": "Servicios",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 30 col. A; CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='S'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' bloque 'Bienes y servicios' filas 28–30 (en cada bloque regional)",
+        "nivel_confianza": "alto",
+        "notas": "Apertura binaria publicada a nivel general para todas las regiones. La proporción de bienes dentro de cada división figura en la hoja 'Ponderaciones' del mismo XLS."
+      }
+    ],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador_con_dimensiones",
+    "dimensiones_ortogonales": [
+      [
+        "region_estadistica",
+        "clasificacion_coicop"
+      ],
+      [
+        "region_estadistica",
+        "categoria_ipc"
+      ],
+      [
+        "region_estadistica",
+        "tipo_bien_servicio"
+      ]
+    ]
+  },
+  {
+    "id": "ipc-variacion-mensual",
+    "nombre_preferido": "Índice de Precios al Consumidor (Var. % mensual)",
+    "nombre_preferido_en": "Consumer Price Index (Monthly % change)",
+    "siglas": [
+      "IPC"
+    ],
+    "definicion": "Variación porcentual del IPC respecto al mes inmediatamente anterior. Se calcula para el nivel general y para todas las aperturas de la canasta (12 divisiones COICOP, categorías Estacional/Núcleo/Regulados, y Bienes/Servicios), para el total nacional y las seis regiones estadísticas. Es la medida de inflación mensual oficial de la Argentina.",
+    "unidad_de_medida": "porcentaje",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://sdmx.org/resources/sdmx-io/wp-content/uploads/2023/06/CL_UNIT_MEASURE.html",
+      "codigo": "PT",
+      "nota": "PT: Percent (porcentaje). Variación respecto al período anterior."
+    },
+    "ano_base": "",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional, GBA, Pampeana, Noroeste, Noreste, Cuyo y Patagonia",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_05_17.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/ipc_metodologia_17_07_16.pdf"
+    ],
+    "publicacion_id": "indice-de-precios-al-consumidor-ipc",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "ipc-indice",
+        "ipc-variacion-interanual"
+      ],
+      "derivado_de": [
+        "ipc-indice"
+      ],
+      "componente_de": []
+    },
+    "dimensiones": [
+      {
+        "nombre": "region_estadistica",
+        "etiqueta_humana": "Región estadística",
+        "vocabularios_externos": [
+          {
+            "nombre": "Vocabulario de territorio — Argentina",
+            "uri": "https://infra.datos.gob.ar/vocabulario/territorio-argentina/",
+            "codigo": "aradm:Region",
+            "etiqueta": "Región estadística del INDEC"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "nacional",
+            "etiqueta": "Total nacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 5 col. A; CSV serie_ipc_divisiones.csv col. Region='Nacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "gba",
+            "etiqueta": "GBA",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 35 col. A — 'Región GBA'; CSV serie_ipc_divisiones.csv col. Region='GBA'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "pampeana",
+            "etiqueta": "Pampeana",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 65 col. A — 'Región Pampeana'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noroeste",
+            "etiqueta": "Noroeste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 95 col. A — 'Región Noroeste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noreste",
+            "etiqueta": "Noreste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 125 col. A — 'Región Noreste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "cuyo",
+            "etiqueta": "Cuyo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 155 col. A — 'Región Cuyo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "patagonia",
+            "etiqueta": "Patagonia",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 185 col. A — 'Región Patagonia'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Variación mensual IPC Nacional': 7 bloques regionales; CSV serie_ipc_divisiones.csv columna 'Region'",
+        "nivel_confianza": "alto",
+        "notas": "GBA en los cuadros del INDEC corresponde a Region/AMBA (Área Metropolitana de Buenos Aires) en el vocabulario de territorio, que incluye CABA y los 24 partidos del conurbano bonaerense."
+      },
+      {
+        "nombre": "clasificacion_coicop",
+        "etiqueta_humana": "Clasificación COICOP",
+        "vocabularios_externos": [
+          {
+            "nombre": "COICOP Argentina 2019",
+            "uri": "https://infra.datos.gob.ar/vocabulario/clasificadores/coicop/esquema-2019",
+            "codigo": "coicop:esquema-2019",
+            "etiqueta": "Clasificación del Consumo Individual por Finalidades — adaptación argentina 2019"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "0",
+            "etiqueta": "Nivel general",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 9 col. A; CSV serie_ipc_divisiones.csv Codigo='0' Descripcion='NIVEL GENERAL'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "01",
+            "etiqueta": "Alimentos y bebidas no alcohólicas",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 10; ponderadores_ipc.xls fila 4 Código='01'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "02",
+            "etiqueta": "Bebidas alcohólicas y tabaco",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 11; ponderadores_ipc.xls fila 18 Código='02'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "03",
+            "etiqueta": "Prendas de vestir y calzado",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 12; ponderadores_ipc.xls fila 24 Código='03'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "04",
+            "etiqueta": "Vivienda, agua, electricidad, gas y otros combustibles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 13; ponderadores_ipc.xls fila 33 Código='04'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "05",
+            "etiqueta": "Equipamiento y mantenimiento del hogar",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 14; ponderadores_ipc.xls fila 44 Código='05'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "06",
+            "etiqueta": "Salud",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 15; ponderadores_ipc.xls fila 53 Código='06'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "07",
+            "etiqueta": "Transporte",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 16; ponderadores_ipc.xls fila 63 Código='07'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "08",
+            "etiqueta": "Comunicación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 17; ponderadores_ipc.xls fila 78 Código='08'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "09",
+            "etiqueta": "Recreación y cultura",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 18; ponderadores_ipc.xls fila 87 Código='09'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "10",
+            "etiqueta": "Educación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 19; ponderadores_ipc.xls fila 105 Código='10'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "11",
+            "etiqueta": "Restaurantes y hoteles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 20; ponderadores_ipc.xls fila 110 Código='11'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "12",
+            "etiqueta": "Bienes y servicios varios",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 21; ponderadores_ipc.xls fila 113 Código='12'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Variación mensual IPC Nacional' bloque 'Nivel general y divisiones COICOP' filas 7–21 (en cada bloque regional); sh_ipc_aperturas.xls hoja 'Variación mensual aperturas' (hasta grupos y clases)",
+        "nivel_confianza": "alto",
+        "notas": "13 valores: nivel general + 12 divisiones COICOP. El clasificador completo (grupos y clases) está declarado en coicop:esquema-2019 del TTL de vocabularios. Los cuadros de aperturas (sh_ipc_aperturas.xls) publican desagregación hasta grupos y clases para algunas regiones."
+      },
+      {
+        "nombre": "categoria_ipc",
+        "etiqueta_humana": "Categoría IPC",
+        "valores": [
+          {
+            "codigo": "estacional",
+            "etiqueta": "Estacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 24 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Estacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "nucleo",
+            "etiqueta": "Núcleo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 25 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Núcleo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "regulados",
+            "etiqueta": "Regulados",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 26 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Regulados'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Variación mensual IPC Nacional' bloque 'Categorías' filas 23–26 (en cada bloque regional)",
+        "nivel_confianza": "alto",
+        "notas": "Clasificación analítica propia del IPC argentino, no parte de COICOP. Se publica solo a nivel general (sin desagregación por división). Núcleo excluye estacionales y regulados; Regulados incluye precios fijados o fuertemente influidos por el Estado."
+      },
+      {
+        "nombre": "tipo_bien_servicio",
+        "etiqueta_humana": "Tipo de bien o servicio",
+        "valores": [
+          {
+            "codigo": "bienes",
+            "etiqueta": "Bienes",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 29 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='B'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "servicios",
+            "etiqueta": "Servicios",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 30 col. A; CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='S'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Variación mensual IPC Nacional' bloque 'Bienes y servicios' filas 28–30 (en cada bloque regional)",
+        "nivel_confianza": "alto",
+        "notas": "Apertura binaria publicada a nivel general para todas las regiones. La proporción de bienes dentro de cada división figura en la hoja 'Ponderaciones' del mismo XLS."
+      }
+    ],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador_con_dimensiones",
+    "dimensiones_ortogonales": [
+      [
+        "region_estadistica",
+        "clasificacion_coicop"
+      ],
+      [
+        "region_estadistica",
+        "categoria_ipc"
+      ],
+      [
+        "region_estadistica",
+        "tipo_bien_servicio"
+      ]
+    ]
+  },
+  {
+    "id": "ipc-variacion-interanual",
+    "nombre_preferido": "Índice de Precios al Consumidor (Var. % interanual)",
+    "nombre_preferido_en": "Consumer Price Index (Year-on-year % change)",
+    "siglas": [
+      "IPC"
+    ],
+    "definicion": "Variación porcentual del IPC respecto al mismo mes del año anterior. Se calcula para el nivel general y para todas las aperturas de la canasta (12 divisiones COICOP, categorías Estacional/Núcleo/Regulados, y Bienes/Servicios), para el total nacional y las seis regiones estadísticas. Mide la inflación acumulada en los últimos doce meses.",
+    "unidad_de_medida": "porcentaje",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://sdmx.org/resources/sdmx-io/wp-content/uploads/2023/06/CL_UNIT_MEASURE.html",
+      "codigo": "PT",
+      "nota": "PT: Percent (porcentaje). Variación respecto al mismo período del año anterior."
+    },
+    "ano_base": "",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional, GBA, Pampeana, Noroeste, Noreste, Cuyo y Patagonia",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_05_17.pdf",
+      "https://www.indec.gob.ar/ftp/cuadros/economia/ipc_metodologia_17_07_16.pdf"
+    ],
+    "publicacion_id": "indice-de-precios-al-consumidor-ipc",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "ipc-indice",
+        "ipc-variacion-mensual"
+      ],
+      "derivado_de": [
+        "ipc-indice"
+      ],
+      "componente_de": []
+    },
+    "dimensiones": [
+      {
+        "nombre": "region_estadistica",
+        "etiqueta_humana": "Región estadística",
+        "vocabularios_externos": [
+          {
+            "nombre": "Vocabulario de territorio — Argentina",
+            "uri": "https://infra.datos.gob.ar/vocabulario/territorio-argentina/",
+            "codigo": "aradm:Region",
+            "etiqueta": "Región estadística del INDEC"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "nacional",
+            "etiqueta": "Total nacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 5 col. A; CSV serie_ipc_divisiones.csv col. Region='Nacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "gba",
+            "etiqueta": "GBA",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 35 col. A — 'Región GBA'; CSV serie_ipc_divisiones.csv col. Region='GBA'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "pampeana",
+            "etiqueta": "Pampeana",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 65 col. A — 'Región Pampeana'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noroeste",
+            "etiqueta": "Noroeste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 95 col. A — 'Región Noroeste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "noreste",
+            "etiqueta": "Noreste",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 125 col. A — 'Región Noreste'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "cuyo",
+            "etiqueta": "Cuyo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 155 col. A — 'Región Cuyo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "patagonia",
+            "etiqueta": "Patagonia",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 185 col. A — 'Región Patagonia'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Var. interanual IPC Nacional': 7 bloques regionales; CSV serie_ipc_divisiones.csv columna 'Region'",
+        "nivel_confianza": "alto",
+        "notas": "GBA en los cuadros del INDEC corresponde a Region/AMBA (Área Metropolitana de Buenos Aires) en el vocabulario de territorio, que incluye CABA y los 24 partidos del conurbano bonaerense."
+      },
+      {
+        "nombre": "clasificacion_coicop",
+        "etiqueta_humana": "Clasificación COICOP",
+        "vocabularios_externos": [
+          {
+            "nombre": "COICOP Argentina 2019",
+            "uri": "https://infra.datos.gob.ar/vocabulario/clasificadores/coicop/esquema-2019",
+            "codigo": "coicop:esquema-2019",
+            "etiqueta": "Clasificación del Consumo Individual por Finalidades — adaptación argentina 2019"
+          }
+        ],
+        "valores": [
+          {
+            "codigo": "0",
+            "etiqueta": "Nivel general",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 9 col. A; CSV serie_ipc_divisiones.csv Codigo='0' Descripcion='NIVEL GENERAL'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "01",
+            "etiqueta": "Alimentos y bebidas no alcohólicas",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 10; ponderadores_ipc.xls fila 4 Código='01'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "02",
+            "etiqueta": "Bebidas alcohólicas y tabaco",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 11; ponderadores_ipc.xls fila 18 Código='02'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "03",
+            "etiqueta": "Prendas de vestir y calzado",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 12; ponderadores_ipc.xls fila 24 Código='03'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "04",
+            "etiqueta": "Vivienda, agua, electricidad, gas y otros combustibles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 13; ponderadores_ipc.xls fila 33 Código='04'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "05",
+            "etiqueta": "Equipamiento y mantenimiento del hogar",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 14; ponderadores_ipc.xls fila 44 Código='05'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "06",
+            "etiqueta": "Salud",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 15; ponderadores_ipc.xls fila 53 Código='06'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "07",
+            "etiqueta": "Transporte",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 16; ponderadores_ipc.xls fila 63 Código='07'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "08",
+            "etiqueta": "Comunicación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 17; ponderadores_ipc.xls fila 78 Código='08'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "09",
+            "etiqueta": "Recreación y cultura",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 18; ponderadores_ipc.xls fila 87 Código='09'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "10",
+            "etiqueta": "Educación",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 19; ponderadores_ipc.xls fila 105 Código='10'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "11",
+            "etiqueta": "Restaurantes y hoteles",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 20; ponderadores_ipc.xls fila 110 Código='11'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "12",
+            "etiqueta": "Bienes y servicios varios",
+            "fuente_evidencia": "sh_ipc_05_26.xls fila 21; ponderadores_ipc.xls fila 113 Código='12'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Var. interanual IPC Nacional' bloque 'Nivel general y divisiones COICOP' filas 7–21 (en cada bloque regional); sh_ipc_aperturas.xls hoja 'Var. interanual aperturas'",
+        "nivel_confianza": "alto",
+        "notas": "13 valores: nivel general + 12 divisiones COICOP. El clasificador completo (grupos y clases) está declarado en coicop:esquema-2019 del TTL de vocabularios. Los cuadros de aperturas (sh_ipc_aperturas.xls) publican desagregación hasta grupos y clases para algunas regiones."
+      },
+      {
+        "nombre": "categoria_ipc",
+        "etiqueta_humana": "Categoría IPC",
+        "valores": [
+          {
+            "codigo": "estacional",
+            "etiqueta": "Estacional",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 24 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Estacional'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "nucleo",
+            "etiqueta": "Núcleo",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 25 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Núcleo'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "regulados",
+            "etiqueta": "Regulados",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 26 col. A; CSV serie_ipc_divisiones.csv Clasificador='Categorias' Descripcion='Regulados'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Var. interanual IPC Nacional' bloque 'Categorías' filas 23–26 (en cada bloque regional)",
+        "nivel_confianza": "alto",
+        "notas": "Clasificación analítica propia del IPC argentino, no parte de COICOP. Se publica solo a nivel general (sin desagregación por división). Núcleo excluye estacionales y regulados; Regulados incluye precios fijados o fuertemente influidos por el Estado."
+      },
+      {
+        "nombre": "tipo_bien_servicio",
+        "etiqueta_humana": "Tipo de bien o servicio",
+        "valores": [
+          {
+            "codigo": "bienes",
+            "etiqueta": "Bienes",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 29 col. A (presente en los 7 bloques regionales); CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='B'",
+            "tipo_origen": "literal"
+          },
+          {
+            "codigo": "servicios",
+            "etiqueta": "Servicios",
+            "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Índices IPC Cobertura Nacional' fila 30 col. A; CSV serie_ipc_divisiones.csv Clasificador='Bienes y servicios' Descripcion='S'",
+            "tipo_origen": "literal"
+          }
+        ],
+        "fuente_evidencia": "sh_ipc_05_26.xls hoja 'Var. interanual IPC Nacional' bloque 'Bienes y servicios' filas 28–30 (en cada bloque regional)",
+        "nivel_confianza": "alto",
+        "notas": "Apertura binaria publicada a nivel general para todas las regiones. La proporción de bienes dentro de cada división figura en la hoja 'Ponderaciones' del mismo XLS."
+      }
+    ],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador_con_dimensiones",
+    "dimensiones_ortogonales": [
+      [
+        "region_estadistica",
+        "clasificacion_coicop"
+      ],
+      [
+        "region_estadistica",
+        "categoria_ipc"
+      ],
+      [
+        "region_estadistica",
+        "tipo_bien_servicio"
+      ]
+    ]
+  }
+]

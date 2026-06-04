@@ -1,0 +1,453 @@
+# =============================================================================
+# Tesauro de Indicadores INDEC — Argentina
+#
+# Publicación: IPC (3 indicadores) y EMAE (5 indicadores)
+#
+# Estándares aplicados:
+#   SKOS Reference (W3C):  https://www.w3.org/TR/skos-reference/
+#   QUDT (qudt.org):       https://qudt.org/
+#   Dublin Core Terms:     https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+#   MDR Frequency NAL:     http://publications.europa.eu/resource/authority/frequency/
+#
+# Este vocabulario NO es del INDEC. Es publicado y mantenido por la
+# Dirección de Datos Abiertos de la Secretaría de Innovación,
+# Ciencia y Tecnología de la Jefatura de Gabinete de Ministros.
+# =============================================================================
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt:   <http://qudt.org/schema/qudt/> .
+@prefix unit:   <http://qudt.org/vocab/unit/> .
+@prefix freq:   <http://publications.europa.eu/resource/authority/frequency/> .
+
+# Vocabularios propios del ecosistema datos.gob.ar
+@prefix indic:  <https://infra.datos.gob.ar/vocabulario/indicadores-indec/> .
+@prefix aradm:  <https://infra.datos.gob.ar/vocabulario/territorio-argentina/> .
+@prefix coicop: <https://infra.datos.gob.ar/clasificador/coicop/> .
+@prefix clanae: <https://infra.datos.gob.ar/clasificador/clanae/> .
+
+@base <https://infra.datos.gob.ar/vocabulario/indicadores-indec/> .
+@prefix indicDim:   <https://infra.datos.gob.ar/vocabulario/indicadores-indec/dim/> .
+@prefix indicGrupo: <https://infra.datos.gob.ar/vocabulario/indicadores-indec/grupo/> .
+@prefix indicPub:   <https://infra.datos.gob.ar/vocabulario/indicadores-indec/publicacion/> .
+
+
+
+# =============================================================================
+# METADATOS DEL ESQUEMA
+# =============================================================================
+
+<https://infra.datos.gob.ar/vocabulario/indicadores-indec>
+    a skos:ConceptScheme , owl:Ontology ;
+    dct:title "Tesauro de Indicadores INDEC — Argentina"@es ;
+    dct:title "INDEC Statistical Indicators Thesaurus — Argentina"@en ;
+    dct:description "Vocabulario controlado de indicadores estadísticos publicados por el INDEC. Describe cada indicador con sus propiedades técnicas (unidad de medida, periodicidad, año base, alcance geográfico) y las dimensiones analíticas sobre las que se desagrega. Publicado y mantenido por la Dirección de Datos Abiertos."@es ;
+    dct:description "Controlled vocabulary of statistical indicators published by INDEC. Describes each indicator with its technical properties (unit of measure, periodicity, base year, geographic scope) and the analytical dimensions along which it is disaggregated. Published and maintained by the Open Data Directorate."@en ;
+    dct:creator <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:publisher <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:created "2026-06-03"^^xsd:date ;
+    dct:modified "2026-06-03"^^xsd:date ;
+    dct:language <http://id.loc.gov/vocabulary/iso639-1/es> ;
+    owl:versionInfo "0.1.0" ;
+    skos:hasTopConcept indic:ipc , indic:emae .
+
+
+# =============================================================================
+# PROPIEDADES PROPIAS DEL VOCABULARIO
+# =============================================================================
+
+indic:anoBase
+    a owl:DatatypeProperty ;
+    rdfs:label "año base"@es ;
+    rdfs:label "base year"@en ;
+    rdfs:comment "Año de referencia respecto al cual se expresa el índice (valor = 100). Solo aplica a indicadores expresados como número índice."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:range xsd:gYear ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:periodicidad
+    a owl:ObjectProperty ;
+    rdfs:label "periodicidad"@es ;
+    rdfs:label "periodicity"@en ;
+    rdfs:comment "Frecuencia de publicación del indicador, expresada mediante el vocabulario de frecuencias de la NAL de la Unión Europea."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:range rdfs:Resource ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:alcanceGeografico
+    a owl:ObjectProperty ;
+    rdfs:label "alcance geográfico"@es ;
+    rdfs:label "geographic scope"@en ;
+    rdfs:comment "Entidad o entidades territoriales cubiertas por el indicador. El rango es aradm:EntidadTerritorial del vocabulario de territorios de Argentina."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:range aradm:EntidadTerritorial ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:publicacion
+    a owl:ObjectProperty ;
+    rdfs:label "publicación de origen"@es ;
+    rdfs:label "source publication"@en ;
+    rdfs:comment "Publicación estadística del INDEC en la que se difunde el indicador."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:tieneDimension
+    a owl:ObjectProperty ;
+    rdfs:label "tiene dimensión"@es ;
+    rdfs:label "has dimension"@en ;
+    rdfs:comment "Dimensión analítica sobre la que el indicador puede desagregarse. Hecho primitivo: se declara directamente en el indicador con independencia de si la dimensión participa o no en algún grupo de dimensiones compatibles."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:range owl:NamedIndividual ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:dimensionesCompatibles
+    a owl:ObjectProperty ;
+    rdfs:label "dimensiones compatibles"@es ;
+    rdfs:label "compatible dimensions"@en ;
+    rdfs:comment "Grupo de dimensiones analíticas que pueden combinarse ortogonalmente para desagregar el indicador. Cada instancia de indic:GrupoDimensiones agrupa las dimensiones que se aplican simultáneamente en una misma tabla de datos."@es ;
+    rdfs:domain skos:Concept ;
+    rdfs:range indic:GrupoDimensiones ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:incluyeDimension
+    a owl:ObjectProperty ;
+    rdfs:label "incluye dimensión"@es ;
+    rdfs:label "includes dimension"@en ;
+    rdfs:comment "Dimensión analítica incluida en un grupo de dimensiones compatibles."@es ;
+    rdfs:domain indic:GrupoDimensiones ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+indic:GrupoDimensiones
+    a owl:Class ;
+    rdfs:label "Grupo de Dimensiones Compatibles"@es ;
+    rdfs:label "Compatible Dimensions Group"@en ;
+    rdfs:comment "Conjunto de dimensiones analíticas que se aplican conjuntamente y de forma ortogonal sobre un indicador."@es ;
+    rdfs:isDefinedBy <https://infra.datos.gob.ar/vocabulario/indicadores-indec> .
+
+
+# =============================================================================
+# DIMENSIONES ANALÍTICAS
+# (recursos que identifican cada eje de desagregación; apuntan a los
+#  vocabularios externos mediante owl:sameAs)
+# =============================================================================
+
+indicDim:region-estadistica
+    a owl:NamedIndividual ;
+    rdfs:label "Región estadística"@es ;
+    rdfs:label "Statistical region"@en ;
+    owl:sameAs aradm:Region .
+
+indicDim:clasificacion-coicop
+    a owl:NamedIndividual ;
+    rdfs:label "Clasificación COICOP"@es ;
+    rdfs:label "COICOP classification"@en ;
+    owl:sameAs coicop:esquema-2019 .
+
+indicDim:categoria-ipc
+    a owl:NamedIndividual ;
+    rdfs:label "Categoría IPC"@es ;
+    rdfs:label "CPI category"@en ;
+    skos:scopeNote "Clasificación analítica propia del IPC argentino: Núcleo, Estacional, Regulados. No forma parte de COICOP."@es .
+
+indicDim:tipo-bien-servicio
+    a owl:NamedIndividual ;
+    rdfs:label "Tipo de bien o servicio"@es ;
+    rdfs:label "Type of good or service"@en ;
+    skos:scopeNote "Apertura binaria del IPC: Bienes / Servicios. Se publica a nivel general para todas las regiones."@es .
+
+indicDim:sector-actividad-ciiu3
+    a owl:NamedIndividual ;
+    rdfs:label "Sector de actividad económica (CIIU Rev.3 / CN2004)"@es ;
+    rdfs:label "Economic activity sector (ISIC Rev.3 / NA2004)"@en ;
+    skos:scopeNote "Secciones de CIIU Rev.3 utilizadas en las Cuentas Nacionales base 2004, más el agregado 'Impuestos netos de subsidios a los productos'. Distinto de ClaNAE 2010 (CIIU Rev.4)."@es ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic#Rev3> .
+
+
+# =============================================================================
+# GRUPOS DE DIMENSIONES COMPATIBLES — IPC
+# Cada grupo corresponde a una combinación ortogonal de ejes de desagregación
+# que el INDEC publica en cuadros específicos.
+# =============================================================================
+
+indicGrupo:ipc-region-coicop
+    a indic:GrupoDimensiones ;
+    rdfs:label "IPC: región × clasificación COICOP"@es ;
+    skos:scopeNote "Cuadros de nivel general y 12 divisiones COICOP por región estadística."@es ;
+    indic:incluyeDimension indicDim:region-estadistica ,
+                           indicDim:clasificacion-coicop .
+
+indicGrupo:ipc-region-categoria
+    a indic:GrupoDimensiones ;
+    rdfs:label "IPC: región × categoría"@es ;
+    skos:scopeNote "Cuadros de categorías (Núcleo, Estacional, Regulados) por región estadística."@es ;
+    indic:incluyeDimension indicDim:region-estadistica ,
+                           indicDim:categoria-ipc .
+
+indicGrupo:ipc-region-tipo
+    a indic:GrupoDimensiones ;
+    rdfs:label "IPC: región × tipo de bien o servicio"@es ;
+    skos:scopeNote "Cuadros de Bienes / Servicios por región estadística."@es ;
+    indic:incluyeDimension indicDim:region-estadistica ,
+                           indicDim:tipo-bien-servicio .
+
+
+# =============================================================================
+# GRUPOS DE DIMENSIONES COMPATIBLES — EMAE
+# =============================================================================
+
+indicGrupo:emae-sector
+    a indic:GrupoDimensiones ;
+    rdfs:label "EMAE: sector de actividad económica"@es ;
+    skos:scopeNote "Serie por secciones CIIU Rev.3 / CN2004, nivel nacional."@es ;
+    indic:incluyeDimension indicDim:sector-actividad-ciiu3 .
+
+
+# =============================================================================
+# PUBLICACIONES DE ORIGEN
+# =============================================================================
+
+indicPub:ipc
+    a foaf:Document ;
+    dct:title "Índice de Precios al Consumidor (IPC) — INDEC"@es ;
+    rdfs:seeAlso
+        <https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_2019.pdf> ,
+        <https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_ipc_nacional_05_17.pdf> ,
+        <https://www.indec.gob.ar/ftp/cuadros/economia/ipc_metodologia_17_07_16.pdf> ;
+    rdfs:seeAlso <https://datos.gob.ar/dataset/indice-de-precios-al-consumidor-ipc> .
+
+indicPub:emae
+    a foaf:Document ;
+    dct:title "Estimador Mensual de Actividad Económica (EMAE) — INDEC"@es ;
+    rdfs:seeAlso
+        <https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf> ;
+    rdfs:seeAlso <https://datos.gob.ar/dataset/estimador-mensual-de-actividad-economica> .
+
+
+# =============================================================================
+# CONCEPTOS RAÍZ (top concepts)
+# =============================================================================
+
+indic:ipc
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:prefLabel "Índice de Precios al Consumidor"@es ;
+    skos:prefLabel "Consumer Price Index"@en ;
+    skos:altLabel "IPC"@es ;
+    skos:altLabel "CPI"@en ;
+    skos:definition "Familia de indicadores del INDEC que miden el nivel y la variación de precios de la canasta de bienes y servicios representativos del gasto de consumo de los hogares residentes en áreas urbanas de Argentina, clasificados según la COICOP Argentina 2019."@es ;
+    skos:narrower
+        indic:ipc-indice ,
+        indic:ipc-variacion-mensual ,
+        indic:ipc-variacion-interanual .
+
+indic:emae
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:prefLabel "Estimador Mensual de Actividad Económica"@es ;
+    skos:prefLabel "Monthly Economic Activity Estimator"@en ;
+    skos:altLabel "EMAE"@es ;
+    skos:definition "Familia de indicadores del INDEC que estiman provisionalmente la evolución mensual del PIB a precios constantes de 2004, desagregados por sector de actividad económica y por tipo de ajuste estacional."@es ;
+    skos:narrower
+        indic:emae-indice-original ,
+        indic:emae-variacion-porcentual-original ,
+        indic:emae-indice-desestacionalizado ,
+        indic:emae-variacion-porcentual-desestacionalizada ,
+        indic:emae-indice-tendencia-ciclo .
+
+
+# =============================================================================
+# IPC — INDICADORES
+# =============================================================================
+
+indic:ipc-indice
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:ipc ;
+    skos:prefLabel "IPC — Índice base diciembre 2016=100"@es ;
+    skos:prefLabel "CPI — Index base December 2016=100"@en ;
+    skos:altLabel "IPC"@es ;
+    skos:altLabel "CPI"@en ;
+    skos:definition "Número índice base diciembre 2016=100 que mide el nivel de precios de la canasta de bienes y servicios representativos del gasto de consumo de los hogares residentes en áreas urbanas de la Argentina. Se publica para el total nacional y para seis regiones estadísticas: GBA, Pampeana, Noroeste, Noreste, Cuyo y Patagonia. La canasta está clasificada según la COICOP Argentina 2019 (adaptación de COICOP 1999 de Naciones Unidas), con aperturas por división (12), grupos y clases, así como por categorías (Estacional, Núcleo, Regulados) y por tipo de bien o servicio (Bienes, Servicios)."@es ;
+    qudt:unit unit:UNITLESS ;
+    indic:anoBase "2016"^^xsd:gYear ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/AMBA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Pampeana> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NOA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NEA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Cuyo> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Patagonia> ;
+    indic:publicacion indicPub:ipc ;
+    indic:tieneDimension
+        indicDim:region-estadistica ,
+        indicDim:clasificacion-coicop ,
+        indicDim:categoria-ipc ,
+        indicDim:tipo-bien-servicio ;
+    indic:dimensionesCompatibles
+        indicGrupo:ipc-region-coicop ,
+        indicGrupo:ipc-region-categoria ,
+        indicGrupo:ipc-region-tipo .
+
+indic:ipc-variacion-mensual
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:ipc ;
+    skos:prefLabel "IPC — Variación porcentual mensual"@es ;
+    skos:prefLabel "CPI — Monthly percentage change"@en ;
+    skos:altLabel "IPC var. % mensual"@es ;
+    skos:definition "Variación porcentual del IPC respecto al mes inmediato anterior. Mide la inflación mensual de la canasta de consumo de los hogares urbanos de Argentina, desagregada por región estadística, división COICOP, categoría y tipo de bien o servicio."@es ;
+    qudt:unit unit:PERCENT ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/AMBA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Pampeana> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NOA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NEA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Cuyo> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Patagonia> ;
+    indic:publicacion indicPub:ipc ;
+    indic:tieneDimension
+        indicDim:region-estadistica ,
+        indicDim:clasificacion-coicop ,
+        indicDim:categoria-ipc ,
+        indicDim:tipo-bien-servicio ;
+    indic:dimensionesCompatibles
+        indicGrupo:ipc-region-coicop ,
+        indicGrupo:ipc-region-categoria ,
+        indicGrupo:ipc-region-tipo .
+
+indic:ipc-variacion-interanual
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:ipc ;
+    skos:prefLabel "IPC — Variación porcentual interanual"@es ;
+    skos:prefLabel "CPI — Year-on-year percentage change"@en ;
+    skos:altLabel "IPC var. % interanual"@es ;
+    skos:definition "Variación porcentual del IPC respecto al mismo mes del año anterior. Mide la inflación interanual de la canasta de consumo de los hogares urbanos de Argentina, desagregada por región estadística, división COICOP, categoría y tipo de bien o servicio."@es ;
+    qudt:unit unit:PERCENT ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/AMBA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Pampeana> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NOA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NEA> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Cuyo> ,
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Patagonia> ;
+    indic:publicacion indicPub:ipc ;
+    indic:tieneDimension
+        indicDim:region-estadistica ,
+        indicDim:clasificacion-coicop ,
+        indicDim:categoria-ipc ,
+        indicDim:tipo-bien-servicio ;
+    indic:dimensionesCompatibles
+        indicGrupo:ipc-region-coicop ,
+        indicGrupo:ipc-region-categoria ,
+        indicGrupo:ipc-region-tipo .
+
+
+# =============================================================================
+# EMAE — INDICADORES
+# =============================================================================
+
+indic:emae-indice-original
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:emae ;
+    skos:prefLabel "EMAE — Índice original (base 2004=100)"@es ;
+    skos:prefLabel "MAEE — Original index (base 2004=100)"@en ;
+    skos:altLabel "EMAE"@es ;
+    skos:definition "Indicador provisorio de la evolución del PIB a precios constantes de 2004. Índice de Laspeyres que agrega el valor agregado a precios básicos de cada actividad económica más los impuestos netos de subsidios a los productos, usando las ponderaciones de las cuentas nacionales base 2004. Serie original sin ajuste estacional."@es ;
+    qudt:unit unit:UNITLESS ;
+    indic:anoBase "2004"^^xsd:gYear ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ;
+    indic:publicacion indicPub:emae ;
+    indic:tieneDimension indicDim:sector-actividad-ciiu3 ;
+    indic:dimensionesCompatibles indicGrupo:emae-sector .
+
+indic:emae-variacion-porcentual-original
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:emae ;
+    skos:prefLabel "EMAE — Variación porcentual (serie original)"@es ;
+    skos:prefLabel "MAEE — Percentage change (original series)"@en ;
+    skos:altLabel "EMAE var. % original"@es ;
+    skos:definition "Variación porcentual del índice original del EMAE respecto al mismo mes del año anterior. Indicador provisional de la evolución interanual de la actividad económica, sin ajuste estacional."@es ;
+    qudt:unit unit:PERCENT ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ;
+    indic:publicacion indicPub:emae ;
+    indic:tieneDimension indicDim:sector-actividad-ciiu3 ;
+    indic:dimensionesCompatibles indicGrupo:emae-sector .
+
+indic:emae-indice-desestacionalizado
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:emae ;
+    skos:prefLabel "EMAE — Índice desestacionalizado (base 2004=100)"@es ;
+    skos:prefLabel "MAEE — Seasonally adjusted index (base 2004=100)"@en ;
+    skos:altLabel "EMAE desestacionalizado"@es ;
+    skos:definition "Índice del EMAE con eliminación del componente estacional mediante el método X-13ARIMA-SEATS. Permite comparaciones mes a mes sin el efecto de las variaciones estacionales regulares. Publicado solo a nivel nacional agregado."@es ;
+    qudt:unit unit:UNITLESS ;
+    indic:anoBase "2004"^^xsd:gYear ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ;
+    indic:publicacion indicPub:emae .
+
+indic:emae-variacion-porcentual-desestacionalizada
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:emae ;
+    skos:prefLabel "EMAE — Variación porcentual desestacionalizada"@es ;
+    skos:prefLabel "MAEE — Seasonally adjusted percentage change"@en ;
+    skos:altLabel "EMAE var. % desestacionalizada"@es ;
+    skos:definition "Variación porcentual del índice desestacionalizado del EMAE respecto al mes inmediato anterior. Indicador de la dinámica mensual de la actividad económica libre de efectos estacionales. Publicado solo a nivel nacional agregado."@es ;
+    qudt:unit unit:PERCENT ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ;
+    indic:publicacion indicPub:emae .
+
+indic:emae-indice-tendencia-ciclo
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/indicadores-indec> ;
+    skos:broader indic:emae ;
+    skos:prefLabel "EMAE — Índice tendencia-ciclo (base 2004=100)"@es ;
+    skos:prefLabel "MAEE — Trend-cycle index (base 2004=100)"@en ;
+    skos:altLabel "EMAE tendencia-ciclo"@es ;
+    skos:definition "Componente tendencia-ciclo del EMAE extraído mediante el método X-13ARIMA-SEATS. Suaviza las irregularidades de corto plazo conservando el movimiento de fondo de la actividad económica. Publicado solo a nivel nacional agregado."@es ;
+    qudt:unit unit:UNITLESS ;
+    indic:anoBase "2004"^^xsd:gYear ;
+    indic:periodicidad freq:MONTHLY ;
+    indic:alcanceGeografico
+        <https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina> ;
+    indic:publicacion indicPub:emae .
+
+
+# =============================================================================
+# REFERENCIAS A CLASIFICACIONES EXTERNAS
+# (declaradas como recursos, sin descargar sus conceptos)
+# =============================================================================
+
+<https://unstats.un.org/unsd/classifications/Econ/isic#Rev3>
+    a skos:ConceptScheme ;
+    skos:prefLabel "CIIU Revisión 3 — Clasificación Industrial Internacional Uniforme de todas las Actividades Económicas"@es ;
+    skos:prefLabel "ISIC Revision 3 — International Standard Industrial Classification of All Economic Activities"@en ;
+    dct:publisher <https://unstats.un.org> ;
+    skos:scopeNote "Utilizada en las Cuentas Nacionales base 2004 del INDEC. Distinta de la CIIU Rev.4 en la que se basa el ClaNAE 2010."@es ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic.cshtml> .

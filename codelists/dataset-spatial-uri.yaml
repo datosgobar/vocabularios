@@ -1,0 +1,363 @@
+id: dataset-spatial-uri
+name:
+  es: Cobertura geográfica del dataset (URI territorial)
+  en: Dataset Spatial URI
+description:
+  es: >
+    URIs de referencia geográfica para indicar la cobertura territorial de un dataset.
+    Las URIs apuntan al vocabulario de territorio de datos.gob.ar
+    (https://infra.datos.gob.ar/vocabulario/territorio-argentina/).
+    Cubre el país, las regiones estadísticas y las 24 jurisdicciones (23 provincias + CABA).
+  en: >
+    Geographic reference URIs to indicate the territorial coverage of a dataset.
+    URIs point to the datos.gob.ar territory vocabulary
+    (https://infra.datos.gob.ar/vocabulario/territorio-argentina/).
+    Covers the country, statistical regions and 24 jurisdictions (23 provinces + CABA).
+source: https://infra.datos.gob.ar/vocabulario/territorio-argentina/
+display_property: dct:spatial
+
+values:
+  # ── País ───────────────────────────────────────────────────────────────────
+  - id: Pais-Argentina
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Pais/Argentina
+    type: Pais
+    label:
+      es: República Argentina
+      en: Argentine Republic
+    bbox: "[-75.5,-55.1,-53.6,-21.7]"
+    description:
+      es: Territorio completo de la República Argentina.
+      en: Complete territory of the Argentine Republic.
+
+  # ── Regiones estadísticas ──────────────────────────────────────────────────
+  - id: Region-NOA
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NOA
+    type: Region
+    label:
+      es: Noroeste Argentino (NOA)
+      en: Argentine Northwest (NOA)
+    bbox: "[-69.7,-31.9,-61.0,-21.7]"
+    description:
+      es: Región NOA. Comprende Jujuy, Salta, Tucumán, Catamarca, La Rioja y Santiago del Estero.
+      en: NOA region. Includes Jujuy, Salta, Tucumán, Catamarca, La Rioja and Santiago del Estero.
+
+  - id: Region-NEA
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/NEA
+    type: Region
+    label:
+      es: Noreste Argentino (NEA)
+      en: Argentine Northeast (NEA)
+    bbox: "[-63.3,-30.1,-53.6,-22.0]"
+    description:
+      es: Región NEA. Comprende Formosa, Chaco, Misiones y Corrientes.
+      en: NEA region. Includes Formosa, Chaco, Misiones and Corrientes.
+
+  - id: Region-Cuyo
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Cuyo
+    type: Region
+    label:
+      es: Cuyo
+      en: Cuyo
+    bbox: "[-70.7,-36.6,-64.9,-27.9]"
+    description:
+      es: Región Cuyo. Comprende Mendoza, San Juan y San Luis.
+      en: Cuyo region. Includes Mendoza, San Juan and San Luis.
+
+  - id: Region-Pampeana
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Pampeana
+    type: Region
+    label:
+      es: Región Pampeana
+      en: Pampean Region
+    bbox: "[-68.3,-40.6,-56.3,-28.0]"
+    description:
+      es: Región Pampeana. Comprende Buenos Aires, CABA, Córdoba, Entre Ríos, La Pampa y Santa Fe.
+      en: Pampean region. Includes Buenos Aires, CABA, Córdoba, Entre Ríos, La Pampa and Santa Fe.
+
+  - id: Region-AMBA
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/AMBA
+    type: Region
+    label:
+      es: Área Metropolitana de Buenos Aires (AMBA)
+      en: Buenos Aires Metropolitan Area (AMBA)
+    bbox: "[-59.2,-34.9,-58.2,-34.3]"
+    description:
+      es: Área Metropolitana de Buenos Aires. Comprende CABA y el Gran Buenos Aires (GBA).
+      en: Buenos Aires Metropolitan Area. Includes CABA and Greater Buenos Aires (GBA).
+
+  - id: Region-Patagonia
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Region/Patagonia
+    type: Region
+    label:
+      es: Patagonia
+      en: Patagonia
+    bbox: "[-75.5,-55.1,-63.7,-36.5]"
+    description:
+      es: Región Patagónica. Comprende Neuquén, Río Negro, Chubut, Santa Cruz y Tierra del Fuego.
+      en: Patagonian region. Includes Neuquén, Río Negro, Chubut, Santa Cruz and Tierra del Fuego.
+
+  # ── Ciudad Autónoma de Buenos Aires ────────────────────────────────────────
+  - id: CABA
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/CABA/Ciudad-Autonoma-de-Buenos-Aires
+    type: CABA
+    label:
+      es: Ciudad Autónoma de Buenos Aires (CABA)
+      en: Autonomous City of Buenos Aires (CABA)
+    bbox: "[-58.5315,-34.7055,-58.3351,-34.5265]"
+    description:
+      es: Ciudad Autónoma de Buenos Aires. Capital federal de la República Argentina.
+      en: Autonomous City of Buenos Aires. Federal capital of the Argentine Republic.
+
+  # ── Provincias ─────────────────────────────────────────────────────────────
+  - id: Provincia-Buenos-Aires
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Buenos-Aires
+    type: Provincia
+    label:
+      es: Buenos Aires (Provincia)
+      en: Buenos Aires Province
+    bbox: "[-63.4,-40.6,-56.3,-33.0]"
+    description:
+      es: Provincia de Buenos Aires. La más poblada del país.
+      en: Buenos Aires Province. The most populated province in the country.
+
+  - id: Provincia-Catamarca
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Catamarca
+    type: Provincia
+    label:
+      es: Catamarca
+      en: Catamarca
+    bbox: "[-69.4,-30.3,-64.6,-25.2]"
+    description:
+      es: Provincia de Catamarca. Región NOA.
+      en: Province of Catamarca. NOA region.
+
+  - id: Provincia-Chaco
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Chaco
+    type: Provincia
+    label:
+      es: Chaco
+      en: Chaco
+    bbox: "[-63.3,-28.1,-58.5,-24.0]"
+    description:
+      es: Provincia del Chaco. Región NEA.
+      en: Province of Chaco. NEA region.
+
+  - id: Provincia-Chubut
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Chubut
+    type: Provincia
+    label:
+      es: Chubut
+      en: Chubut
+    bbox: "[-72.3,-46.0,-65.5,-42.0]"
+    description:
+      es: Provincia del Chubut. Región Patagónica.
+      en: Province of Chubut. Patagonian region.
+
+  - id: Provincia-Cordoba
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Cordoba
+    type: Provincia
+    label:
+      es: Córdoba
+      en: Córdoba
+    bbox: "[-65.8,-35.2,-61.7,-29.4]"
+    description:
+      es: Provincia de Córdoba. Región Pampeana.
+      en: Province of Córdoba. Pampean region.
+
+  - id: Provincia-Corrientes
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Corrientes
+    type: Provincia
+    label:
+      es: Corrientes
+      en: Corrientes
+    bbox: "[-59.5,-30.1,-55.6,-27.0]"
+    description:
+      es: Provincia de Corrientes. Región NEA.
+      en: Province of Corrientes. NEA region.
+
+  - id: Provincia-Entre-Rios
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Entre-Rios
+    type: Provincia
+    label:
+      es: Entre Ríos
+      en: Entre Ríos
+    bbox: "[-60.2,-34.9,-57.7,-30.2]"
+    description:
+      es: Provincia de Entre Ríos. Región Pampeana.
+      en: Province of Entre Ríos. Pampean region.
+
+  - id: Provincia-Formosa
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Formosa
+    type: Provincia
+    label:
+      es: Formosa
+      en: Formosa
+    bbox: "[-62.3,-26.5,-57.6,-22.0]"
+    description:
+      es: Provincia de Formosa. Región NEA.
+      en: Province of Formosa. NEA region.
+
+  - id: Provincia-Jujuy
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Jujuy
+    type: Provincia
+    label:
+      es: Jujuy
+      en: Jujuy
+    bbox: "[-67.2,-24.5,-63.8,-21.7]"
+    description:
+      es: Provincia de Jujuy. Región NOA. Frontera con Bolivia y Chile.
+      en: Province of Jujuy. NOA region. Borders Bolivia and Chile.
+
+  - id: Provincia-La-Pampa
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/La-Pampa
+    type: Provincia
+    label:
+      es: La Pampa
+      en: La Pampa
+    bbox: "[-68.3,-39.3,-63.4,-34.5]"
+    description:
+      es: Provincia de La Pampa. Región Pampeana.
+      en: Province of La Pampa. Pampean region.
+
+  - id: Provincia-La-Rioja
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/La-Rioja
+    type: Provincia
+    label:
+      es: La Rioja
+      en: La Rioja
+    bbox: "[-69.7,-31.9,-65.2,-27.9]"
+    description:
+      es: Provincia de La Rioja. Región NOA.
+      en: Province of La Rioja. NOA region.
+
+  - id: Provincia-Mendoza
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Mendoza
+    type: Provincia
+    label:
+      es: Mendoza
+      en: Mendoza
+    bbox: "[-70.6,-36.6,-66.3,-32.0]"
+    description:
+      es: Provincia de Mendoza. Región Cuyo. Frontera con Chile.
+      en: Province of Mendoza. Cuyo region. Borders Chile.
+
+  - id: Provincia-Misiones
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Misiones
+    type: Provincia
+    label:
+      es: Misiones
+      en: Misiones
+    bbox: "[-56.1,-28.1,-53.6,-25.5]"
+    description:
+      es: Provincia de Misiones. Región NEA. Frontera con Brasil y Paraguay.
+      en: Province of Misiones. NEA region. Borders Brazil and Paraguay.
+
+  - id: Provincia-Neuquen
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Neuquen
+    type: Provincia
+    label:
+      es: Neuquén
+      en: Neuquén
+    bbox: "[-71.5,-40.5,-67.0,-36.5]"
+    description:
+      es: Provincia del Neuquén. Región Patagónica.
+      en: Province of Neuquén. Patagonian region.
+
+  - id: Provincia-Rio-Negro
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Rio-Negro
+    type: Provincia
+    label:
+      es: Río Negro
+      en: Río Negro
+    bbox: "[-71.7,-42.3,-63.7,-38.7]"
+    description:
+      es: Provincia de Río Negro. Región Patagónica.
+      en: Province of Río Negro. Patagonian region.
+
+  - id: Provincia-Salta
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Salta
+    type: Provincia
+    label:
+      es: Salta
+      en: Salta
+    bbox: "[-67.3,-26.4,-62.3,-21.9]"
+    description:
+      es: Provincia de Salta. Región NOA. Frontera con Bolivia, Chile y Paraguay.
+      en: Province of Salta. NOA region. Borders Bolivia, Chile and Paraguay.
+
+  - id: Provincia-San-Juan
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/San-Juan
+    type: Provincia
+    label:
+      es: San Juan
+      en: San Juan
+    bbox: "[-70.7,-32.7,-66.2,-28.4]"
+    description:
+      es: Provincia de San Juan. Región Cuyo.
+      en: Province of San Juan. Cuyo region.
+
+  - id: Provincia-San-Luis
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/San-Luis
+    type: Provincia
+    label:
+      es: San Luis
+      en: San Luis
+    bbox: "[-67.9,-36.0,-64.9,-31.5]"
+    description:
+      es: Provincia de San Luis. Región Cuyo.
+      en: Province of San Luis. Cuyo region.
+
+  - id: Provincia-Santa-Cruz
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Santa-Cruz
+    type: Provincia
+    label:
+      es: Santa Cruz
+      en: Santa Cruz
+    bbox: "[-73.0,-52.5,-65.5,-46.0]"
+    description:
+      es: Provincia de Santa Cruz. Región Patagónica.
+      en: Province of Santa Cruz. Patagonian region.
+
+  - id: Provincia-Santa-Fe
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Santa-Fe
+    type: Provincia
+    label:
+      es: Santa Fe
+      en: Santa Fe
+    bbox: "[-63.5,-34.9,-58.0,-28.0]"
+    description:
+      es: Provincia de Santa Fe. Región Pampeana.
+      en: Province of Santa Fe. Pampean region.
+
+  - id: Provincia-Santiago-del-Estero
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Santiago-del-Estero
+    type: Provincia
+    label:
+      es: Santiago del Estero
+      en: Santiago del Estero
+    bbox: "[-64.9,-29.9,-61.0,-25.5]"
+    description:
+      es: Provincia de Santiago del Estero. Región NOA.
+      en: Province of Santiago del Estero. NOA region.
+
+  - id: Provincia-Tierra-del-Fuego
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Tierra-del-Fuego
+    type: Provincia
+    label:
+      es: Tierra del Fuego, Antártida e Islas del Atlántico Sur
+      en: Tierra del Fuego, Antarctica and South Atlantic Islands
+    bbox: "[-75.5,-55.1,-64.0,-52.5]"
+    description:
+      es: Provincia de Tierra del Fuego, Antártida e Islas del Atlántico Sur. Región Patagónica.
+      en: Province of Tierra del Fuego. Patagonian region. Southernmost province.
+
+  - id: Provincia-Tucuman
+    uri: https://infra.datos.gob.ar/vocabulario/territorio-argentina/Provincia/Tucuman
+    type: Provincia
+    label:
+      es: Tucumán
+      en: Tucumán
+    bbox: "[-66.0,-28.0,-64.5,-26.0]"
+    description:
+      es: Provincia de Tucumán. Región NOA. La más pequeña del país.
+      en: Province of Tucumán. NOA region. The smallest province in the country.

@@ -1,0 +1,953 @@
+# =============================================================================
+# Vocabulario de Temas del Catálogo de Datos Abiertos de la República Argentina
+#
+# SuperThemes: adoptados del vocabulario MDR de la UE (DCAT-AP)
+#   URI base UE: http://publications.europa.eu/resource/authority/data-theme/
+#   DEFE es una extensión local sin equivalente en el vocabulario europeo.
+#
+# Themes: conceptos propios de datos.gob.ar, relacionados jerárquicamente
+#   con los superThemes mediante skos:broader / skos:narrower.
+#
+# Fuentes normativas:
+#   SKOS Reference (W3C):   https://www.w3.org/TR/skos-reference/
+#   DCAT-AP 3.0 (W3C/EU):   https://www.w3.org/TR/vocab-dcat-3/
+#   MDR Data Theme (EU):    http://publications.europa.eu/resource/authority/data-theme
+# =============================================================================
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix dcat:   <http://www.w3.org/ns/dcat#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# Prefijo para el vocabulario europeo de temas (MDR)
+@prefix eu-theme: <http://publications.europa.eu/resource/authority/data-theme/> .
+
+# Prefijo local
+@prefix arth:   <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar/> .
+
+@base <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar/> .
+
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+<https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar>
+    a skos:ConceptScheme ;
+    dct:title "Temas del Catálogo de Datos Abiertos de la República Argentina"@es ;
+    dct:title "Themes of the Open Data Catalogue of the Argentine Republic"@en ;
+    dct:description "Vocabulario controlado de temas y superTemas utilizado para la clasificación de conjuntos de datos en datos.gob.ar. Los superTemas adoptan el vocabulario MDR de la Unión Europea (DCAT-AP); los temas son conceptos propios del catálogo argentino."@es ;
+    dct:description "Controlled vocabulary of themes and super-themes used to classify datasets in datos.gob.ar. Super-themes adopt the EU MDR vocabulary (DCAT-AP); themes are concepts specific to the Argentine catalogue."@en ;
+    dct:creator [
+        a foaf:Organization ;
+        foaf:name "Subsecretaría de Tecnologías de la Información — Ministerio de Economía de la Nación"@es
+    ] ;
+    dct:publisher [
+        a foaf:Organization ;
+        foaf:name "datos.gob.ar"@es ;
+        foaf:homepage <https://datos.gob.ar>
+    ] ;
+    dct:created "2025-05-15"^^xsd:date ;
+    dct:modified "2025-05-15"^^xsd:date ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:source <http://publications.europa.eu/resource/authority/data-theme> ;
+    owl:versionInfo "1.0" ;
+    # SuperThemes adoptados del MDR europeo (top concepts del esquema europeo reutilizados aquí)
+    skos:hasTopConcept eu-theme:SOCI ;
+    skos:hasTopConcept eu-theme:ENVI ;
+    skos:hasTopConcept eu-theme:ECON ;
+    skos:hasTopConcept eu-theme:TRAN ;
+    skos:hasTopConcept eu-theme:ENER ;
+    skos:hasTopConcept eu-theme:JUST ;
+    skos:hasTopConcept eu-theme:GOVE ;
+    skos:hasTopConcept eu-theme:AGRI ;
+    skos:hasTopConcept eu-theme:HEAL ;
+    skos:hasTopConcept eu-theme:EDUC ;
+    skos:hasTopConcept eu-theme:TECH ;
+    skos:hasTopConcept eu-theme:TERRI ;
+    skos:hasTopConcept eu-theme:INTR ;
+    skos:hasTopConcept arth:DEFE .
+
+
+# =============================================================================
+# SUPERTHEMES — adoptados del vocabulario MDR de la UE
+# Se declaran aquí con skos:inScheme y etiquetas mínimas en español.
+# Las definiciones autoritativas están en el vocabulario europeo.
+# =============================================================================
+
+eu-theme:SOCI
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Población y sociedad"@es ;
+    skos:prefLabel "Population and society"@en ;
+    skos:definition "Políticas destinadas a la población y asuntos vinculados con la estructura demográfica del país, composición y dinámica de la población, condiciones de vida y características culturales y de identidad."@es ;
+    skos:notation "SOCI" ;
+    skos:narrower arth:genero-diversidad ,
+                  arth:discapacidad ,
+                  arth:culto-religion ,
+                  arth:demografia-poblacion ,
+                  arth:pueblos-originarios ,
+                  arth:migracion-naturalizacion ,
+                  arth:condiciones-habitacionales ,
+                  arth:pobreza-desigualdad .
+
+eu-theme:ENVI
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Medio ambiente"@es ;
+    skos:prefLabel "Environment"@en ;
+    skos:definition "Estado y evolución de los recursos naturales, los seres vivos y su interacción con el contexto, la calidad del ambiente y los fenómenos meteorológicos."@es ;
+    skos:notation "ENVI" ;
+    skos:narrower arth:contaminacion-calidad ,
+                  arth:residuos-basurales ,
+                  arth:sustentabilidad ,
+                  arth:biodiversidad-recursos-naturales ,
+                  arth:areas-protegidas ,
+                  arth:suelo-degradacion-tierras ,
+                  arth:meteorologia .
+
+eu-theme:ECON
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Economía y finanzas"@es ;
+    skos:prefLabel "Economy and finance"@en ;
+    skos:definition "Gestión económica, asignación de recursos y control presupuestario, así como datos que describen la actividad productiva, el nivel de precios, el comercio, el mercado de trabajo, las finanzas públicas y el sector externo de la economía argentina."@es ;
+    skos:notation "ECON" ;
+    skos:narrower arth:infraestructura-obras-publicas ,
+                  arth:prestaciones-sociales ,
+                  arth:presupuesto ,
+                  arth:cuentas-nacionales ,
+                  arth:precios ,
+                  arth:sector-primario ,
+                  arth:sector-secundario ,
+                  arth:sector-terciario ,
+                  arth:sector-cuarto ,
+                  arth:mercado-laboral-ingresos ,
+                  arth:deuda-publica ,
+                  arth:mercado-financiero .
+
+eu-theme:TRAN
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Transporte"@es ;
+    skos:prefLabel "Transport"@en ;
+    skos:definition "Asuntos vinculados con la demanda, oferta y calidad de los distintos modos de transporte de personas y cargas."@es ;
+    skos:notation "TRAN" ;
+    skos:narrower arth:transporte-publico-urbano ,
+                  arth:aviacion-aeropuertos ,
+                  arth:transporte-maritimo-fluvial-puertos ,
+                  arth:ferrocarriles .
+
+eu-theme:ENER
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Energía"@es ;
+    skos:prefLabel "Energy"@en ;
+    skos:definition "Asuntos vinculados con la generación, distribución y conservación de la energía en sus distintas formas y fuentes."@es ;
+    skos:notation "ENER" ;
+    skos:narrower arth:hidrocarburos-combustibles-fosiles ,
+                  arth:energia-electrica ,
+                  arth:energia-hidroelectrica ,
+                  arth:energias-renovables .
+
+eu-theme:JUST
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Justicia y seguridad"@es ;
+    skos:prefLabel "Justice, legal system and public safety"@en ;
+    skos:definition "Asuntos vinculados con el sistema judicial, derechos humanos, delitos e instituciones de seguridad y procesos electorales."@es ;
+    skos:notation "JUST" ;
+    skos:narrower arth:estadisticas-criminales ,
+                  arth:canales-denuncia ,
+                  arth:tramites-registro-automotor ,
+                  arth:servicio-penitenciario ,
+                  arth:centros-tribunales-justicia ,
+                  arth:administracion-justicia ,
+                  arth:derechos-humanos ,
+                  arth:violencia-genero ,
+                  arth:elecciones .
+
+eu-theme:GOVE
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Gobierno y sector público"@es ;
+    skos:prefLabel "Government and public sector"@en ;
+    skos:definition "Asuntos vinculados con la estructura del Estado y la gobernanza: funcionamiento de las instituciones públicas, transparencia, rendición de cuentas y patrimonio del Estado."@es ;
+    skos:notation "GOVE" ;
+    skos:narrower arth:compras-contrataciones ,
+                  arth:rendicion-cuentas ,
+                  arth:personal-estado ,
+                  arth:inmuebles-estado ,
+                  arth:gobierno-abierto .
+
+eu-theme:AGRI
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Agroganadería, pesca y forestación"@es ;
+    skos:prefLabel "Agriculture, fisheries, forestry and food"@en ;
+    skos:definition "Procesos destinados a la explotación, manejo y aprovechamiento de los recursos del suelo, el agua y el aire para la producción de alimentos, fibras y otros productos de origen orgánico. Comprende datos sobre la producción, precios y estructura del sector agropecuario, forestal y pesquero."@es ;
+    skos:notation "AGRI" ;
+    skos:narrower arth:lacteos ,
+                  arth:agricultura ,
+                  arth:ganaderia ,
+                  arth:pesca ,
+                  arth:vitivinicultura ,
+                  arth:apicultura ,
+                  arth:horticultura ,
+                  arth:agroindustria .
+
+eu-theme:HEAL
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Salud"@es ;
+    skos:prefLabel "Health"@en ;
+    skos:definition "Asuntos vinculados con el consumo, la vigilancia y el estado de la salud de la población, los recursos del sistema sanitario y los eventos vitales."@es ;
+    skos:notation "HEAL" ;
+    skos:narrower arth:medicamentos ,
+                  arth:vigilancia-epidemiologica ,
+                  arth:vacunacion ,
+                  arth:estadisticas-vitales ,
+                  arth:recursos-humanos-salud ,
+                  arth:salud-sexual-reproductiva ,
+                  arth:obras-sociales-prepagas ,
+                  arth:establecimientos-salud ,
+                  arth:especialidades-tratamientos ,
+                  arth:trasplantes-donaciones ,
+                  arth:adicciones-consumo-problematico .
+
+eu-theme:EDUC
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Educación, cultura y deportes"@es ;
+    skos:prefLabel "Education, culture and sport"@en ;
+    skos:definition "Datos sobre el sistema educativo, el acceso a la cultura, el deporte y las políticas en estos ámbitos."@es ;
+    skos:notation "EDUC" ;
+    skos:narrower arth:educacion ,
+                  arth:evaluacion-educativa ,
+                  arth:cultura ,
+                  arth:deportes .
+
+eu-theme:TECH
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Ciencia y tecnología"@es ;
+    skos:prefLabel "Science and technology"@en ;
+    skos:definition "Acceso y uso de tecnologías de la información y la comunicación (TIC), la ciencia, la investigación y la infraestructura digital."@es ;
+    skos:notation "TECH" ;
+    skos:narrower arth:acceso-uso-tics ,
+                  arth:ciencia-tecnologia ,
+                  arth:infraestructura-digital .
+
+# TERRI no tiene código normalizado en el MDR europeo; se usa el código local TERRI
+# como extensión al vocabulario europeo, con owl:sameAs si la UE lo publica.
+eu-theme:TERRI
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Territorio"@es ;
+    skos:prefLabel "Territory and geography"@en ;
+    skos:definition "Asuntos vinculados con la geografía y el territorio: división político-administrativa, ecosistemas, geología y recursos hídricos del país."@es ;
+    skos:notation "TERRI" ;
+    skos:narrower arth:division-territorial ,
+                  arth:ecosistemas ,
+                  arth:geologia ,
+                  arth:hidrografia .
+
+eu-theme:INTR
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Asuntos internacionales"@es ;
+    skos:prefLabel "International issues"@en ;
+    skos:definition "Aspectos vinculados con la política internacional de Argentina, las relaciones diplomáticas y la inserción del país en el sistema internacional."@es ;
+    skos:notation "INTR" ;
+    skos:narrower arth:diplomacia .
+
+# DEFE: extensión local sin equivalente en el vocabulario MDR de la UE
+arth:DEFE
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Defensa"@es ;
+    skos:prefLabel "Defence"@en ;
+    skos:definition "Asuntos vinculados con el personal y la conducción de las Fuerzas Armadas, la defensa territorial, la soberanía y la autodeterminación de la Nación."@es ;
+    skos:notation "DEFE" ;
+    skos:narrower arth:fuerzas-armadas ,
+                  arth:soberania-proteccion-vigilancia ,
+                  arth:riesgos-desastres .
+
+
+# =============================================================================
+# THEMES — SOCI
+# =============================================================================
+
+arth:genero-diversidad
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Género y diversidad sexual"@es ;
+    skos:definition "Información sobre la composición de la población según género, identidad de género y orientación sexual. Incluye datos sobre brechas de género en el mercado laboral, acceso a derechos, violencia por razones de género e indicadores de diversidad e inclusión."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:discapacidad
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Discapacidad"@es ;
+    skos:definition "Datos sobre la prevalencia, tipos y grados de discapacidad en la población, así como el acceso de las personas con discapacidad a servicios."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:culto-religion
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Culto y religión"@es ;
+    skos:definition "Datos sobre la composición religiosa de la población, la distribución de cultos reconocidos y su presencia territorial en el país."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:demografia-poblacion
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Demografía y población"@es ;
+    skos:definition "Estructura, distribución y dinámica de la población: tamaño, composición por edad, sexo, proyecciones demográficas y censos de población."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:pueblos-originarios
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Pueblos originarios"@es ;
+    skos:definition "Composición, distribución territorial, condiciones de vida y características socioculturales de los pueblos originarios que habitan el territorio nacional."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:migracion-naturalizacion
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Migración y naturalización"@es ;
+    skos:definition "Flujos migratorios internacionales e internos, composición de la población extranjera residente y procesos de naturalización."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:condiciones-habitacionales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Condiciones habitacionales"@es ;
+    skos:definition "Acceso a la vivienda, sus características constructivas y de equipamiento, la situación de tenencia y las condiciones del hábitat circundante. Incluye indicadores de calidad de la vivienda y del entorno."@es ;
+    skos:broader eu-theme:SOCI .
+
+arth:pobreza-desigualdad
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Pobreza y desigualdad"@es ;
+    skos:definition "Indicadores sobre la incidencia de la pobreza y la indigencia en hogares y personas, la distribución del ingreso, las brechas socioeconómicas y los recursos mínimos necesarios para la subsistencia."@es ;
+    skos:broader eu-theme:SOCI .
+
+
+# =============================================================================
+# THEMES — ENVI
+# =============================================================================
+
+arth:contaminacion-calidad
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Contaminación y calidad ambiental"@es ;
+    skos:definition "Calidad del aire, el agua y el suelo, niveles de emisiones contaminantes y su evolución temporal. Abarca mediciones de sustancias nocivas en el ambiente y sus impactos sobre la salud y los ecosistemas."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:residuos-basurales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Residuos y basurales"@es ;
+    skos:definition "Generación, composición, gestión y disposición final de residuos sólidos urbanos e industriales, así como la presencia de basurales a cielo abierto."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:sustentabilidad
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Sustentabilidad"@es ;
+    skos:definition "Uso eficiente de los recursos naturales, la huella ambiental de las actividades productivas y el avance hacia modelos de desarrollo sostenible."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:biodiversidad-recursos-naturales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Biodiversidad y recursos naturales"@es ;
+    skos:definition "Diversidad de especies, ecosistemas y recursos genéticos en el territorio nacional, incluyendo el estado de conservación de la fauna y flora."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:areas-protegidas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Áreas protegidas"@es ;
+    skos:definition "Extensión, categorías, distribución y gestión de las áreas naturales protegidas en el territorio nacional y sus zonas de amortiguamiento."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:suelo-degradacion-tierras
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Suelo y degradación de tierras"@es ;
+    skos:definition "Uso del suelo, procesos de erosión, desertificación y degradación de tierras productivas, así como cobertura vegetal."@es ;
+    skos:broader eu-theme:ENVI .
+
+arth:meteorologia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Meteorología"@es ;
+    skos:definition "Variables climáticas y meteorológicas: temperatura, precipitaciones, humedad, viento y fenómenos extremos, con sus distribuciones temporales y espaciales."@es ;
+    skos:broader eu-theme:ENVI .
+
+
+# =============================================================================
+# THEMES — ECON
+# =============================================================================
+
+arth:infraestructura-obras-publicas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Infraestructura y obras públicas"@es ;
+    skos:definition "Inversión del Estado en infraestructura y obras de capital: edificios públicos, vialidad, señalización, redes sanitarias y energéticas, entre otros. Registra la evolución del gasto en obra pública por nivel de gobierno y tipo de proyecto."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:prestaciones-sociales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Prestaciones sociales"@es ;
+    skos:definition "Erogaciones del Estado destinadas a prestaciones de seguridad social, programas de transferencias de ingresos, subsidios y servicios sociales provistos por el sector público."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:presupuesto
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Presupuesto"@es ;
+    skos:definition "Programación, ejecución y resultado de las finanzas del sector público: ingresos tributarios y no tributarios, gastos corrientes y de capital, resultado fiscal y su financiamiento."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:cuentas-nacionales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Cuentas nacionales"@es ;
+    skos:definition "Sistema integrado de estadísticas macroeconómicas que describe el proceso de generación, distribución y utilización del ingreso en la economía nacional. Comprende las cuentas del sistema de cuentas nacionales (SCN) en sus distintas presentaciones temporales y sectoriales."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:precios
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Precios"@es ;
+    skos:definition "Índices que miden la evolución de los precios en los distintos eslabones de la cadena económica: consumidor, productor y comercio exterior."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:sector-primario
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Sector primario"@es ;
+    skos:definition "Actividad económica basada en la extracción y producción de recursos naturales: agricultura, minería, pesca y sus indicadores de producción y desempeño."@es ;
+    skos:broader eu-theme:ECON ;
+    skos:related arth:agricultura ;
+    skos:related arth:pesca .
+
+arth:sector-secundario
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Sector secundario"@es ;
+    skos:definition "Actividad industrial y de la construcción: producción manufacturera, construcción, energía y sus indicadores de capacidad, empleo y precios."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:sector-terciario
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Sector terciario"@es ;
+    skos:definition "Comercio y turismo: desempeño del comercio minorista y mayorista, evolución de ventas y precios, movimiento de viajeros, ocupación hotelera y gasto turístico."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:sector-cuarto
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Comercio exterior"@es ;
+    skos:altLabel "Sector cuarto"@es ;
+    skos:definition "Flujos de bienes y servicios entre Argentina y el resto del mundo: valores, cantidades, precios, términos del intercambio y composición por producto y destino u origen."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:mercado-laboral-ingresos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Mercado laboral e ingresos"@es ;
+    skos:definition "Participación de la población en el mercado de trabajo, condiciones de ocupación y desocupación, evolución de los salarios y distribución del ingreso de los hogares."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:deuda-publica
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Deuda pública"@es ;
+    skos:definition "Stock, composición, plazo y evolución de la deuda del sector público nacional, provincial y municipal, así como servicios de deuda y financiamiento."@es ;
+    skos:broader eu-theme:ECON .
+
+arth:mercado-financiero
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Mercado financiero"@es ;
+    skos:definition "Flujos de capital, inversiones extranjeras directas y de cartera, posición financiera de Argentina frente al resto del mundo y tipo de cambio."@es ;
+    skos:broader eu-theme:ECON .
+
+
+# =============================================================================
+# THEMES — TRAN
+# =============================================================================
+
+arth:transporte-publico-urbano
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Transporte público urbano"@es ;
+    skos:definition "Uso y oferta de servicios de transporte colectivo en áreas urbanas: colectivos, subterráneos y otros medios de transporte masivo, incluyendo cantidad de pasajeros, frecuencias y tarifas."@es ;
+    skos:broader eu-theme:TRAN .
+
+arth:aviacion-aeropuertos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Aviación y aeropuertos"@es ;
+    skos:definition "Tráfico aéreo de pasajeros y cargas, movimientos de aeronaves, conectividad de los aeropuertos y desempeño de las aerolíneas que operan en el país."@es ;
+    skos:broader eu-theme:TRAN .
+
+arth:transporte-maritimo-fluvial-puertos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Transporte marítimo, fluvial y puertos"@es ;
+    skos:definition "Movimiento de buques, cargas y pasajeros en puertos y vías navegables, incluyendo datos de cabotaje e hidrovías."@es ;
+    skos:broader eu-theme:TRAN .
+
+arth:ferrocarriles
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Ferrocarriles"@es ;
+    skos:definition "Transporte ferroviario de pasajeros y cargas: kilómetros recorridos, frecuencias, demanda y oferta de los servicios de tren urbano e interurbano."@es ;
+    skos:broader eu-theme:TRAN .
+
+
+# =============================================================================
+# THEMES — ENER
+# =============================================================================
+
+arth:hidrocarburos-combustibles-fosiles
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Hidrocarburos y combustibles fósiles"@es ;
+    skos:definition "Producción, reservas, refinación, transporte y consumo de petróleo, gas natural y sus derivados, incluyendo la evolución de los precios en el mercado doméstico e internacional."@es ;
+    skos:broader eu-theme:ENER .
+
+arth:energia-electrica
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Energía eléctrica"@es ;
+    skos:definition "Generación, transmisión, distribución y consumo de energía eléctrica, así como la capacidad instalada del parque generador y la calidad del suministro."@es ;
+    skos:broader eu-theme:ENER .
+
+arth:energia-hidroelectrica
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Energía hidroeléctrica"@es ;
+    skos:definition "Producción de energía eléctrica a partir de recursos hídricos, capacidad instalada en centrales hidroeléctricas y aporte de esta fuente a la matriz energética."@es ;
+    skos:broader eu-theme:ENER ;
+    skos:related arth:energia-electrica .
+
+arth:energias-renovables
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Energías renovables"@es ;
+    skos:definition "Generación de energía a partir de fuentes solar, eólica, geotérmica y otras renovables, incluyendo la evolución de la capacidad instalada y su participación en la matriz energética. Producción, mezcla y consumo de biocombustibles."@es ;
+    skos:broader eu-theme:ENER .
+
+
+# =============================================================================
+# THEMES — JUST
+# =============================================================================
+
+arth:estadisticas-criminales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Estadísticas criminales"@es ;
+    skos:definition "Incidencia, distribución territorial y evolución de los delitos registrados, incluyendo tasas de victimización, tipos de delitos y características de los hechos denunciados."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:canales-denuncia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Canales y líneas de denuncia"@es ;
+    skos:definition "Uso de los mecanismos institucionales de denuncia ciudadana (líneas telefónicas, plataformas digitales) y los resultados de su gestión."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:tramites-registro-automotor
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Trámites y registro automotor"@es ;
+    skos:definition "Transferencias, radicaciones e inscripciones de vehículos en el Registro Nacional de la Propiedad Automotor, incluyendo patentamientos de vehículos nuevos y usados."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:servicio-penitenciario
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Servicio penitenciario"@es ;
+    skos:definition "Población privada de libertad en establecimientos penitenciarios: cantidad de internos, características sociodemográficas, tipos de delitos y condiciones de detención."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:centros-tribunales-justicia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Centros y tribunales de justicia"@es ;
+    skos:definition "Cantidad, distribución y funcionamiento de los órganos jurisdiccionales y auxiliares del Poder Judicial en los distintos fueros y jurisdicciones."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:administracion-justicia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Administración de la justicia"@es ;
+    skos:definition "Carga de trabajo del sistema judicial: causas iniciadas, resueltas y pendientes, tiempos de resolución y resultados de los procesos judiciales por tipo de fuero."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:derechos-humanos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Derechos humanos"@es ;
+    skos:definition "Vulneraciones y violaciones a los derechos humanos fundamentales, los mecanismos de reparación histórica y el acceso a la identidad y la integridad personal."@es ;
+    skos:broader eu-theme:JUST .
+
+arth:violencia-genero
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Violencia de género"@es ;
+    skos:definition "Datos sobre la incidencia, tipos y características de la violencia ejercida por razones de género, incluyendo femicidios, denuncias y medidas de protección."@es ;
+    skos:broader eu-theme:JUST ;
+    skos:related arth:genero-diversidad .
+
+arth:elecciones
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Elecciones"@es ;
+    skos:definition "Datos electorales: padrón de electores, participación ciudadana, resultados de elecciones nacionales, provinciales y municipales y distribución de bancas y cargos."@es ;
+    skos:broader eu-theme:JUST .
+
+
+# =============================================================================
+# THEMES — GOVE
+# =============================================================================
+
+arth:compras-contrataciones
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Compras y contrataciones"@es ;
+    skos:definition "Insumos, bienes y servicios adquiridos por los distintos organismos públicos a través de los mecanismos de contratación del Estado."@es ;
+    skos:broader eu-theme:GOVE .
+
+arth:rendicion-cuentas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Rendición de cuentas"@es ;
+    skos:definition "Mecanismos de control y fiscalización del sector público: auditorías, informes de ejecución presupuestaria y otros instrumentos de transparencia en la gestión gubernamental."@es ;
+    skos:broader eu-theme:GOVE .
+
+arth:personal-estado
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Personal del Estado"@es ;
+    skos:definition "Dotación de empleados públicos en la Administración Pública Nacional, las provincias y los municipios, incluyendo su composición por categoría, escalafón y remuneraciones."@es ;
+    skos:broader eu-theme:GOVE .
+
+arth:inmuebles-estado
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Inmuebles del Estado"@es ;
+    skos:definition "Patrimonio inmobiliario del Estado: cantidad, localización, destino y estado de los inmuebles de propiedad del sector público nacional, provincial y municipal."@es ;
+    skos:broader eu-theme:GOVE .
+
+arth:gobierno-abierto
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Gobierno abierto"@es ;
+    skos:definition "Iniciativas de apertura y publicación de datos gubernamentales, planes de acción de gobierno abierto y estándares de transparencia adoptados por el Estado."@es ;
+    skos:broader eu-theme:GOVE .
+
+
+# =============================================================================
+# THEMES — AGRI
+# =============================================================================
+
+arth:lacteos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Lácteos"@es ;
+    skos:definition "Producción de leche y sus derivados industriales: volúmenes producidos, precios al productor y en industria y exportaciones del sector lácteo."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:agricultura
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Agricultura"@es ;
+    skos:definition "Superficies sembradas y cosechadas, volúmenes producidos, rendimientos y precios de los principales cultivos agrícolas anuales y perennes."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:ganaderia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Ganadería"@es ;
+    skos:definition "Stock ganadero bovino, ovino, porcino y otras especies, producción de carne, faenamiento y precios en los distintos eslabones de la cadena."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:pesca
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Pesca"@es ;
+    skos:definition "Desembarcos de productos pesqueros marítimos y continentales, composición de las capturas por especie, esfuerzo pesquero y procesamiento industrial."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:vitivinicultura
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Vitivinicultura"@es ;
+    skos:definition "Producción de uvas, mostos y vinos, superficies plantadas por varietal, elaboración de vinos finos y comunes y exportaciones del sector."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:apicultura
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Apicultura"@es ;
+    skos:definition "Producción de miel y otros productos apícolas, stock de colmenas y exportaciones del sector."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:horticultura
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Horticultura"@es ;
+    skos:definition "Producción de hortalizas, legumbres y flores, superficies cultivadas, rendimientos y precios en mercados mayoristas."@es ;
+    skos:broader eu-theme:AGRI .
+
+arth:agroindustria
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Agroindustria"@es ;
+    skos:definition "Procesamiento industrial de materias primas de origen agropecuario: oleaginosas, cereales, azúcar, tabaco y otras cadenas agroindustriales."@es ;
+    skos:broader eu-theme:AGRI .
+
+
+# =============================================================================
+# THEMES — HEAL
+# =============================================================================
+
+arth:medicamentos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Medicamentos"@es ;
+    skos:definition "Producción, comercialización, prescripción y gasto en medicamentos, incluyendo datos sobre la industria farmacéutica y el acceso a tratamientos."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:vigilancia-epidemiologica
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Vigilancia epidemiológica"@es ;
+    skos:definition "Incidencia, prevalencia y distribución de enfermedades de notificación obligatoria, brotes epidémicos y situaciones sanitarias de emergencia."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:vacunacion
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Vacunación"@es ;
+    skos:definition "Coberturas de vacunación alcanzadas por las campañas del calendario nacional y las campañas especiales, por tipo de vacuna, edad y jurisdicción."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:estadisticas-vitales
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Estadísticas vitales"@es ;
+    skos:definition "Registros de nacimientos, defunciones, causas de muerte, matrimonios y divorcios."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:recursos-humanos-salud
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Recursos humanos en salud"@es ;
+    skos:definition "Disponibilidad, distribución y características del personal de salud: médicos, enfermeros, profesionales auxiliares y administrativos en el sistema sanitario."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:salud-sexual-reproductiva
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Salud sexual y reproductiva"@es ;
+    skos:definition "Fecundidad, embarazo adolescente, acceso a métodos anticonceptivos y atención del parto, entre otros indicadores de salud reproductiva."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:obras-sociales-prepagas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Obras sociales y prepagas"@es ;
+    skos:definition "Cobertura de salud a través del sistema de obras sociales y empresas de medicina prepaga: beneficiarios, prestaciones y financiamiento."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:establecimientos-salud
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Establecimientos de salud"@es ;
+    skos:definition "Cantidad, categoría, distribución territorial y dotación de recursos físicos (camas, quirófanos, equipamiento) de los establecimientos del sistema de salud público y privado."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:especialidades-tratamientos
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Especialidades y tratamientos médicos"@es ;
+    skos:definition "Consultas médicas, egresos hospitalarios, intervenciones quirúrgicas y otras prestaciones de salud por especialidad y nivel de complejidad."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:trasplantes-donaciones
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Trasplantes y donaciones"@es ;
+    skos:definition "Lista de espera de órganos y tejidos, trasplantes realizados y evolución de la donación de órganos en el país."@es ;
+    skos:broader eu-theme:HEAL .
+
+arth:adicciones-consumo-problematico
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Adicciones y consumo problemático"@es ;
+    skos:definition "Prevalencia del consumo de sustancias psicoactivas, tendencias de consumo y acceso a tratamientos especializados."@es ;
+    skos:broader eu-theme:HEAL .
+
+
+# =============================================================================
+# THEMES — EDUC
+# =============================================================================
+
+arth:educacion
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Educación"@es ;
+    skos:definition "Matrícula, asistencia, trayectorias y resultados del sistema educativo formal en todos sus niveles: inicial, primario, secundario, superior y universitario. Incluye indicadores de repitencia, abandono, egreso y establecimientos educativos."@es ;
+    skos:broader eu-theme:EDUC .
+
+arth:evaluacion-educativa
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Evaluación educativa"@es ;
+    skos:definition "Desempeño de los estudiantes en pruebas nacionales e internacionales de aprendizaje, utilizados para medir la calidad del sistema educativo."@es ;
+    skos:broader eu-theme:EDUC .
+
+arth:cultura
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Cultura"@es ;
+    skos:definition "Producción, distribución y consumo cultural: libros, cine, música, teatro, museos y otras industrias culturales, incluyendo el aporte del sector al producto bruto."@es ;
+    skos:broader eu-theme:EDUC .
+
+arth:deportes
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Deportes"@es ;
+    skos:definition "Práctica deportiva de la población, infraestructura deportiva disponible y resultados de competencias deportivas nacionales e internacionales."@es ;
+    skos:broader eu-theme:EDUC .
+
+
+# =============================================================================
+# THEMES — TECH
+# =============================================================================
+
+arth:acceso-uso-tics
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Acceso y uso de TIC"@es ;
+    skos:definition "Acceso y uso de dispositivos y servicios de telecomunicaciones e información en los hogares y las empresas: penetración de telefonía fija y móvil, internet, computadoras y otros dispositivos digitales."@es ;
+    skos:broader eu-theme:TECH .
+
+arth:ciencia-tecnologia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Ciencia e investigación"@es ;
+    skos:altLabel "Ciencia y tecnología"@es ;
+    skos:definition "Esfuerzo en investigación y desarrollo (I+D): gasto en I+D como porcentaje del PIB, cantidad de investigadores, publicaciones científicas y patentes registradas."@es ;
+    skos:broader eu-theme:TECH .
+
+arth:infraestructura-digital
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Infraestructura digital"@es ;
+    skos:definition "Cobertura y calidad de las redes de telecomunicaciones: fibra óptica, redes móviles 4G y 5G y conectividad en zonas rurales y periurbanas."@es ;
+    skos:broader eu-theme:TECH .
+
+
+# =============================================================================
+# THEMES — TERRI
+# =============================================================================
+
+arth:division-territorial
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "División territorial"@es ;
+    skos:definition "Organización político-administrativa del territorio: provincias, departamentos, municipios, localidades y otras unidades de análisis geográfico."@es ;
+    skos:broader eu-theme:TERRI .
+
+arth:ecosistemas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Ecosistemas"@es ;
+    skos:definition "Cobertura y estado de los distintos biomas y ecosistemas del territorio nacional: bosques nativos, humedales, pastizales y zonas áridas."@es ;
+    skos:broader eu-theme:TERRI .
+
+arth:geologia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Geología"@es ;
+    skos:definition "Estructura geológica del territorio, los recursos minerales y la sismicidad, relevantes para la planificación territorial y la gestión del riesgo."@es ;
+    skos:broader eu-theme:TERRI .
+
+arth:hidrografia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Hidrografía"@es ;
+    skos:definition "Recursos hídricos superficiales y subterráneos: caudales, cuencas hidrográficas, acuíferos y su disponibilidad para distintos usos."@es ;
+    skos:broader eu-theme:TERRI .
+
+
+# =============================================================================
+# THEMES — INTR
+# =============================================================================
+
+arth:diplomacia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Diplomacia"@es ;
+    skos:definition "Red de representaciones diplomáticas y consulares de Argentina en el exterior, acuerdos y tratados internacionales vigentes y actividad de organismos multilaterales."@es ;
+    skos:broader eu-theme:INTR .
+
+
+# =============================================================================
+# THEMES — DEFE (extensión local)
+# =============================================================================
+
+arth:fuerzas-armadas
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Fuerzas Armadas"@es ;
+    skos:definition "Dotación de personal militar y civil en las distintas ramas de las Fuerzas Armadas, el presupuesto de defensa y las actividades operacionales y de entrenamiento."@es ;
+    skos:broader arth:DEFE .
+
+arth:soberania-proteccion-vigilancia
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Soberanía, protección y vigilancia"@es ;
+    skos:definition "Actividades de patrullaje y control territorial, la defensa de las fronteras nacionales y las operaciones de protección de los recursos soberanos del país."@es ;
+    skos:broader arth:DEFE .
+
+arth:riesgos-desastres
+    a skos:Concept ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar> ;
+    skos:prefLabel "Riesgos y desastres"@es ;
+    skos:definition "Datos sobre la gestión del riesgo de desastres naturales y antrópicos, incluyendo alertas tempranas, planes de emergencia y registro de eventos."@es ;
+    skos:broader arth:DEFE .
+
+# =============================================================================
+# FIN DEL VOCABULARIO
+# =============================================================================

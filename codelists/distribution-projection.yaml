@@ -1,0 +1,242 @@
+id: distribution-projection
+name:
+  es: Sistema de referencia de coordenadas (proyección) de la distribución
+  en: Distribution Coordinate Reference System (Projection)
+description:
+  es: >
+    Sistema de referencia de coordenadas (CRS) utilizado en el archivo geoespacial.
+    Se identifican mediante códigos EPSG (https://epsg.io/).
+    Solo aplicable a distribuciones con datos geográficos o cartográficos.
+  en: >
+    Coordinate reference system (CRS) used in the geospatial file.
+    Identified by EPSG codes (https://epsg.io/).
+    Only applicable to distributions with geographic or cartographic data.
+source: https://epsg.io/
+display_property: dct:conformsTo
+
+values:
+  # ── Globales — web mapping y datos abiertos ───────────────────────────────
+  - id: EPSG-4326
+    epsg_code: "EPSG:4326"
+    uri: https://epsg.io/4326
+    label:
+      es: EPSG:4326 — WGS 84 (GPS, GeoJSON, estándar internacional)
+      en: EPSG:4326 — WGS 84 (GPS, GeoJSON, international standard)
+    description:
+      es: Sistema geodésico mundial WGS 84. Estándar de facto para GPS, GeoJSON y la mayoría de datos abiertos geoespaciales. Coordenadas en grados decimales (latitud/longitud).
+      en: WGS 84 global geodetic system. De facto standard for GPS, GeoJSON and most open geospatial data. Coordinates in decimal degrees (latitude/longitude).
+    scope: global
+
+  - id: EPSG-3857
+    epsg_code: "EPSG:3857"
+    uri: https://epsg.io/3857
+    label:
+      es: EPSG:3857 — Web Mercator (Google Maps, OpenStreetMap)
+      en: EPSG:3857 — Web Mercator (Google Maps, OpenStreetMap)
+    description:
+      es: Proyección Mercator esférica usada por Google Maps, OpenStreetMap y servicios de mapas web. Coordenadas en metros.
+      en: Spherical Mercator projection used by Google Maps, OpenStreetMap and web map services. Coordinates in meters.
+    scope: global
+
+  # ── Argentina — datum oficial actual ──────────────────────────────────────
+  - id: EPSG-5340
+    epsg_code: "EPSG:5340"
+    uri: https://epsg.io/5340
+    label:
+      es: EPSG:5340 — POSGAR 2007 (datum geográfico oficial IGN)
+      en: EPSG:5340 — POSGAR 2007 (official IGN geodetic datum)
+    description:
+      es: Sistema de Posicionamiento Geodésico Argentino 2007. Datum geográfico oficial del IGN, reemplaza a POSGAR 94. Coordenadas en grados decimales.
+      en: Argentine Geodetic Positioning System 2007. Official IGN geodetic datum, replaces POSGAR 94. Coordinates in decimal degrees.
+    scope: argentina
+
+  - id: EPSG-4172
+    epsg_code: "EPSG:4172"
+    uri: https://epsg.io/4172
+    label:
+      es: EPSG:4172 — POSGAR 94 (datum anterior IGN)
+      en: EPSG:4172 — POSGAR 94 (previous IGN datum)
+    description:
+      es: Sistema de Posicionamiento Geodésico Argentino 1994. Datum anterior al oficial actual. Aún presente en capas cartográficas legacy.
+      en: Argentine Geodetic Positioning System 1994. Previous official datum. Still present in legacy cartographic layers.
+    scope: argentina
+
+  # ── Argentina — POSGAR 2007 por faja Gauss-Krüger ─────────────────────────
+  - id: EPSG-5343
+    epsg_code: "EPSG:5343"
+    uri: https://epsg.io/5343
+    label:
+      es: EPSG:5343 — POSGAR 2007 / Faja 1 (oeste de 70°30'W)
+      en: EPSG:5343 — POSGAR 2007 / Zone 1 (west of 70°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 1 de la grilla Gauss-Krüger argentina. Cubre el extremo oeste del país.
+      en: POSGAR 2007 projected on Zone 1 of the Argentine Gauss-Krüger grid. Covers the westernmost part of the country.
+    scope: argentina
+
+  - id: EPSG-5344
+    epsg_code: "EPSG:5344"
+    uri: https://epsg.io/5344
+    label:
+      es: EPSG:5344 — POSGAR 2007 / Faja 2 (70°30'W – 67°30'W)
+      en: EPSG:5344 — POSGAR 2007 / Zone 2 (70°30'W – 67°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 2. Abarca parte de Jujuy, Salta, Tucumán, Catamarca, La Rioja, Mendoza y San Juan.
+      en: POSGAR 2007 projected on Zone 2. Covers parts of Jujuy, Salta, Tucumán, Catamarca, La Rioja, Mendoza and San Juan.
+    scope: argentina
+
+  - id: EPSG-5345
+    epsg_code: "EPSG:5345"
+    uri: https://epsg.io/5345
+    label:
+      es: EPSG:5345 — POSGAR 2007 / Faja 3 (67°30'W – 64°30'W)
+      en: EPSG:5345 — POSGAR 2007 / Zone 3 (67°30'W – 64°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 3. Abarca parte de Salta, Jujuy, Chaco, Santiago del Estero, Córdoba y La Pampa.
+      en: POSGAR 2007 projected on Zone 3. Covers parts of Salta, Jujuy, Chaco, Santiago del Estero, Córdoba and La Pampa.
+    scope: argentina
+
+  - id: EPSG-5346
+    epsg_code: "EPSG:5346"
+    uri: https://epsg.io/5346
+    label:
+      es: EPSG:5346 — POSGAR 2007 / Faja 4 (64°30'W – 61°30'W)
+      en: EPSG:5346 — POSGAR 2007 / Zone 4 (64°30'W – 61°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 4. Abarca parte de Formosa, Chaco, Santa Fe, Córdoba, San Luis y La Pampa.
+      en: POSGAR 2007 projected on Zone 4. Covers parts of Formosa, Chaco, Santa Fe, Córdoba, San Luis and La Pampa.
+    scope: argentina
+
+  - id: EPSG-5347
+    epsg_code: "EPSG:5347"
+    uri: https://epsg.io/5347
+    label:
+      es: EPSG:5347 — POSGAR 2007 / Faja 5 (61°30'W – 58°30'W)
+      en: EPSG:5347 — POSGAR 2007 / Zone 5 (61°30'W – 58°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 5. Abarca parte de Formosa, Corrientes, Misiones, Entre Ríos y Buenos Aires.
+      en: POSGAR 2007 projected on Zone 5. Covers parts of Formosa, Corrientes, Misiones, Entre Ríos and Buenos Aires.
+    scope: argentina
+
+  - id: EPSG-5348
+    epsg_code: "EPSG:5348"
+    uri: https://epsg.io/5348
+    label:
+      es: EPSG:5348 — POSGAR 2007 / Faja 6 (58°30'W – 55°30'W)
+      en: EPSG:5348 — POSGAR 2007 / Zone 6 (58°30'W – 55°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 6. Cubre parte de Buenos Aires y Corrientes.
+      en: POSGAR 2007 projected on Zone 6. Covers parts of Buenos Aires and Corrientes.
+    scope: argentina
+
+  - id: EPSG-5349
+    epsg_code: "EPSG:5349"
+    uri: https://epsg.io/5349
+    label:
+      es: EPSG:5349 — POSGAR 2007 / Faja 7 (este de 55°30'W)
+      en: EPSG:5349 — POSGAR 2007 / Zone 7 (east of 55°30'W)
+    description:
+      es: POSGAR 2007 proyectado en Faja 7. Cubre el extremo este de la provincia de Buenos Aires.
+      en: POSGAR 2007 projected on Zone 7. Covers the easternmost part of Buenos Aires province.
+    scope: argentina
+
+  # ── Argentina — POSGAR 94 por faja (legacy, muy presentes en shapefiles) ──
+  - id: EPSG-22181
+    epsg_code: "EPSG:22181"
+    uri: https://epsg.io/22181
+    label:
+      es: EPSG:22181 — POSGAR 94 / Faja 1 (legacy)
+      en: EPSG:22181 — POSGAR 94 / Zone 1 (legacy)
+    description:
+      es: POSGAR 94 Faja 1. Sistema anterior al oficial. Aún frecuente en shapefiles y capas históricas.
+      en: POSGAR 94 Zone 1. Previous official system. Still frequent in shapefiles and historical layers.
+    scope: argentina-legacy
+
+  - id: EPSG-22182
+    epsg_code: "EPSG:22182"
+    uri: https://epsg.io/22182
+    label:
+      es: EPSG:22182 — POSGAR 94 / Faja 2 (legacy)
+      en: EPSG:22182 — POSGAR 94 / Zone 2 (legacy)
+    description:
+      es: POSGAR 94 Faja 2. Sistema anterior. Frecuente en archivos geoespaciales legacy.
+      en: POSGAR 94 Zone 2. Previous system. Frequent in legacy geospatial files.
+    scope: argentina-legacy
+
+  - id: EPSG-22183
+    epsg_code: "EPSG:22183"
+    uri: https://epsg.io/22183
+    label:
+      es: EPSG:22183 — POSGAR 94 / Faja 3 (legacy)
+      en: EPSG:22183 — POSGAR 94 / Zone 3 (legacy)
+    description:
+      es: POSGAR 94 Faja 3. Sistema anterior. Frecuente en archivos geoespaciales legacy.
+      en: POSGAR 94 Zone 3. Previous system. Frequent in legacy geospatial files.
+    scope: argentina-legacy
+
+  - id: EPSG-22184
+    epsg_code: "EPSG:22184"
+    uri: https://epsg.io/22184
+    label:
+      es: EPSG:22184 — POSGAR 94 / Faja 4 (legacy)
+      en: EPSG:22184 — POSGAR 94 / Zone 4 (legacy)
+    description:
+      es: POSGAR 94 Faja 4. Sistema anterior. Frecuente en archivos geoespaciales legacy.
+      en: POSGAR 94 Zone 4. Previous system. Frequent in legacy geospatial files.
+    scope: argentina-legacy
+
+  - id: EPSG-22185
+    epsg_code: "EPSG:22185"
+    uri: https://epsg.io/22185
+    label:
+      es: EPSG:22185 — POSGAR 94 / Faja 5 — Buenos Aires, Entre Ríos, Córdoba (legacy)
+      en: EPSG:22185 — POSGAR 94 / Zone 5 — Buenos Aires, Entre Ríos, Córdoba (legacy)
+    description:
+      es: POSGAR 94 Faja 5. La más usada históricamente en la región pampeana. Cubre Buenos Aires, Entre Ríos y Córdoba.
+      en: POSGAR 94 Zone 5. Historically most used in the pampean region. Covers Buenos Aires, Entre Ríos and Córdoba.
+    scope: argentina-legacy
+
+  - id: EPSG-22186
+    epsg_code: "EPSG:22186"
+    uri: https://epsg.io/22186
+    label:
+      es: EPSG:22186 — POSGAR 94 / Faja 6 (legacy)
+      en: EPSG:22186 — POSGAR 94 / Zone 6 (legacy)
+    description:
+      es: POSGAR 94 Faja 6. Sistema anterior. Frecuente en archivos geoespaciales legacy.
+      en: POSGAR 94 Zone 6. Previous system. Frequent in legacy geospatial files.
+    scope: argentina-legacy
+
+  - id: EPSG-22187
+    epsg_code: "EPSG:22187"
+    uri: https://epsg.io/22187
+    label:
+      es: EPSG:22187 — POSGAR 94 / Faja 7 (legacy)
+      en: EPSG:22187 — POSGAR 94 / Zone 7 (legacy)
+    description:
+      es: POSGAR 94 Faja 7. Sistema anterior. Frecuente en archivos geoespaciales legacy.
+      en: POSGAR 94 Zone 7. Previous system. Frequent in legacy geospatial files.
+    scope: argentina-legacy
+
+  # ── Latinoamérica ──────────────────────────────────────────────────────────
+  - id: EPSG-4674
+    epsg_code: "EPSG:4674"
+    uri: https://epsg.io/4674
+    label:
+      es: EPSG:4674 — SIRGAS 2000 (sistema oficial en gran parte de Latinoamérica)
+      en: EPSG:4674 — SIRGAS 2000 (official system in much of Latin America)
+    description:
+      es: Sistema de Referencia Geocéntrico para las Américas 2000. Sistema de referencia oficial en la mayor parte de América Latina. Compatible con WGS 84.
+      en: Geocentric Reference System for the Americas 2000. Official reference system in most of Latin America. Compatible with WGS 84.
+    scope: latinoamerica
+
+  # ── Otro ──────────────────────────────────────────────────────────────────
+  - id: other
+    epsg_code: ~
+    uri: ~
+    label:
+      es: Otro (especificar en descripción del recurso)
+      en: Other (specify in resource description)
+    description:
+      es: Sistema de referencia no listado. Especificar el código EPSG u otro identificador en la descripción del recurso.
+      en: Unlisted reference system. Specify the EPSG code or other identifier in the resource description.
+    scope: ~

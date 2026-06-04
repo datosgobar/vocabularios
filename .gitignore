@@ -1,0 +1,19 @@
+# IDE
+.idea/
+.vscode/
+
+# Claude Code
+CLAUDE.md
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporales
+*.tmp
+*.bak
+*~

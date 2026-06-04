@@ -1,0 +1,144 @@
+id: dataset-superTheme
+name:
+  es: Tema general del dataset (superTheme)
+  en: Dataset Super Theme
+description:
+  es: >
+    Temática o categoría global a la que pertenece el dataset.
+    Sigue la taxonomía de temas de la Oficina de Publicaciones de la UE
+    (EU Publications Office Data Theme, http://publications.europa.eu/resource/authority/data-theme/).
+    Es obligatorio en el perfil de metadatos datos.gob.ar.
+  en: >
+    Global theme or category the dataset belongs to.
+    Follows the EU Publications Office Data Theme taxonomy
+    (http://publications.europa.eu/resource/authority/data-theme/).
+    Mandatory in the datos.gob.ar metadata profile.
+source: http://publications.europa.eu/resource/authority/data-theme/
+display_property: dct:theme
+
+values:
+  - id: AGRI
+    uri: http://publications.europa.eu/resource/authority/data-theme/AGRI
+    label:
+      es: Agricultura, Pesca, Silvicultura y Alimentación
+      en: Agriculture, Fisheries, Forestry and Food
+    description:
+      es: Datasets relacionados con producción agropecuaria, pesca, forestación y cadena alimentaria.
+      en: Datasets related to agricultural production, fishing, forestry and the food chain.
+
+  - id: ECON
+    uri: http://publications.europa.eu/resource/authority/data-theme/ECON
+    label:
+      es: Economía y Finanzas
+      en: Economy and Finance
+    description:
+      es: Datos económicos, financieros, presupuestarios, impositivos y del mercado laboral.
+      en: Economic, financial, budgetary, tax and labour market data.
+
+  - id: EDUC
+    uri: http://publications.europa.eu/resource/authority/data-theme/EDUC
+    label:
+      es: Educación, Cultura y Deporte
+      en: Education, Culture and Sport
+    description:
+      es: Datasets sobre educación, formación, cultura, patrimonio, deporte y recreación.
+      en: Datasets on education, training, culture, heritage, sport and recreation.
+
+  - id: ENER
+    uri: http://publications.europa.eu/resource/authority/data-theme/ENER
+    label:
+      es: Energía
+      en: Energy
+    description:
+      es: Datos sobre producción, consumo y distribución de energía en todas sus fuentes.
+      en: Data on energy production, consumption and distribution across all sources.
+
+  - id: ENVI
+    uri: http://publications.europa.eu/resource/authority/data-theme/ENVI
+    label:
+      es: Medio Ambiente
+      en: Environment
+    description:
+      es: Datasets sobre biodiversidad, cambio climático, calidad del aire, agua y suelo.
+      en: Datasets on biodiversity, climate change, air, water and soil quality.
+
+  - id: GOVE
+    uri: http://publications.europa.eu/resource/authority/data-theme/GOVE
+    label:
+      es: Gobierno y Sector Público
+      en: Government and Public Sector
+    description:
+      es: Datos sobre gestión pública, presupuesto, contrataciones, empleo público y transparencia.
+      en: Data on public management, budget, procurement, public employment and transparency.
+
+  - id: HEAL
+    uri: http://publications.europa.eu/resource/authority/data-theme/HEAL
+    label:
+      es: Salud
+      en: Health
+    description:
+      es: Datasets sobre salud pública, sistema sanitario, enfermedades y estadísticas vitales.
+      en: Datasets on public health, healthcare system, diseases and vital statistics.
+
+  - id: INTR
+    uri: http://publications.europa.eu/resource/authority/data-theme/INTR
+    label:
+      es: Internacional
+      en: International Issues
+    description:
+      es: Datos sobre relaciones internacionales, comercio exterior, cooperación y organismos multilaterales.
+      en: Data on international relations, foreign trade, cooperation and multilateral bodies.
+
+  - id: JUST
+    uri: http://publications.europa.eu/resource/authority/data-theme/JUST
+    label:
+      es: Justicia, Sistema Legal y Seguridad Pública
+      en: Justice, Legal System and Public Safety
+    description:
+      es: Datasets sobre el poder judicial, legislación, delitos, seguridad y derechos humanos.
+      en: Datasets on the judiciary, legislation, crime, security and human rights.
+
+  - id: REGI
+    uri: http://publications.europa.eu/resource/authority/data-theme/REGI
+    label:
+      es: Regiones y Ciudades
+      en: Regions and Cities
+    description:
+      es: Datos de estadísticas regionales, desarrollo territorial, planificación urbana y rural.
+      en: Data on regional statistics, territorial development, urban and rural planning.
+
+  - id: SOCI
+    uri: http://publications.europa.eu/resource/authority/data-theme/SOCI
+    label:
+      es: Población y Sociedad
+      en: Population and Society
+    description:
+      es: Datasets sobre demografía, condiciones de vida, género, inclusión social y vivienda.
+      en: Datasets on demographics, living conditions, gender, social inclusion and housing.
+
+  - id: TECH
+    uri: http://publications.europa.eu/resource/authority/data-theme/TECH
+    label:
+      es: Ciencia y Tecnología
+      en: Science and Technology
+    description:
+      es: Datos sobre investigación, innovación, infraestructura tecnológica y telecomunicaciones.
+      en: Data on research, innovation, technological infrastructure and telecommunications.
+
+  - id: TRAN
+    uri: http://publications.europa.eu/resource/authority/data-theme/TRAN
+    label:
+      es: Transporte
+      en: Transport
+    description:
+      es: Datasets sobre infraestructura vial, transporte público, logística y movilidad.
+      en: Datasets on road infrastructure, public transport, logistics and mobility.
+
+  - id: sin-tema
+    uri: ~
+    label:
+      es: Sin tema
+      en: No theme
+    description:
+      es: El dataset no se encuadra en ninguna de las categorías temáticas disponibles.
+      en: The dataset does not fit any of the available thematic categories.

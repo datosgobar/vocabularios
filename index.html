@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabularios &amp; Codelists — datos.gob.ar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+  <style>
+    /* === VARIABLES === */
+    :root {
+      --gobar-primary:        #6A1B99;
+      --gobar-primary-dark:   #4A1472;
+      --gobar-primary-darker: #2E1065;
+      --gobar-accent:         #37BCD2;
+      --gobar-azul:           #0072BC;
+      --gobar-negro:          #333333;
+      --gobar-gris-oscuro:    #555555;
+      --gobar-gris:           #888888;
+      --gobar-gris-claro:     #CCCCCC;
+      --gobar-gris-bg:        #F2F2F2;
+      --gobar-blanco:         #FFFFFF;
+      --font-titulos: 'Lora', Georgia, serif;
+      --font-cuerpo:  'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* === BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-cuerpo);
+      color: var(--gobar-negro);
+      background: var(--gobar-blanco);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--gobar-primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus, button:focus, input:focus { outline: 2px solid var(--gobar-accent); outline-offset: 2px; }
+    button { cursor: pointer; font-family: var(--font-cuerpo); }
+    #app { flex: 1; display: flex; flex-direction: column; }
+
+    /* === PROGRESS BAR === */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--gobar-accent);
+      transition: width 0.25s ease;
+      z-index: 200;
+      pointer-events: none;
+    }
+    #progress-bar.oculto { opacity: 0; transition: opacity 0.5s ease 0.3s; }
+
+    /* === NAVBAR === */
+    nav {
+      background: var(--gobar-primary-darker);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--gobar-blanco);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-brand:hover { color: var(--gobar-accent); text-decoration: none; }
+    .nav-search-wrap {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 6px 14px;
+      gap: 8px;
+      max-width: 300px;
+      width: 100%;
+    }
+    .nav-search-wrap svg { flex-shrink: 0; opacity: 0.6; }
+    #nav-search {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--gobar-blanco);
+      font-family: var(--font-cuerpo);
+      font-size: 14px;
+      width: 100%;
+    }
+    #nav-search::placeholder { color: rgba(255,255,255,0.45); }
+    #nav-search:focus { outline: none; }
+    .nav-search-wrap:focus-within { outline: 2px solid var(--gobar-accent); border-radius: 20px; }
+
+    /* === HERO === */
+    .hero {
+      background: var(--gobar-primary-darker);
+      background-image:
+        radial-gradient(ellipse at 75% 50%, rgba(55,188,210,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(106,27,153,0.35) 0%, transparent 55%);
+      padding: 64px 32px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--gobar-accent);
+      color: var(--gobar-blanco);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: var(--font-titulos);
+      color: var(--gobar-blanco);
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* === TARJETAS === */
+    .section-vocab {
+      padding: 48px 32px;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .section-codelist-wrap {
+      background: var(--gobar-gris-bg);
+      width: 100%;
+    }
+    .section-codelist {
+      padding: 48px 32px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 12px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--gobar-primary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .section-title {
+      font-family: var(--font-titulos);
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .section-link { font-size: 14px; font-weight: 600; white-space: nowrap; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--gobar-blanco);
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 20px;
+      cursor: pointer;
+      transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      border-color: var(--gobar-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(106,27,153,0.14);
+      text-decoration: none;
+    }
+    .card-icon { font-size: 26px; }
+    .card-name { font-weight: 700; font-size: 14px; }
+    .card-desc {
+      font-size: 12px;
+      color: var(--gobar-gris-oscuro);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .badge-ttl { background: rgba(55,188,210,0.15); color: #1a8fa3; }
+    .badge-yaml { background: rgba(255,193,7,0.2); color: #7a5c00; }
+    .card-count { font-size: 11px; color: var(--gobar-gris); }
+    .spinner {
+      display: inline-block;
+      width: 13px; height: 13px;
+      border: 2px solid var(--gobar-gris-claro);
+      border-top-color: var(--gobar-primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .card-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gobar-gris); }
+    .card-status.error { color: #c0392b; }
+
+    /* === VISTAS === */
+    .view { display: none; flex-direction: column; flex: 1; }
+    .view.activa { display: flex; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      background: var(--gobar-gris-bg);
+      padding: 10px 32px;
+      font-size: 13px;
+      color: var(--gobar-gris-oscuro);
+      border-bottom: 1px solid #E8E8E8;
+    }
+    .breadcrumb a { color: var(--gobar-primary); }
+    .breadcrumb .sep { margin: 0 8px; color: var(--gobar-gris-claro); }
+
+    /* Detail header */
+    .detail-header {
+      background: var(--gobar-primary-darker);
+      padding: 40px 32px;
+    }
+    .detail-header-inner { max-width: 900px; margin: 0 auto; }
+    .detail-tipo {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    .detail-tipo.ttl { background: rgba(55,188,210,0.25); color: var(--gobar-accent); border: 1px solid rgba(55,188,210,0.5); }
+    .detail-tipo.yaml { background: rgba(255,214,0,0.2); color: #FFE082; border: 1px solid rgba(255,214,0,0.4); }
+    .detail-icon { font-size: 32px; margin-bottom: 8px; }
+    .detail-title {
+      font-family: var(--font-titulos);
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      color: var(--gobar-blanco);
+      margin-bottom: 10px;
+    }
+    .detail-desc { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.6; max-width: 680px; }
+    .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      transition: background 0.15s, color 0.15s;
+      cursor: pointer;
+    }
+    .btn-ghost { background: rgba(255,255,255,0.14); color: var(--gobar-blanco); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.24); }
+    .btn-accent { background: var(--gobar-accent); color: var(--gobar-blanco); }
+    .btn-accent:hover { background: #2aa8bc; }
+
+    /* Detail content area */
+    .detail-content { max-width: 900px; margin: 0 auto; padding: 32px 32px; width: 100%; flex: 1; }
+
+    /* Internal search */
+    .internal-search {
+      display: flex;
+      align-items: center;
+      background: var(--gobar-gris-bg);
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .internal-search svg { flex-shrink: 0; }
+    .internal-search input {
+      background: none;
+      border: none;
+      outline: none;
+      font-family: var(--font-cuerpo);
+      font-size: 14px;
+      width: 100%;
+      color: var(--gobar-negro);
+    }
+    .internal-search input::placeholder { color: var(--gobar-gris); }
+    .internal-search:focus-within { outline: 2px solid var(--gobar-accent); }
+    .result-count { font-size: 13px; color: var(--gobar-gris); margin-bottom: 16px; }
+
+    /* SKOS Tree */
+    .tree { list-style: none; }
+    .tree-item { margin: 1px 0; }
+    .tree-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 6px;
+      border-radius: 6px;
+      transition: background 0.12s;
+    }
+    .tree-row:hover { background: var(--gobar-gris-bg); }
+    .tree-toggle {
+      width: 20px; height: 20px;
+      background: none;
+      border: 1px solid #D0D0D0;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: var(--gobar-gris);
+      flex-shrink: 0;
+      padding: 0;
+      line-height: 1;
+    }
+    .tree-toggle:hover { border-color: var(--gobar-primary); color: var(--gobar-primary); background: rgba(106,27,153,0.05); }
+    .tree-spacer { width: 20px; flex-shrink: 0; }
+    .tree-label { font-size: 14px; color: var(--gobar-negro); flex: 1; min-width: 0; }
+    .tree-label a { color: var(--gobar-negro); }
+    .tree-label a:hover { color: var(--gobar-primary); text-decoration: underline; }
+    .tree-notation {
+      font-size: 11px;
+      font-family: monospace;
+      background: rgba(106,27,153,0.08);
+      color: var(--gobar-primary);
+      padding: 1px 7px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .tree-children { padding-left: 26px; list-style: none; }
+    .tree-children.colapsado { display: none; }
+
+    /* Flat concept list (for search results) */
+    .concept-list { list-style: none; }
+    .concept-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 0;
+      border-bottom: 1px solid #F0F0F0;
+    }
+    .concept-item:last-child { border-bottom: none; }
+    .concept-item-name { font-size: 14px; font-weight: 600; }
+    .concept-item-name a { color: var(--gobar-negro); }
+    .concept-item-name a:hover { color: var(--gobar-primary); }
+    .concept-item-def { font-size: 13px; color: var(--gobar-gris-oscuro); line-height: 1.45; }
+    .concept-item-notation {
+      font-size: 11px;
+      font-family: monospace;
+      background: rgba(106,27,153,0.07);
+      color: var(--gobar-primary);
+      padding: 1px 7px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .no-results { text-align: center; padding: 56px 24px; color: var(--gobar-gris); font-size: 14px; }
+
+    /* Codelist table */
+    .table-wrap { overflow-x: auto; border: 1px solid #E8E8E8; border-radius: 8px; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--gobar-gris-bg);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--gobar-gris-oscuro);
+      border-bottom: 2px solid #E0E0E0;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F0F0F0;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(106,27,153,0.025); }
+    .data-table .col-id { font-family: monospace; font-size: 12px; color: var(--gobar-primary); white-space: nowrap; width: 140px; }
+    .data-table .col-label { font-weight: 600; width: 200px; }
+    .data-table .col-desc { color: var(--gobar-gris-oscuro); }
+
+    /* Concept detail */
+    .concept-header {
+      background: var(--gobar-primary-darker);
+      padding: 40px 32px;
+    }
+    .concept-header-inner { max-width: 900px; margin: 0 auto; }
+    .concept-notation-badge {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(55,188,210,0.25);
+      color: var(--gobar-accent);
+      padding: 3px 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .concept-main-label {
+      font-family: var(--font-titulos);
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      color: var(--gobar-blanco);
+      margin-bottom: 12px;
+    }
+    .concept-lang-labels { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .lang-tag {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.85);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .lang-tag span { opacity: 0.6; margin-right: 4px; }
+    .concept-body { max-width: 900px; margin: 0 auto; padding: 32px 32px; }
+    .campo { margin-bottom: 26px; }
+    .campo-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--gobar-primary);
+      margin-bottom: 6px;
+    }
+    .campo-valor { font-size: 14px; line-height: 1.65; color: var(--gobar-negro); }
+    .campo-valor.uri-block {
+      font-family: monospace;
+      font-size: 12px;
+      background: var(--gobar-gris-bg);
+      padding: 10px 14px;
+      border-radius: 6px;
+      word-break: break-all;
+      border: 1px solid #E0E0E0;
+    }
+    .related-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(106,27,153,0.07);
+      color: var(--gobar-primary);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .chip:hover { background: var(--gobar-primary); color: var(--gobar-blanco); text-decoration: none; }
+
+    /* === PROPIEDADES EXTRA === */
+    .propiedades-section {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 2px solid var(--gobar-gris-bg);
+    }
+    .propiedades-titulo {
+      font-family: var(--font-titulos);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gobar-negro);
+      margin-bottom: 20px;
+    }
+    .prop-list { display: flex; flex-direction: column; }
+    .prop-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid #F2F2F2;
+      align-items: start;
+    }
+    .prop-row:last-child { border-bottom: none; }
+    .prop-key {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gobar-gris-oscuro);
+      padding-top: 2px;
+    }
+    .prop-val { font-size: 14px; color: var(--gobar-negro); line-height: 1.55; }
+    .dim-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(106,27,153,0.06);
+      color: var(--gobar-negro);
+      border: 1px solid rgba(106,27,153,0.15);
+      border-radius: 20px;
+      font-size: 13px;
+      margin: 2px;
+    }
+    .dim-chip::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--gobar-primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .pub-card {
+      background: var(--gobar-gris-bg);
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+    .pub-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; color: var(--gobar-negro); }
+    .pub-links { display: flex; flex-direction: column; gap: 5px; }
+    .pub-link {
+      font-size: 13px;
+      color: var(--gobar-azul);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .pub-link::before { content: '↗'; font-size: 11px; opacity: 0.7; }
+    .pub-link:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      .prop-row { grid-template-columns: 1fr; gap: 6px; }
+      .prop-key { color: var(--gobar-primary); }
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--gobar-primary-darker);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 22px;
+      font-size: 13px;
+    }
+
+    /* Search highlight */
+    .hl { background: rgba(55,188,210,0.25); border-radius: 2px; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .section-vocab, .section-codelist, .detail-content, .concept-body { padding-left: 20px; padding-right: 20px; }
+      nav { padding: 0 20px; }
+      .breadcrumb { padding: 10px 20px; }
+      .detail-header, .concept-header { padding: 32px 20px; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 40px 20px; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+      .detail-actions { flex-direction: column; }
+      .nav-search-wrap { max-width: 160px; }
+    }
+    @media (max-width: 480px) {
+      .nav-search-wrap { display: none; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="progress-bar" role="progressbar" aria-label="Cargando vocabularios"></div>
+
+  <nav role="navigation" aria-label="Navegación principal">
+    <a href="#" class="nav-brand">Vocabularios &amp; Codelists</a>
+    <div class="nav-search-wrap" role="search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input id="nav-search" type="search" placeholder="Buscar vocabulario..." aria-label="Buscar vocabulario o codelist">
+    </div>
+  </nav>
+
+  <main id="app" role="main">
+
+    <!-- ── Vista Índice ───────────────────────────────────────────── -->
+    <div id="view-index" class="view activa">
+      <div class="hero">
+        <div class="hero-badge">DATOS.GOB.AR</div>
+        <h1>Vocabularios &amp; Codelists</h1>
+        <p>Explorá los esquemas RDF/SKOS y listas de valores controlados del catálogo de datos abiertos de la República Argentina.</p>
+      </div>
+
+      <div class="section-vocab">
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">Esquemas RDF</div>
+            <div class="section-title">Vocabularios</div>
+          </div>
+          <a href="#" class="section-link" aria-label="Ver todos los vocabularios">Ver todos →</a>
+        </div>
+        <div id="grid-vocab" class="cards-grid"></div>
+      </div>
+
+      <div class="section-codelist-wrap">
+        <div class="section-codelist">
+          <div class="section-header">
+            <div>
+              <div class="section-eyebrow">Listas de Valores</div>
+              <div class="section-title">Codelists</div>
+            </div>
+            <a href="#" class="section-link" aria-label="Ver todas las codelists">Ver todas →</a>
+          </div>
+          <div id="grid-codelist" class="cards-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Vista Detalle Vocabulario ──────────────────────────────── -->
+    <div id="view-vocab" class="view">
+      <div id="vocab-breadcrumb" class="breadcrumb" aria-label="Ruta de navegación"></div>
+      <div class="detail-header">
+        <div class="detail-header-inner">
+          <div class="detail-tipo ttl">TTL · SKOS</div>
+          <div id="vocab-icon" class="detail-icon"></div>
+          <div id="vocab-title" class="detail-title"></div>
+          <div id="vocab-desc" class="detail-desc"></div>
+          <div class="detail-actions">
+            <button id="vocab-back" class="btn btn-ghost">← Volver</button>
+            <button id="vocab-download" class="btn btn-accent">⬇ Descargar TTL</button>
+          </div>
+        </div>
+      </div>
+      <div class="detail-content">
+        <div class="internal-search" role="search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input id="vocab-search" type="search" placeholder="Buscar conceptos..." aria-label="Buscar conceptos en el vocabulario">
+        </div>
+        <div id="vocab-count" class="result-count"></div>
+        <div id="vocab-tree"></div>
+      </div>
+    </div>
+
+    <!-- ── Vista Detalle Codelist ─────────────────────────────────── -->
+    <div id="view-codelist" class="view">
+      <div id="codelist-breadcrumb" class="breadcrumb" aria-label="Ruta de navegación"></div>
+      <div class="detail-header">
+        <div class="detail-header-inner">
+          <div class="detail-tipo yaml">YAML</div>
+          <div id="codelist-icon" class="detail-icon"></div>
+          <div id="codelist-title" class="detail-title"></div>
+          <div id="codelist-desc" class="detail-desc"></div>
+          <div class="detail-actions">
+            <button id="codelist-back" class="btn btn-ghost">← Volver</button>
+            <button id="codelist-download" class="btn btn-accent">⬇ Descargar YAML</button>
+          </div>
+        </div>
+      </div>
+      <div class="detail-content">
+        <div class="internal-search" role="search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input id="codelist-search" type="search" placeholder="Filtrar valores..." aria-label="Filtrar valores de la codelist">
+        </div>
+        <div id="codelist-count" class="result-count"></div>
+        <div class="table-wrap">
+          <table class="data-table" aria-label="Valores de la codelist">
+            <thead>
+              <tr>
+                <th scope="col">ID / Código</th>
+                <th scope="col">Etiqueta</th>
+                <th scope="col">Descripción</th>
+              </tr>
+            </thead>
+            <tbody id="codelist-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Vista Concepto ─────────────────────────────────────────── -->
+    <div id="view-concept" class="view">
+      <div id="concept-breadcrumb" class="breadcrumb" aria-label="Ruta de navegación"></div>
+      <div class="concept-header">
+        <div class="concept-header-inner">
+          <div id="concept-notation-badge"></div>
+          <div id="concept-main-label" class="concept-main-label"></div>
+          <div id="concept-lang-labels" class="concept-lang-labels"></div>
+          <div class="detail-actions">
+            <button id="concept-back" class="btn btn-ghost">← Volver al vocabulario</button>
+          </div>
+        </div>
+      </div>
+      <div id="concept-body" class="concept-body"></div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Vocabularios y Codelists — datos.gob.ar</p>
+  </footer>
+
+  <script>
+    /* === APP CONFIG === */
+    const APP_CONFIG = {
+      vocabularios: [
+        {
+          id: 'territorio',
+          nombre: 'Territorio',
+          descripcion: 'Unidades territoriales de la República Argentina (país, provincias, regiones).',
+          archivo: 'vocabularios/territorio-argentina.ttl',
+          icono: '🗺️'
+        },
+        {
+          id: 'tematicas',
+          nombre: 'Temáticas',
+          descripcion: 'Temas y superTemas para clasificar datasets del catálogo datos.gob.ar.',
+          archivo: 'vocabularios/temas-datos-gob-ar.ttl',
+          icono: '🏷️'
+        },
+        {
+          id: 'indicadores-indec',
+          nombre: 'Indicadores INDEC',
+          descripcion: 'Indicadores estadísticos publicados por el INDEC (IPC, EMAE).',
+          archivo: 'vocabularios/indicadores-indec.ttl',
+          icono: '📊'
+        },
+        {
+          id: 'clasificadores-indec',
+          nombre: 'Clasificadores INDEC',
+          descripcion: 'Clasificadores para actividades económicas, consumo e impuestos (ClaNAE, COICOP, CNO).',
+          archivo: 'vocabularios/clasificadores-indec.ttl',
+          icono: '🗂️'
+        }
+      ],
+      codelists: [
+        {
+          id: 'distribution-category',
+          nombre: 'Distribution Category',
+          descripcion: 'Categorías para clasificar tipos de distribuciones de datasets.',
+          archivo: 'codelists/distribution-category.yaml',
+          icono: '📋'
+        },
+        {
+          id: 'dataset-accrual-periodicity',
+          nombre: 'Accrual Periodicity',
+          descripcion: 'Periodicidad de actualización de datasets (vocabulario EU Frequency).',
+          archivo: 'codelists/dataset-accrual-periodicity.yaml',
+          icono: '🔄'
+        },
+        {
+          id: 'distribution-mediatype',
+          nombre: 'Distribution Media Type',
+          descripcion: 'Tipos MIME para las distribuciones de datasets.',
+          archivo: 'codelists/distribution-mediatype.yaml',
+          icono: '📁'
+        },
+        {
+          id: 'distribution-character-set',
+          nombre: 'Distribution Character Set',
+          descripcion: 'Codificación de caracteres usada en el archivo de la distribución (IANA).',
+          archivo: 'codelists/distribution-character-set.yaml',
+          icono: '🔤'
+        },
+        {
+          id: 'distribution-projection',
+          nombre: 'Distribution Projection',
+          descripcion: 'Sistema de referencia de coordenadas (CRS/EPSG) para distribuciones geoespaciales.',
+          archivo: 'codelists/distribution-projection.yaml',
+          icono: '🌐'
+        },
+        {
+          id: 'dataset-spatial-uri',
+          nombre: 'Dataset Spatial URI',
+          descripcion: 'URIs de referencia geográfica para datasets con cobertura territorial.',
+          archivo: 'codelists/dataset-spatial-uri.yaml',
+          icono: '📍'
+        },
+        {
+          id: 'dataset-superTheme',
+          nombre: 'Dataset SuperTheme',
+          descripcion: 'Temáticas de nivel superior para clasificación de datasets.',
+          archivo: 'codelists/dataset-superTheme.yaml',
+          icono: '🏛️'
+        },
+        {
+          id: 'dataset-status',
+          nombre: 'Dataset Status',
+          descripcion: 'Estado de actualización del dataset (vocabulario ADMS Status, W3C).',
+          archivo: 'codelists/dataset-status.yaml',
+          icono: '🔖'
+        }
+      ]
+    };
+
+    /* === ESTADO === */
+    const estado = {
+      vocabData: {},     // id -> { scheme, concepts, conceptMap, childrenMap, roots }
+      codelistData: {},  // id -> [{ id, label, description }]
+      loadStatus: {},    // id -> 'cargando' | 'listo' | 'error'
+      pendientes: 0,
+      total: 0,
+    };
+
+    /* === UTILIDADES DOM === */
+
+    // Crea un elemento con atributos y texto opcionales
+    function crearEl(tag, attrs) {
+      const el = document.createElement(tag);
+      if (attrs) {
+        for (const [k, v] of Object.entries(attrs)) {
+          if (k === 'textContent') el.textContent = v;
+          else if (k === 'className') el.className = v;
+          else el.setAttribute(k, v);
+        }
+      }
+      return el;
+    }
+
+    // Agrega hijos a un elemento (acepta nodos o strings)
+    function agregar(parent, ...children) {
+      for (const child of children) {
+        if (child == null) continue;
+        if (typeof child === 'string') parent.appendChild(document.createTextNode(child));
+        else parent.appendChild(child);
+      }
+      return parent;
+    }
+
+    // Vacía un contenedor
+    function vaciar(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+    /* === PROGRESS BAR === */
+
+    function progressInicio(total) {
+      estado.total = total;
+      estado.pendientes = total;
+      const bar = document.getElementById('progress-bar');
+      bar.classList.remove('oculto');
+      bar.style.width = '5%';
+    }
+
+    function progressAvanzar() {
+      estado.pendientes--;
+      const pct = estado.total > 0
+        ? Math.round(((estado.total - estado.pendientes) / estado.total) * 100)
+        : 100;
+      const bar = document.getElementById('progress-bar');
+      bar.style.width = pct + '%';
+      if (estado.pendientes <= 0) {
+        setTimeout(() => { bar.classList.add('oculto'); bar.style.width = '0%'; }, 400);
+      }
+    }
+
+    /* === TTL TOKENIZER === */
+
+    // Convierte texto TTL en array de tokens { t, v, lang }
+    function tokenizarTTL(text) {
+      const tokens = [];
+      let i = 0;
+      const len = text.length;
+
+      while (i < len) {
+        const ch = text[i];
+
+        // Whitespace
+        if (ch === ' ' || ch === '\t' || ch === '\r' || ch === '\n') { i++; continue; }
+
+        // Comentario de línea
+        if (ch === '#') { while (i < len && text[i] !== '\n') i++; continue; }
+
+        // URI entre < >
+        if (ch === '<') {
+          let j = i + 1;
+          while (j < len && text[j] !== '>') { if (text[j] === '\\') j++; j++; }
+          tokens.push({ t: 'URI', v: text.slice(i + 1, j) });
+          i = j + 1;
+          continue;
+        }
+
+        // Literal de cadena
+        if (ch === '"') {
+          // Triple comilla
+          if (text[i + 1] === '"' && text[i + 2] === '"') {
+            let j = i + 3;
+            while (j < len) {
+              if (text[j] === '"' && text[j+1] === '"' && text[j+2] === '"') { j += 3; break; }
+              if (text[j] === '\\') j++;
+              j++;
+            }
+            let str = text.slice(i + 3, j - 3);
+            let lang = '';
+            if (text[j] === '@') {
+              j++;
+              let k = j;
+              while (k < len && /[a-zA-Z0-9-]/.test(text[k])) k++;
+              lang = text.slice(j, k); j = k;
+            } else if (text[j] === '^' && text[j+1] === '^') {
+              j += 2;
+              if (text[j] === '<') { while (j < len && text[j] !== '>') j++; j++; }
+              else { while (j < len && !/[\s,;.]/.test(text[j])) j++; }
+            }
+            tokens.push({ t: 'LIT', v: str, lang });
+            i = j; continue;
+          }
+          // Comilla simple
+          let j = i + 1;
+          let str = '';
+          while (j < len && text[j] !== '"') {
+            if (text[j] === '\\') {
+              j++;
+              const e = text[j];
+              str += e === 'n' ? '\n' : e === 't' ? '\t' : e === '"' ? '"' : e === '\\' ? '\\' : e;
+            } else { str += text[j]; }
+            j++;
+          }
+          j++; // cierre "
+          let lang = '';
+          if (j < len && text[j] === '@') {
+            j++;
+            let k = j;
+            while (k < len && /[a-zA-Z0-9-]/.test(text[k])) k++;
+            lang = text.slice(j, k); j = k;
+          } else if (j < len && text[j] === '^' && text[j+1] === '^') {
+            j += 2;
+            if (j < len && text[j] === '<') { while (j < len && text[j] !== '>') j++; j++; }
+            else { while (j < len && !/[\s,;.]/.test(text[j])) j++; }
+          }
+          tokens.push({ t: 'LIT', v: str, lang });
+          i = j; continue;
+        }
+
+        // Nodo anónimo — capturar todo el bloque [ ... ]
+        if (ch === '[') {
+          let depth = 1, j = i + 1;
+          while (j < len && depth > 0) {
+            const c2 = text[j];
+            if (c2 === '[') depth++;
+            else if (c2 === ']') depth--;
+            else if (c2 === '"') {
+              if (text[j+1] === '"' && text[j+2] === '"') {
+                j += 3;
+                while (j < len) { if (text[j] === '"' && text[j+1] === '"' && text[j+2] === '"') { j += 2; break; } if (text[j] === '\\') j++; j++; }
+              } else {
+                j++;
+                while (j < len && text[j] !== '"') { if (text[j] === '\\') j++; j++; }
+              }
+            } else if (c2 === '#') { while (j < len && text[j] !== '\n') j++; }
+            j++;
+          }
+          tokens.push({ t: 'ANON' });
+          i = j; continue;
+        }
+
+        // Puntuación
+        if (ch === '.' || ch === ';' || ch === ',') { tokens.push({ t: 'P', v: ch }); i++; continue; }
+
+        // Números y booleanos como literales
+        if (ch === '-' || ch === '+' || /[0-9]/.test(ch) || (ch === 't' && text.slice(i, i+4) === 'true') || (ch === 'f' && text.slice(i, i+5) === 'false')) {
+          let j = i;
+          while (j < len && !/[\s,;.<>\[\]"#]/.test(text[j])) j++;
+          const w = text.slice(i, j);
+          if (w === 'true' || w === 'false') tokens.push({ t: 'LIT', v: w, lang: '' });
+          else if (/^[+-]?[\d.]/.test(w)) tokens.push({ t: 'LIT', v: w, lang: '' });
+          else tokens.push({ t: 'W', v: w });
+          i = j; continue;
+        }
+
+        // Palabras: prefijos, URIs prefijadas, keywords
+        let j = i;
+        while (j < len) {
+          const c2 = text[j];
+          if (/[\s<>";\[\],#^]/.test(c2)) break;
+          // Punto al final de statement
+          if (c2 === '.' && (j + 1 >= len || /[\s#]/.test(text[j+1]))) break;
+          j++;
+        }
+        if (j > i) { tokens.push({ t: 'W', v: text.slice(i, j) }); i = j; continue; }
+        i++; // carácter desconocido
+      }
+      return tokens;
+    }
+
+    /* === TTL PARSER === */
+
+    // Parsea tokens en triples y prefijos
+    function parsearTokens(tokens) {
+      const prefijos = {};
+      let base = '';
+      const triples = [];
+      let i = 0;
+      const n = tokens.length;
+
+      const peek = () => (i < n ? tokens[i] : null);
+      const consume = () => (i < n ? tokens[i++] : null);
+
+      // Resuelve URI relativa contra base
+      function resolverURI(uri) {
+        if (!uri) return uri;
+        if (/^(https?:|urn:|\/\/)/.test(uri)) return uri;
+        if (!base) return uri;
+        if (uri === '') return base;
+        const dir = base.endsWith('/') ? base : base.replace(/\/[^/]*$/, '/');
+        return dir + uri;
+      }
+
+      // Expande término a URI completa
+      function expandir(tok) {
+        if (!tok) return null;
+        if (tok.t === 'URI') return resolverURI(tok.v);
+        if (tok.t === 'W') {
+          const v = tok.v;
+          if (v === 'a') return 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
+          const c = v.indexOf(':');
+          if (c === -1) return v;
+          const pfx = v.slice(0, c);
+          const local = v.slice(c + 1);
+          return (pfjos => pfjos !== undefined ? pfjos + local : v)(prefijos[pfx]);
+        }
+        return null;
+      }
+
+      while (i < n) {
+        const tok = peek();
+        if (!tok) break;
+
+        // @prefix / PREFIX
+        if (tok.t === 'W' && (tok.v === '@prefix' || tok.v.toUpperCase() === 'PREFIX')) {
+          consume();
+          const pfxTok = consume();
+          const uriTok = consume();
+          if (tok.v === '@prefix') consume(); // consume '.'
+          if (pfxTok && uriTok && uriTok.t === 'URI') {
+            const nombre = pfxTok.v.endsWith(':') ? pfxTok.v.slice(0, -1) : pfxTok.v;
+            prefijos[nombre] = uriTok.v;
+          }
+          continue;
+        }
+
+        // @base / BASE
+        if (tok.t === 'W' && (tok.v === '@base' || tok.v.toUpperCase() === 'BASE')) {
+          consume();
+          const uriTok = consume();
+          if (tok.v === '@base') consume(); // '.'
+          if (uriTok && uriTok.t === 'URI') base = uriTok.v;
+          continue;
+        }
+
+        // Punto suelto
+        if (tok.t === 'P' && tok.v === '.') { consume(); continue; }
+
+        // Nodo anónimo como sujeto (inusual)
+        if (tok.t === 'ANON') {
+          consume();
+          // Saltear hasta el próximo '.'
+          while (i < n) { const t = consume(); if (t && t.t === 'P' && t.v === '.') break; }
+          continue;
+        }
+
+        // Sujeto
+        const sujetoTok = consume();
+        const sujeto = expandir(sujetoTok);
+        if (!sujeto) {
+          while (i < n) { const t = consume(); if (t && t.t === 'P' && t.v === '.') break; }
+          continue;
+        }
+
+        // Pares predicado-objeto
+        while (i < n) {
+          const next = peek();
+          if (!next) break;
+          if (next.t === 'P' && next.v === '.') { consume(); break; }
+          if (next.t === 'P' && next.v === ';') { consume(); continue; }
+
+          // Predicado
+          const predTok = consume();
+          if (!predTok || (predTok.t === 'P' && predTok.v === '.')) break;
+          if (predTok.t === 'P' && predTok.v === ';') continue;
+          if (predTok.t === 'ANON') continue;
+
+          const predicado = expandir(predTok);
+          if (!predicado) {
+            while (i < n) { const t = peek(); if (!t || (t.t === 'P' && (t.v === ';' || t.v === '.'))) break; consume(); }
+            continue;
+          }
+
+          // Objetos separados por coma
+          while (i < n) {
+            const objNext = peek();
+            if (!objNext) break;
+            if (objNext.t === 'P' && (objNext.v === '.' || objNext.v === ';')) break;
+            if (objNext.t === 'P' && objNext.v === ',') { consume(); continue; }
+
+            const objTok = consume();
+            if (!objTok) break;
+            if (objTok.t === 'ANON') continue;
+
+            if (objTok.t === 'LIT') {
+              triples.push({ s: sujeto, p: predicado, o: objTok.v, lang: objTok.lang || '', lit: true });
+            } else {
+              const objURI = expandir(objTok);
+              if (objURI) triples.push({ s: sujeto, p: predicado, o: objURI, lang: '', lit: false });
+            }
+          }
+        }
+      }
+      return triples;
+    }
+
+    /* === TTL MODEL BUILDER === */
+
+    const URI = {
+      TYPE:              'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+      CONCEPT:           'http://www.w3.org/2004/02/skos/core#Concept',
+      SCHEME:            'http://www.w3.org/2004/02/skos/core#ConceptScheme',
+      PREF_LABEL:        'http://www.w3.org/2004/02/skos/core#prefLabel',
+      ALT_LABEL:         'http://www.w3.org/2004/02/skos/core#altLabel',
+      DEFINITION:        'http://www.w3.org/2004/02/skos/core#definition',
+      NOTATION:          'http://www.w3.org/2004/02/skos/core#notation',
+      BROADER:           'http://www.w3.org/2004/02/skos/core#broader',
+      NARROWER:          'http://www.w3.org/2004/02/skos/core#narrower',
+      IN_SCHEME:         'http://www.w3.org/2004/02/skos/core#inScheme',
+      TOP_CONCEPT_OF:    'http://www.w3.org/2004/02/skos/core#topConceptOf',
+      HAS_TOP_CONCEPT:   'http://www.w3.org/2004/02/skos/core#hasTopConcept',
+      DCT_TITLE:         'http://purl.org/dc/terms/title',
+      DCT_DESC:          'http://purl.org/dc/terms/description',
+      RDFS_LABEL:        'http://www.w3.org/2000/01/rdf-schema#label',
+      RDFS_COMMENT:      'http://www.w3.org/2000/01/rdf-schema#comment',
+      RDFS_SEE_ALSO:     'http://www.w3.org/2000/01/rdf-schema#seeAlso',
+      FOAF_DOC:          'http://xmlns.com/foaf/0.1/Document',
+      SCOPE_NOTE:        'http://www.w3.org/2004/02/skos/core#scopeNote',
+    };
+
+    // Predicados SKOS/RDF de "estructura" que no se muestran como propiedades extra
+    const PREDS_ESTANDAR = new Set([
+      URI.TYPE, URI.PREF_LABEL, URI.ALT_LABEL, URI.DEFINITION, URI.NOTATION,
+      URI.BROADER, URI.NARROWER, URI.IN_SCHEME, URI.TOP_CONCEPT_OF,
+      URI.HAS_TOP_CONCEPT, URI.RDFS_SEE_ALSO,
+    ]);
+
+    // Configuración de predicados extra a mostrar en la ficha de concepto
+    const PRED_CONFIG = {
+      'http://qudt.org/schema/qudt/unit':                                             { label: 'Unidad de medida',             tipo: 'uri-label' },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/anoBase':             { label: 'Año base',                     tipo: 'literal'   },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/periodicidad':        { label: 'Periodicidad',                 tipo: 'uri-label' },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/alcanceGeografico':   { label: 'Alcance geográfico',           tipo: 'uri-chips' },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/tieneDimension':      { label: 'Dimensiones analíticas',       tipo: 'dim-chips' },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/dimensionesCompatibles': { label: 'Combinaciones válidas',     tipo: 'dim-chips' },
+      'https://infra.datos.gob.ar/vocabulario/indicadores-indec/publicacion':         { label: 'Publicación de origen',        tipo: 'publicacion' },
+      [URI.SCOPE_NOTE]:                                                                { label: 'Nota de alcance',             tipo: 'literal'   },
+    };
+
+    // Etiquetas para unidades QUDT (no declaradas en el TTL)
+    const QUDT_LABELS = {
+      'http://qudt.org/vocab/unit/UNITLESS': 'Número índice (adimensional)',
+      'http://qudt.org/vocab/unit/PERCENT':  'Porcentaje (%)',
+      'http://qudt.org/vocab/unit/NUM':      'Número entero',
+      'http://qudt.org/vocab/unit/RATIO':    'Razón',
+    };
+
+    // Construye el modelo { scheme, concepts, resourceLabels, publicaciones } a partir de triples
+    function construirModelo(triples) {
+      // Agrupar predicados por sujeto
+      const nodos = {};
+      for (const t of triples) {
+        if (!nodos[t.s]) nodos[t.s] = {};
+        if (!nodos[t.s][t.p]) nodos[t.s][t.p] = [];
+        nodos[t.s][t.p].push({ v: t.o, lang: t.lang, lit: t.lit });
+      }
+
+      // Recupera literal en idioma preferido
+      function getLit(uri, pred, lang) {
+        const vals = (nodos[uri] && nodos[uri][pred]) || [];
+        const m = vals.find(x => x.lit && x.lang === lang);
+        return m ? m.v : null;
+      }
+      function getMejorLiteral(uri, pred) {
+        return getLit(uri, pred, 'es') || getLit(uri, pred, 'en') || getLit(uri, pred, '') || null;
+      }
+      function getURIRefs(uri, pred) {
+        return ((nodos[uri] && nodos[uri][pred]) || []).filter(x => !x.lit).map(x => x.v);
+      }
+      function tienesTipo(uri, tipo) {
+        return ((nodos[uri] && nodos[uri][URI.TYPE]) || []).some(x => !x.lit && x.v === tipo);
+      }
+
+      // Encontrar ConceptScheme principal
+      let scheme = null;
+      for (const [uri] of Object.entries(nodos)) {
+        if (tienesTipo(uri, URI.SCHEME)) {
+          const title = getMejorLiteral(uri, URI.DCT_TITLE) || getMejorLiteral(uri, URI.RDFS_LABEL) || uri.split('/').pop() || uri;
+          const desc  = getMejorLiteral(uri, URI.DCT_DESC)  || getMejorLiteral(uri, URI.RDFS_COMMENT) || '';
+          scheme = { uri, title, description: desc };
+          break;
+        }
+      }
+
+      // Mapa de etiquetas de recursos auxiliares (dimensiones, grupos, etc.)
+      const resourceLabels = {};
+      for (const [uri, preds] of Object.entries(nodos)) {
+        if (tienesTipo(uri, URI.CONCEPT) || tienesTipo(uri, URI.SCHEME)) continue;
+        const lbl = getMejorLiteral(uri, URI.RDFS_LABEL) || getMejorLiteral(uri, URI.DCT_TITLE);
+        if (lbl) resourceLabels[uri] = lbl;
+      }
+
+      // Publicaciones foaf:Document con título y links
+      const publicaciones = {};
+      for (const [uri, preds] of Object.entries(nodos)) {
+        if (!tienesTipo(uri, URI.FOAF_DOC)) continue;
+        const title = getMejorLiteral(uri, URI.DCT_TITLE) || getMejorLiteral(uri, URI.RDFS_LABEL) || uri;
+        const links = getURIRefs(uri, URI.RDFS_SEE_ALSO);
+        publicaciones[uri] = { title, links };
+      }
+
+      // Encontrar todos los Concepts
+      const concepts = [];
+      for (const [uri] of Object.entries(nodos)) {
+        if (!tienesTipo(uri, URI.CONCEPT)) continue;
+
+        // Etiquetas por idioma
+        const labels = {};
+        for (const lv of (nodos[uri][URI.PREF_LABEL] || [])) {
+          if (lv.lit) labels[lv.lang || ''] = lv.v;
+        }
+
+        const definition = getLit(uri, URI.DEFINITION, 'es') || getLit(uri, URI.DEFINITION, 'en') || getLit(uri, URI.DEFINITION, '') || '';
+        const notVals    = (nodos[uri][URI.NOTATION] || []);
+        const notation   = notVals.length ? notVals[0].v : '';
+        const broader    = getURIRefs(uri, URI.BROADER);
+        const narrower   = getURIRefs(uri, URI.NARROWER);
+
+        // Todos los predicados extra (no-SKOS estándar)
+        const predicados = {};
+        for (const [pred, vals] of Object.entries(nodos[uri] || {})) {
+          if (PREDS_ESTANDAR.has(pred)) continue;
+          predicados[pred] = vals;
+        }
+
+        concepts.push({ uri, labels, definition, notation, broader, narrower, predicados });
+      }
+
+      return { scheme: scheme || { uri: '', title: 'Sin título', description: '' }, concepts, resourceLabels, publicaciones };
+    }
+
+    // Punto de entrada del parser TTL
+    function parsearTTL(text) {
+      const tokens = tokenizarTTL(text);
+      const triples = parsearTokens(tokens);
+      return construirModelo(triples);
+    }
+
+    /* === YAML PARSER === */
+
+    // Normaliza un valor localizado (string o {es,en,...})
+    function strLocal(val, lang) {
+      if (!val) return '';
+      if (typeof val === 'string') return val.trim();
+      if (typeof val === 'object') {
+        const v = val[lang] || val.es || val.en || Object.values(val)[0] || '';
+        return String(v).trim();
+      }
+      return String(val).trim();
+    }
+
+    // Parsea YAML y normaliza a [{ id, label, description }]
+    function parsearYAML(text) {
+      const data = jsyaml.load(text);
+      const normalizar = item => ({
+        id: String(item.id || item.code || ''),
+        label: strLocal(item.label, 'es') || String(item.id || item.code || ''),
+        description: strLocal(item.description, 'es')
+      });
+
+      if (Array.isArray(data)) return data.map(normalizar);
+
+      const items = data.values || data.codes || [];
+      return items.map(normalizar);
+    }
+
+    /* === ÁRBOL SKOS === */
+
+    // Construye estructura de árbol a partir de relaciones broader/narrower
+    function construirArbol(concepts) {
+      const mapa = {};
+      const hijos = {}; // uri -> [uri, ...]
+
+      for (const c of concepts) {
+        mapa[c.uri] = c;
+        if (!hijos[c.uri]) hijos[c.uri] = [];
+      }
+
+      // Agregar narrower explícitos + inferidos desde broader
+      for (const c of concepts) {
+        for (const n of c.narrower) {
+          if (mapa[n] && !hijos[c.uri].includes(n)) hijos[c.uri].push(n);
+        }
+        for (const b of c.broader) {
+          if (!hijos[b]) hijos[b] = [];
+          if (mapa[b] && !hijos[b].includes(c.uri)) hijos[b].push(c.uri);
+        }
+      }
+
+      // Raíces: conceptos sin padre conocido dentro del vocabulario
+      const tieneParent = new Set();
+      for (const [, lista] of Object.entries(hijos)) {
+        for (const h of lista) { if (mapa[h]) tieneParent.add(h); }
+      }
+      const raices = concepts.filter(c => !tieneParent.has(c.uri));
+
+      return { mapa, hijos, raices };
+    }
+
+    // Devuelve la etiqueta preferida de un concepto
+    function etiqueta(concepto) {
+      return concepto.labels.es || concepto.labels.en || concepto.labels[''] || concepto.uri.split('/').pop() || concepto.uri;
+    }
+
+    /* === RENDER TARJETA === */
+
+    // Renderiza una tarjeta en el grid con estado inicial de carga
+    function renderTarjeta(cfg, tipo) {
+      const card = crearEl('a', {
+        className: 'card',
+        href: '#' + tipo + '/' + cfg.id,
+        'data-card-id': cfg.id,
+        'aria-label': cfg.nombre
+      });
+
+      const iconEl  = crearEl('div', { className: 'card-icon', textContent: cfg.icono });
+      const nameEl  = crearEl('div', { className: 'card-name', textContent: cfg.nombre });
+      const descEl  = crearEl('div', { className: 'card-desc', textContent: cfg.descripcion });
+      const footEl  = crearEl('div', { className: 'card-footer' });
+      const badgeEl = crearEl('span', { className: 'badge badge-' + (tipo === 'vocab' ? 'ttl' : 'yaml'), textContent: tipo === 'vocab' ? 'TTL' : 'YAML' });
+      const statusEl = crearEl('div', { className: 'card-status' });
+      const spinnerEl = crearEl('span', { className: 'spinner', 'aria-hidden': 'true' });
+      const loadTxt  = crearEl('span', { textContent: 'cargando…' });
+      agregar(statusEl, spinnerEl, loadTxt);
+      agregar(footEl, badgeEl, statusEl);
+      agregar(card, iconEl, nameEl, descEl, footEl);
+
+      return card;
+    }
+
+    // Actualiza el contador de una tarjeta ya renderizada
+    function actualizarTarjetaConteo(id, conteo) {
+      const card = document.querySelector('[data-card-id="' + id + '"] .card-status');
+      if (!card) return;
+      vaciar(card);
+      const countEl = crearEl('span', { className: 'card-count', textContent: conteo + ' entradas' });
+      card.appendChild(countEl);
+      card.className = 'card-count';
+    }
+
+    // Marca una tarjeta como fallida
+    function actualizarTarjetaError(id, archivo) {
+      const card = document.querySelector('[data-card-id="' + id + '"] .card-status');
+      if (!card) return;
+      vaciar(card);
+      const errEl = crearEl('span', { className: 'card-status error', textContent: '⚠ No disponible' });
+      errEl.title = archivo;
+      card.appendChild(errEl);
+    }
+
+    /* === CARGA DE ARCHIVOS === */
+
+    // Carga todos los archivos en paralelo; actualiza tarjetas a medida que llegan
+    async function cargarArchivos() {
+      const total = APP_CONFIG.vocabularios.length + APP_CONFIG.codelists.length;
+      progressInicio(total);
+
+      const tareasVocab = APP_CONFIG.vocabularios.map(async cfg => {
+        estado.loadStatus[cfg.id] = 'cargando';
+        try {
+          const res = await fetch(cfg.archivo);
+          if (!res.ok) throw new Error(res.status);
+          const text = await res.text();
+          const { scheme, concepts, resourceLabels, publicaciones } = parsearTTL(text);
+          const { mapa, hijos, raices } = construirArbol(concepts);
+          estado.vocabData[cfg.id] = { scheme, concepts, mapa, hijos, raices, archivo: cfg.archivo, resourceLabels, publicaciones };
+          estado.loadStatus[cfg.id] = 'listo';
+          actualizarTarjetaConteo(cfg.id, concepts.length);
+        } catch {
+          estado.loadStatus[cfg.id] = 'error';
+          actualizarTarjetaError(cfg.id, cfg.archivo);
+        }
+        progressAvanzar();
+      });
+
+      const tareasCodelist = APP_CONFIG.codelists.map(async cfg => {
+        estado.loadStatus[cfg.id] = 'cargando';
+        try {
+          const res = await fetch(cfg.archivo);
+          if (!res.ok) throw new Error(res.status);
+          const text = await res.text();
+          const valores = parsearYAML(text);
+          estado.codelistData[cfg.id] = valores;
+          estado.loadStatus[cfg.id] = 'listo';
+          actualizarTarjetaConteo(cfg.id, valores.length);
+        } catch {
+          estado.loadStatus[cfg.id] = 'error';
+          actualizarTarjetaError(cfg.id, cfg.archivo);
+        }
+        progressAvanzar();
+      });
+
+      await Promise.allSettled([...tareasVocab, ...tareasCodelist]);
+    }
+
+    /* === RENDER VIEWS === */
+
+    // Muestra una vista y oculta el resto
+    function mostrarVista(idVista) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('activa'));
+      const vista = document.getElementById(idVista);
+      if (vista) vista.classList.add('activa');
+      window.scrollTo(0, 0);
+    }
+
+    /* ── Índice ──────────────────────────────────────────────────── */
+
+    function renderIndex() {
+      mostrarVista('view-index');
+      // La búsqueda del navbar filtra las tarjetas
+      const input = document.getElementById('nav-search');
+      input.oninput = () => {
+        const q = input.value.trim().toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+          const texto = card.textContent.toLowerCase();
+          card.style.display = (!q || texto.includes(q)) ? '' : 'none';
+        });
+      };
+    }
+
+    function construirIndex() {
+      const gridVocab = document.getElementById('grid-vocab');
+      const gridCodelist = document.getElementById('grid-codelist');
+      vaciar(gridVocab);
+      vaciar(gridCodelist);
+
+      for (const cfg of APP_CONFIG.vocabularios) {
+        gridVocab.appendChild(renderTarjeta(cfg, 'vocab'));
+      }
+      for (const cfg of APP_CONFIG.codelists) {
+        gridCodelist.appendChild(renderTarjeta(cfg, 'codelist'));
+      }
+    }
+
+    /* ── Vocabulario (árbol SKOS) ────────────────────────────────── */
+
+    // Renderiza un nodo del árbol SKOS con sus hijos
+    function renderNodoArbol(uri, { mapa, hijos }, vocabId, visitados = new Set()) {
+      if (visitados.has(uri)) return null;
+      visitados.add(uri);
+
+      const concepto = mapa[uri];
+      if (!concepto) return null;
+
+      const label = etiqueta(concepto);
+      const childUris = (hijos[uri] || []).filter(h => mapa[h]);
+      const tieneHijos = childUris.length > 0;
+
+      const li = crearEl('li', { className: 'tree-item', role: 'treeitem', 'aria-expanded': tieneHijos ? 'true' : undefined });
+
+      const row = crearEl('div', { className: 'tree-row' });
+
+      if (tieneHijos) {
+        const toggle = crearEl('button', { className: 'tree-toggle', 'aria-label': 'Contraer ' + label, title: 'Expandir/contraer' });
+        toggle.textContent = '▾';
+        toggle.onclick = (e) => {
+          e.preventDefault();
+          const childList = li.querySelector('.tree-children');
+          const colapsado = childList.classList.toggle('colapsado');
+          toggle.textContent = colapsado ? '▸' : '▾';
+          li.setAttribute('aria-expanded', String(!colapsado));
+          toggle.setAttribute('aria-label', (colapsado ? 'Expandir ' : 'Contraer ') + label);
+        };
+        toggle.onkeydown = (e) => {
+          if (e.key === 'ArrowRight') { toggle.click(); e.preventDefault(); }
+          if (e.key === 'ArrowLeft')  { toggle.click(); e.preventDefault(); }
+        };
+        row.appendChild(toggle);
+      } else {
+        row.appendChild(crearEl('span', { className: 'tree-spacer', 'aria-hidden': 'true' }));
+      }
+
+      const conceptId = encodeURIComponent(uri);
+      const link = crearEl('a', {
+        href: '#vocab/' + vocabId + '/concept/' + conceptId,
+        className: 'tree-label-link'
+      });
+      link.textContent = label;
+
+      const labelSpan = crearEl('span', { className: 'tree-label' });
+      labelSpan.appendChild(link);
+      row.appendChild(labelSpan);
+
+      if (concepto.notation) {
+        const notBadge = crearEl('span', { className: 'tree-notation', textContent: concepto.notation });
+        row.appendChild(notBadge);
+      }
+
+      li.appendChild(row);
+
+      if (tieneHijos) {
+        const childList = crearEl('ul', { className: 'tree-children', role: 'group' });
+        for (const childUri of childUris) {
+          const childNode = renderNodoArbol(childUri, { mapa, hijos }, vocabId, visitados);
+          if (childNode) childList.appendChild(childNode);
+        }
+        li.appendChild(childList);
+      }
+
+      return li;
+    }
+
+    // Renderiza el árbol completo o lista plana según búsqueda
+    function renderVocabTree(vocabId, filtro) {
+      const data = estado.vocabData[vocabId];
+      const contenedor = document.getElementById('vocab-tree');
+      const countEl = document.getElementById('vocab-count');
+      vaciar(contenedor);
+
+      if (!data) {
+        contenedor.appendChild(crearEl('div', { className: 'no-results', textContent: '⚠ Vocabulario no disponible.' }));
+        return;
+      }
+
+      const { concepts, mapa, hijos, raices } = data;
+
+      if (filtro) {
+        // Lista plana filtrada
+        const q = filtro.toLowerCase();
+        const matches = concepts.filter(c => {
+          const lab = etiqueta(c).toLowerCase();
+          const def = c.definition.toLowerCase();
+          const not = c.notation.toLowerCase();
+          return lab.includes(q) || def.includes(q) || not.includes(q);
+        });
+        countEl.textContent = matches.length + ' resultado' + (matches.length !== 1 ? 's' : '');
+        if (matches.length === 0) {
+          contenedor.appendChild(crearEl('div', { className: 'no-results', textContent: 'No se encontraron conceptos para "' + filtro + '".' }));
+          return;
+        }
+        const ul = crearEl('ul', { className: 'concept-list', role: 'list' });
+        for (const c of matches) {
+          const li = crearEl('li', { className: 'concept-item' });
+          const nameDiv = crearEl('div', { className: 'concept-item-name' });
+          const link = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(c.uri) });
+          link.textContent = etiqueta(c);
+          nameDiv.appendChild(link);
+          li.appendChild(nameDiv);
+          if (c.notation) {
+            const notEl = crearEl('span', { className: 'concept-item-notation', textContent: c.notation });
+            li.appendChild(notEl);
+          }
+          if (c.definition) {
+            const defEl = crearEl('div', { className: 'concept-item-def', textContent: c.definition });
+            li.appendChild(defEl);
+          }
+          ul.appendChild(li);
+        }
+        contenedor.appendChild(ul);
+      } else {
+        // Árbol jerárquico
+        countEl.textContent = concepts.length + ' concepto' + (concepts.length !== 1 ? 's' : '');
+        if (raices.length === 0 && concepts.length > 0) {
+          // Sin jerarquía: lista plana
+          const ul = crearEl('ul', { className: 'concept-list', role: 'list' });
+          for (const c of concepts) {
+            const li = crearEl('li', { className: 'concept-item' });
+            const nameDiv = crearEl('div', { className: 'concept-item-name' });
+            const link = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(c.uri) });
+            link.textContent = etiqueta(c);
+            nameDiv.appendChild(link);
+            li.appendChild(nameDiv);
+            if (c.definition) li.appendChild(crearEl('div', { className: 'concept-item-def', textContent: c.definition }));
+            ul.appendChild(li);
+          }
+          contenedor.appendChild(ul);
+        } else {
+          const ul = crearEl('ul', { className: 'tree', role: 'tree', 'aria-label': 'Árbol de conceptos' });
+          for (const raiz of raices) {
+            const nodo = renderNodoArbol(raiz.uri, { mapa, hijos }, vocabId, new Set());
+            if (nodo) ul.appendChild(nodo);
+          }
+          contenedor.appendChild(ul);
+          // Navegación por teclado en el árbol
+          ul.addEventListener('keydown', navegarArbol);
+        }
+      }
+    }
+
+    // Maneja flechas de teclado en el árbol
+    function navegarArbol(e) {
+      const focused = document.activeElement;
+      if (!focused) return;
+      const row = focused.closest('.tree-row');
+      if (!row) return;
+      const li = row.closest('.tree-item');
+      if (!li) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = li.nextElementSibling;
+        if (next) next.querySelector('a, button') && next.querySelector('a, button').focus();
+        else {
+          const children = li.querySelector('.tree-children:not(.colapsado)');
+          if (children) { const first = children.querySelector('a, button'); if (first) first.focus(); }
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = li.previousElementSibling;
+        if (prev) { const el = prev.querySelector('a, button'); if (el) el.focus(); }
+      }
+    }
+
+    // Renderiza la vista de vocabulario
+    function renderVocab(id) {
+      const cfg = APP_CONFIG.vocabularios.find(v => v.id === id);
+      if (!cfg) { navegarA('#'); return; }
+
+      mostrarVista('view-vocab');
+
+      // Breadcrumb
+      const bc = document.getElementById('vocab-breadcrumb');
+      vaciar(bc);
+      const home = crearEl('a', { href: '#', textContent: 'Inicio' });
+      agregar(bc, home, crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' }), cfg.nombre);
+
+      // Header
+      document.getElementById('vocab-icon').textContent = cfg.icono;
+      document.getElementById('vocab-title').textContent = cfg.nombre;
+
+      const descEl = document.getElementById('vocab-desc');
+      if (estado.vocabData[id]) {
+        descEl.textContent = estado.vocabData[id].scheme.description || cfg.descripcion;
+      } else {
+        descEl.textContent = cfg.descripcion;
+      }
+
+      // Botones
+      document.getElementById('vocab-back').onclick = () => navegarA('#');
+      const dlBtn = document.getElementById('vocab-download');
+      dlBtn.onclick = () => {
+        const a = crearEl('a', { href: cfg.archivo, download: cfg.id + '.ttl' });
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+
+      // Árbol
+      renderVocabTree(id, '');
+
+      // Búsqueda interna
+      const searchInput = document.getElementById('vocab-search');
+      searchInput.value = '';
+      searchInput.oninput = () => renderVocabTree(id, searchInput.value.trim());
+    }
+
+    /* ── Codelist (tabla) ────────────────────────────────────────── */
+
+    function renderCodelistTabla(id, filtro) {
+      const valores = estado.codelistData[id] || [];
+      const tbody = document.getElementById('codelist-tbody');
+      const countEl = document.getElementById('codelist-count');
+      vaciar(tbody);
+
+      const q = filtro ? filtro.toLowerCase() : '';
+      const visible = q
+        ? valores.filter(v => v.id.toLowerCase().includes(q) || v.label.toLowerCase().includes(q) || v.description.toLowerCase().includes(q))
+        : valores;
+
+      countEl.textContent = visible.length + ' valor' + (visible.length !== 1 ? 'es' : '');
+
+      if (visible.length === 0) {
+        const tr = crearEl('tr');
+        const td = crearEl('td', { colspan: '3', className: 'no-results' });
+        td.textContent = q ? 'Sin resultados para "' + filtro + '".' : 'Sin datos disponibles.';
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+      }
+
+      for (const v of visible) {
+        const tr = crearEl('tr');
+        const tdId  = crearEl('td', { className: 'col-id', textContent: v.id });
+        const tdLab = crearEl('td', { className: 'col-label', textContent: v.label });
+        const tdDesc = crearEl('td', { className: 'col-desc', textContent: v.description });
+        agregar(tr, tdId, tdLab, tdDesc);
+        tbody.appendChild(tr);
+      }
+    }
+
+    function renderCodelist(id) {
+      const cfg = APP_CONFIG.codelists.find(c => c.id === id);
+      if (!cfg) { navegarA('#'); return; }
+
+      mostrarVista('view-codelist');
+
+      // Breadcrumb
+      const bc = document.getElementById('codelist-breadcrumb');
+      vaciar(bc);
+      const home = crearEl('a', { href: '#', textContent: 'Inicio' });
+      agregar(bc, home, crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' }), cfg.nombre);
+
+      // Header
+      document.getElementById('codelist-icon').textContent = cfg.icono;
+      document.getElementById('codelist-title').textContent = cfg.nombre;
+      document.getElementById('codelist-desc').textContent = cfg.descripcion;
+
+      // Botones
+      document.getElementById('codelist-back').onclick = () => navegarA('#');
+      const dlBtn = document.getElementById('codelist-download');
+      dlBtn.onclick = () => {
+        const a = crearEl('a', { href: cfg.archivo, download: cfg.id + '.yaml' });
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+
+      // Tabla
+      renderCodelistTabla(id, '');
+
+      // Búsqueda
+      const searchInput = document.getElementById('codelist-search');
+      searchInput.value = '';
+      searchInput.oninput = () => renderCodelistTabla(id, searchInput.value.trim());
+    }
+
+    /* ── Concepto individual ─────────────────────────────────────── */
+
+    function renderConcepto(vocabId, conceptURI) {
+      const data = estado.vocabData[vocabId];
+      const cfg  = APP_CONFIG.vocabularios.find(v => v.id === vocabId);
+
+      if (!data || !cfg) { navegarA('#vocab/' + vocabId); return; }
+
+      const concepto = data.mapa[conceptURI];
+      if (!concepto) { navegarA('#vocab/' + vocabId); return; }
+
+      mostrarVista('view-concept');
+
+      const label = etiqueta(concepto);
+
+      // Breadcrumb
+      const bc = document.getElementById('concept-breadcrumb');
+      vaciar(bc);
+      const home   = crearEl('a', { href: '#', textContent: 'Inicio' });
+      const vocabA = crearEl('a', { href: '#vocab/' + vocabId, textContent: cfg.nombre });
+      const sep1   = crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' });
+      const sep2   = crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' });
+      agregar(bc, home, sep1, vocabA, sep2, label);
+
+      // Notación badge
+      const notBadge = document.getElementById('concept-notation-badge');
+      vaciar(notBadge);
+      if (concepto.notation) {
+        const nb = crearEl('span', { className: 'concept-notation-badge', textContent: concepto.notation });
+        notBadge.appendChild(nb);
+      }
+
+      // Label principal
+      document.getElementById('concept-main-label').textContent = label;
+
+      // Etiquetas por idioma
+      const labelsEl = document.getElementById('concept-lang-labels');
+      vaciar(labelsEl);
+      for (const [lang, val] of Object.entries(concepto.labels)) {
+        if (!val) continue;
+        const tag = crearEl('span', { className: 'lang-tag' });
+        const langSpan = crearEl('span', { textContent: lang || 'und' });
+        agregar(tag, langSpan, ' ', val);
+        labelsEl.appendChild(tag);
+      }
+
+      // Botón volver
+      document.getElementById('concept-back').onclick = () => navegarA('#vocab/' + vocabId);
+
+      // Cuerpo
+      const body = document.getElementById('concept-body');
+      vaciar(body);
+
+      function campo(titulo, contenido) {
+        const div = crearEl('div', { className: 'campo' });
+        const lbl = crearEl('div', { className: 'campo-label', textContent: titulo });
+        div.appendChild(lbl);
+        div.appendChild(contenido);
+        body.appendChild(div);
+      }
+
+      // URI
+      const uriEl = crearEl('div', { className: 'campo-valor uri-block', textContent: concepto.uri });
+      campo('URI', uriEl);
+
+      // Definición
+      if (concepto.definition) {
+        const defEl = crearEl('div', { className: 'campo-valor', textContent: concepto.definition });
+        campo('Definición', defEl);
+      }
+
+      // Broader (Más amplio)
+      const broaderConceptos = concepto.broader.map(u => data.mapa[u]).filter(Boolean);
+      if (broaderConceptos.length > 0) {
+        const chips = crearEl('div', { className: 'related-chips' });
+        for (const bc2 of broaderConceptos) {
+          const chip = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(bc2.uri), className: 'chip' });
+          chip.textContent = etiqueta(bc2);
+          chips.appendChild(chip);
+        }
+        campo('Concepto más amplio', chips);
+      }
+
+      // Narrower (Más específico)
+      const narrowerConceptos = (data.hijos[concepto.uri] || []).map(u => data.mapa[u]).filter(Boolean);
+      if (narrowerConceptos.length > 0) {
+        const chips = crearEl('div', { className: 'related-chips' });
+        for (const nc of narrowerConceptos) {
+          const chip = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(nc.uri), className: 'chip' });
+          chip.textContent = etiqueta(nc);
+          chips.appendChild(chip);
+        }
+        campo('Conceptos más específicos', chips);
+      }
+
+      // Notación
+      if (concepto.notation) {
+        const notEl = crearEl('div', { className: 'campo-valor' });
+        const code = crearEl('code');
+        code.textContent = concepto.notation;
+        notEl.appendChild(code);
+        campo('Notación', notEl);
+      }
+
+      // Propiedades técnicas extra (indicadores, etc.)
+      renderPropiedades(concepto, data, body);
+    }
+
+    /* === RESOLUCIÓN DE ETIQUETAS DE RECURSOS === */
+
+    // Resuelve el mejor label para una URI externa, usando múltiples fuentes
+    function resolverEtiquetaURI(uri, data) {
+      // 1. Recursos auxiliares del mismo TTL (dimensiones, grupos, etc.)
+      if (data.resourceLabels && data.resourceLabels[uri]) return data.resourceLabels[uri];
+      // 2. Concepto en el vocabulario de territorio cargado
+      const terrData = estado.vocabData['territorio'];
+      if (terrData && terrData.mapa[uri]) return etiqueta(terrData.mapa[uri]);
+      // 3. Frecuencia: buscar por último segmento de URI en la codelist
+      const lastSeg = uri.split('/').pop() || uri;
+      const freqData = estado.codelistData['dataset-accrual-periodicity'];
+      if (freqData) { const m = freqData.find(v => v.id === lastSeg); if (m) return m.label; }
+      // 4. Unidades QUDT incorporadas
+      if (QUDT_LABELS[uri]) return QUDT_LABELS[uri];
+      // 5. Último segmento de la URI como fallback
+      return lastSeg;
+    }
+
+    // Renderiza la sección de propiedades técnicas extra de un concepto
+    function renderPropiedades(concepto, data, body) {
+      const predsFiltrados = Object.entries(concepto.predicados || {})
+        .filter(([pred]) => PRED_CONFIG[pred]);
+      if (predsFiltrados.length === 0) return;
+
+      const section = crearEl('div', { className: 'propiedades-section' });
+      const titulo  = crearEl('div', { className: 'propiedades-titulo', textContent: 'Propiedades técnicas' });
+      const lista   = crearEl('div', { className: 'prop-list' });
+      section.appendChild(titulo);
+      section.appendChild(lista);
+
+      // Orden preferido de aparición
+      const ORDEN = Object.keys(PRED_CONFIG);
+      predsFiltrados.sort((a, b) => ORDEN.indexOf(a[0]) - ORDEN.indexOf(b[0]));
+
+      for (const [pred, vals] of predsFiltrados) {
+        const cfg = PRED_CONFIG[pred];
+        const row  = crearEl('div', { className: 'prop-row' });
+        const key  = crearEl('div', { className: 'prop-key', textContent: cfg.label });
+        const val  = crearEl('div', { className: 'prop-val' });
+
+        if (cfg.tipo === 'literal') {
+          // Literales: mostrar valor directo (texto o año)
+          const litVals = vals.filter(v => v.lit);
+          const txt = litVals.length ? (litVals.find(v => v.lang === 'es') || litVals[0]).v : '';
+          val.textContent = txt;
+
+        } else if (cfg.tipo === 'uri-label') {
+          // URI → etiqueta única
+          const uriVals = vals.filter(v => !v.lit);
+          if (uriVals.length) val.textContent = resolverEtiquetaURI(uriVals[0].v, data);
+
+        } else if (cfg.tipo === 'uri-chips') {
+          // URIs → chips clicables (si es un concepto del vocab) o de texto
+          const wrap = crearEl('div', { className: 'related-chips' });
+          for (const uriVal of vals.filter(v => !v.lit)) {
+            const lbl = resolverEtiquetaURI(uriVal.v, data);
+            // Si es un concepto en el vocab de territorio, link; si no, chip de texto
+            const terrData = estado.vocabData['territorio'];
+            if (terrData && terrData.mapa[uriVal.v]) {
+              const chip = crearEl('a', {
+                href: '#vocab/territorio/concept/' + encodeURIComponent(uriVal.v),
+                className: 'chip'
+              });
+              chip.textContent = lbl;
+              wrap.appendChild(chip);
+            } else {
+              const chip = crearEl('span', { className: 'chip', textContent: lbl });
+              wrap.appendChild(chip);
+            }
+          }
+          val.appendChild(wrap);
+
+        } else if (cfg.tipo === 'dim-chips') {
+          // Dimensiones → chips con punto de color
+          const wrap = crearEl('div', { style: 'display:flex;flex-wrap:wrap;gap:4px;' });
+          for (const uriVal of vals.filter(v => !v.lit)) {
+            const lbl  = resolverEtiquetaURI(uriVal.v, data);
+            const chip = crearEl('span', { className: 'dim-chip', textContent: lbl });
+            // Buscar nota de alcance del recurso
+            if (data.resourceLabels) {
+              // La nota de alcance está en el nodo original; no la tenemos pero sí el label
+            }
+            wrap.appendChild(chip);
+          }
+          val.appendChild(wrap);
+
+        } else if (cfg.tipo === 'publicacion') {
+          // Publicación foaf:Document con título + links
+          for (const uriVal of vals.filter(v => !v.lit)) {
+            const pub = (data.publicaciones || {})[uriVal.v];
+            if (!pub) { val.textContent = resolverEtiquetaURI(uriVal.v, data); continue; }
+            const card = crearEl('div', { className: 'pub-card' });
+            const tit  = crearEl('div', { className: 'pub-title', textContent: pub.title });
+            card.appendChild(tit);
+            if (pub.links.length > 0) {
+              const linksWrap = crearEl('div', { className: 'pub-links' });
+              for (const link of pub.links) {
+                const a = crearEl('a', { href: link, className: 'pub-link', target: '_blank', rel: 'noopener noreferrer' });
+                // Nombre legible del link: último segmento sin extensión
+                const nombre = link.split('/').pop().replace(/\.[^.]+$/, '').replace(/_/g, ' ') || link;
+                a.textContent = nombre;
+                linksWrap.appendChild(a);
+              }
+              card.appendChild(linksWrap);
+            }
+            val.appendChild(card);
+          }
+        }
+
+        agregar(row, key, val);
+        lista.appendChild(row);
+      }
+
+      body.appendChild(section);
+    }
+
+    /* === ROUTER === */
+
+    function navegarA(hash) {
+      window.location.hash = hash;
+    }
+
+    function router() {
+      const hash = window.location.hash.slice(1) || '';
+      const partes = hash.split('/');
+
+      if (!hash || hash === '/' ) {
+        renderIndex();
+        return;
+      }
+
+      if (partes[0] === 'vocab') {
+        const id = partes[1] || '';
+        if (partes[2] === 'concept' && partes[3]) {
+          renderConcepto(id, decodeURIComponent(partes[3]));
+        } else {
+          renderVocab(id);
+        }
+        return;
+      }
+
+      if (partes[0] === 'codelist') {
+        renderCodelist(partes[1] || '');
+        return;
+      }
+
+      // Fallback al índice
+      renderIndex();
+    }
+
+    /* === INIT === */
+
+    async function init() {
+      construirIndex();
+      router();
+      window.addEventListener('hashchange', router);
+      await cargarArchivos();
+      // Si ya estamos en una vista de detalle y los datos acaban de cargar, re-renderizar
+      const hash = window.location.hash.slice(1) || '';
+      if (hash && hash !== '/') router();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

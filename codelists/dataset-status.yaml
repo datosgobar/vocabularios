@@ -1,0 +1,57 @@
+id: dataset-status
+name:
+  es: Estado del dataset
+  en: Dataset Status
+description:
+  es: >
+    Estado de actualización en que se encuentra el dataset.
+    Usa el vocabulario controlado ADMS Status
+    (http://purl.org/adms/status/), mantenido por el W3C
+    en el contexto del Asset Description Metadata Schema (ADMS).
+  en: >
+    Update status of the dataset.
+    Uses the ADMS Status controlled vocabulary
+    (http://purl.org/adms/status/), maintained by W3C
+    in the context of the Asset Description Metadata Schema (ADMS).
+source: http://purl.org/adms/status/
+display_property: adms:status
+
+values:
+  - id: Completed
+    uri: http://purl.org/adms/status/Completed
+    label:
+      es: Actualizado
+      en: Completed
+    description:
+      es: >
+        El dataset está completo y se encuentra al día. Sus datos reflejan
+        el estado vigente de la información que describe.
+      en: >
+        The dataset is complete and up to date. Its data reflects
+        the current state of the information it describes.
+
+  - id: Deprecated
+    uri: http://purl.org/adms/status/Deprecated
+    label:
+      es: Desactualizado
+      en: Deprecated
+    description:
+      es: >
+        El dataset existe pero sus datos ya no están vigentes. Puede haberse
+        reemplazado por una versión más reciente o el período que cubre ha concluido.
+      en: >
+        The dataset exists but its data is no longer current. It may have been
+        replaced by a newer version or the period it covers has ended.
+
+  - id: Withdrawn
+    uri: http://purl.org/adms/status/Withdrawn
+    label:
+      es: Sin mantenimiento
+      en: Withdrawn
+    description:
+      es: >
+        El dataset fue retirado y ya no recibe actualizaciones ni mantenimiento.
+        Se conserva por razones históricas o de archivo.
+      en: >
+        The dataset has been withdrawn and no longer receives updates or maintenance.
+        It is retained for historical or archival purposes.

@@ -1,0 +1,284 @@
+id: distribution-mediatype
+name:
+  es: Tipo de medio (MIME) de la distribución
+  en: Distribution Media Type
+description:
+  es: >
+    Tipo MIME de la distribución según el registro IANA
+    (https://www.iana.org/assignments/media-types/).
+    Identifica el formato técnico del archivo de la distribución.
+  en: >
+    MIME type of the distribution according to the IANA registry
+    (https://www.iana.org/assignments/media-types/).
+    Identifies the technical file format of the distribution.
+source: https://www.iana.org/assignments/media-types/
+display_property: dcat:mediaType
+
+values:
+  # ── Texto ──────────────────────────────────────────────────────────────────
+  - id: text-csv
+    uri: https://www.iana.org/assignments/media-types/text/csv
+    mime: text/csv
+    label:
+      es: CSV — Valores separados por comas
+      en: CSV — Comma-separated values
+    description:
+      es: Formato tabular de texto plano con valores separados por comas. El más usado en datos abiertos.
+      en: Plain-text tabular format with comma-separated values. Most common in open data.
+
+  - id: text-plain
+    uri: https://www.iana.org/assignments/media-types/text/plain
+    mime: text/plain
+    label:
+      es: TXT — Texto plano
+      en: TXT — Plain text
+    description:
+      es: Texto sin formato, sin estructura marcada.
+      en: Unformatted text without any markup structure.
+
+  - id: text-html
+    uri: https://www.iana.org/assignments/media-types/text/html
+    mime: text/html
+    label:
+      es: HTML — Página web
+      en: HTML — Web page
+    description:
+      es: Documento HTML publicado en la web.
+      en: HTML document published on the web.
+
+  - id: text-xml
+    uri: https://www.iana.org/assignments/media-types/text/xml
+    mime: text/xml
+    label:
+      es: XML de texto
+      en: Text XML
+    description:
+      es: XML con codificación de texto. Usar application/xml para XML genérico.
+      en: XML with text encoding. Use application/xml for generic XML.
+
+  # ── Aplicación / Datos ─────────────────────────────────────────────────────
+  - id: application-json
+    uri: https://www.iana.org/assignments/media-types/application/json
+    mime: application/json
+    label:
+      es: JSON
+      en: JSON
+    description:
+      es: JavaScript Object Notation. Formato estructurado ampliamente usado en APIs y datos abiertos.
+      en: JavaScript Object Notation. Widely used structured format in APIs and open data.
+
+  - id: application-geo-json
+    uri: https://www.iana.org/assignments/media-types/application/geo+json
+    mime: application/geo+json
+    label:
+      es: GeoJSON — Datos geoespaciales en JSON
+      en: GeoJSON — Geospatial data in JSON
+    description:
+      es: Estándar IETF para representar geometrías y atributos geoespaciales en JSON (RFC 7946).
+      en: IETF standard for representing geospatial geometries and attributes in JSON (RFC 7946).
+
+  - id: application-ld-json
+    uri: https://www.iana.org/assignments/media-types/application/ld+json
+    mime: application/ld+json
+    label:
+      es: JSON-LD — Datos enlazados en JSON
+      en: JSON-LD — Linked data in JSON
+    description:
+      es: JSON para datos enlazados (Linked Data). Permite expresar RDF en sintaxis JSON.
+      en: JSON for Linked Data. Allows expressing RDF in JSON syntax.
+
+  - id: application-xml
+    uri: https://www.iana.org/assignments/media-types/application/xml
+    mime: application/xml
+    label:
+      es: XML
+      en: XML
+    description:
+      es: Extensible Markup Language genérico.
+      en: Generic Extensible Markup Language.
+
+  - id: application-rdf-xml
+    uri: https://www.iana.org/assignments/media-types/application/rdf+xml
+    mime: application/rdf+xml
+    label:
+      es: RDF/XML — Datos RDF serializados en XML
+      en: RDF/XML — RDF data serialized as XML
+    description:
+      es: Serialización XML del modelo de datos RDF. Usado en vocabularios y ontologías.
+      en: XML serialization of the RDF data model. Used in vocabularies and ontologies.
+
+  - id: application-pdf
+    uri: https://www.iana.org/assignments/media-types/application/pdf
+    mime: application/pdf
+    label:
+      es: PDF — Portable Document Format
+      en: PDF — Portable Document Format
+    description:
+      es: Formato de documento portátil de Adobe. Común para informes y documentación.
+      en: Adobe Portable Document Format. Common for reports and documentation.
+
+  # ── Hojas de cálculo y ofimática ───────────────────────────────────────────
+  - id: application-xls
+    uri: https://www.iana.org/assignments/media-types/application/vnd.ms-excel
+    mime: application/vnd.ms-excel
+    label:
+      es: XLS — Microsoft Excel (formato legacy)
+      en: XLS — Microsoft Excel (legacy format)
+    description:
+      es: Formato binario de Microsoft Excel anterior a 2007. Preferir XLSX cuando sea posible.
+      en: Microsoft Excel binary format prior to 2007. Prefer XLSX when possible.
+
+  - id: application-xlsx
+    uri: https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    mime: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    label:
+      es: XLSX — Microsoft Excel (Open XML)
+      en: XLSX — Microsoft Excel (Open XML)
+    description:
+      es: Formato estándar abierto de Microsoft Excel basado en XML (Office Open XML).
+      en: Microsoft Excel standard open format based on XML (Office Open XML).
+
+  - id: application-ods
+    uri: https://www.iana.org/assignments/media-types/application/vnd.oasis.opendocument.spreadsheet
+    mime: application/vnd.oasis.opendocument.spreadsheet
+    label:
+      es: ODS — OpenDocument Hoja de cálculo
+      en: ODS — OpenDocument Spreadsheet
+    description:
+      es: Formato abierto de hoja de cálculo OASIS OpenDocument. Compatible con LibreOffice/OpenOffice.
+      en: OASIS OpenDocument open spreadsheet format. Compatible with LibreOffice/OpenOffice.
+
+  - id: application-odt
+    uri: https://www.iana.org/assignments/media-types/application/vnd.oasis.opendocument.text
+    mime: application/vnd.oasis.opendocument.text
+    label:
+      es: ODT — OpenDocument Texto
+      en: ODT — OpenDocument Text
+    description:
+      es: Formato abierto de documento de texto OASIS OpenDocument.
+      en: OASIS OpenDocument open text document format.
+
+  - id: application-doc
+    uri: https://www.iana.org/assignments/media-types/application/msword
+    mime: application/msword
+    label:
+      es: DOC — Microsoft Word (formato legacy)
+      en: DOC — Microsoft Word (legacy format)
+    description:
+      es: Formato binario de Microsoft Word anterior a 2007. Preferir DOCX cuando sea posible.
+      en: Microsoft Word binary format prior to 2007. Prefer DOCX when possible.
+
+  - id: application-docx
+    uri: https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    mime: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    label:
+      es: DOCX — Microsoft Word (Open XML)
+      en: DOCX — Microsoft Word (Open XML)
+    description:
+      es: Formato estándar abierto de Microsoft Word basado en XML (Office Open XML).
+      en: Microsoft Word standard open format based on XML (Office Open XML).
+
+  # ── Comprimidos ────────────────────────────────────────────────────────────
+  - id: application-zip
+    uri: https://www.iana.org/assignments/media-types/application/zip
+    mime: application/zip
+    label:
+      es: ZIP — Archivo comprimido ZIP
+      en: ZIP — ZIP archive
+    description:
+      es: Contenedor comprimido con uno o más archivos. Común para distribuir shapefiles y colecciones.
+      en: Compressed container with one or more files. Common for shapefiles and collections.
+
+  - id: application-gzip
+    uri: https://www.iana.org/assignments/media-types/application/gzip
+    mime: application/gzip
+    label:
+      es: GZIP — Archivo comprimido GZIP
+      en: GZIP — GZIP archive
+    description:
+      es: Compresión GNU Zip. Común en sistemas Linux y para streams de datos.
+      en: GNU Zip compression. Common on Linux systems and for data streams.
+
+  - id: application-octet-stream
+    uri: https://www.iana.org/assignments/media-types/application/octet-stream
+    mime: application/octet-stream
+    label:
+      es: Datos binarios genéricos
+      en: Generic binary data
+    description:
+      es: Tipo genérico para datos binarios sin tipo MIME específico conocido.
+      en: Generic type for binary data without a known specific MIME type.
+
+  # ── Geodatos ───────────────────────────────────────────────────────────────
+  - id: application-kml
+    uri: https://www.iana.org/assignments/media-types/application/vnd.google-earth.kml+xml
+    mime: application/vnd.google-earth.kml+xml
+    label:
+      es: KML — Keyhole Markup Language (Google Earth)
+      en: KML — Keyhole Markup Language (Google Earth)
+    description:
+      es: Formato XML para representar datos geográficos. Desarrollado para Google Earth.
+      en: XML format for representing geographic data. Developed for Google Earth.
+
+  - id: application-gml
+    uri: https://www.iana.org/assignments/media-types/application/gml+xml
+    mime: application/gml+xml
+    label:
+      es: GML — Geography Markup Language
+      en: GML — Geography Markup Language
+    description:
+      es: Estándar OGC para transporte y almacenamiento de información geográfica en XML.
+      en: OGC standard for geographic information transport and storage in XML.
+
+  # ── Imágenes ───────────────────────────────────────────────────────────────
+  - id: image-png
+    uri: https://www.iana.org/assignments/media-types/image/png
+    mime: image/png
+    label:
+      es: PNG — Portable Network Graphics
+      en: PNG — Portable Network Graphics
+    description:
+      es: Formato de imagen sin pérdida. Común para gráficos, mapas y capturas.
+      en: Lossless image format. Common for charts, maps and screenshots.
+
+  - id: image-jpeg
+    uri: https://www.iana.org/assignments/media-types/image/jpeg
+    mime: image/jpeg
+    label:
+      es: JPEG — Imagen fotográfica comprimida
+      en: JPEG — Compressed photographic image
+    description:
+      es: Formato de imagen con compresión con pérdida. Adecuado para fotografías.
+      en: Lossy compression image format. Suitable for photographs.
+
+  - id: image-tiff
+    uri: https://www.iana.org/assignments/media-types/image/tiff
+    mime: image/tiff
+    label:
+      es: TIFF — Tagged Image File Format (incluye GeoTIFF)
+      en: TIFF — Tagged Image File Format (includes GeoTIFF)
+    description:
+      es: Formato de imagen de alta calidad. En geodatos suele usarse como GeoTIFF (ráster georreferenciado).
+      en: High-quality image format. In geospatial data often used as GeoTIFF (georeferenced raster).
+
+  # ── SPARQL ─────────────────────────────────────────────────────────────────
+  - id: application-sparql-results-json
+    uri: https://www.iana.org/assignments/media-types/application/sparql-results+json
+    mime: application/sparql-results+json
+    label:
+      es: SPARQL Results (JSON) — Resultados de consulta SPARQL en JSON
+      en: SPARQL Results (JSON) — SPARQL query results in JSON
+    description:
+      es: Formato estándar W3C para resultados de consultas SPARQL serializados en JSON.
+      en: W3C standard format for SPARQL query results serialized in JSON.
+
+  # ── Otro ───────────────────────────────────────────────────────────────────
+  - id: other
+    uri: ~
+    mime: ~
+    label:
+      es: Otro (especificar en descripción)
+      en: Other (specify in description)
+    description:
+      es: Tipo MIME no listado. Especificar el valor exacto en la descripción del recurso.
+      en: Unlisted MIME type. Specify the exact value in the resource description.

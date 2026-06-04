@@ -1,0 +1,265 @@
+[
+  {
+    "id": "estimador-mensual-de-actividad-economica",
+    "nombre_preferido": "Estimador Mensual de Actividad Económica (Índice original)",
+    "nombre_preferido_en": "Monthly Economic Activity Estimator (Original index)",
+    "siglas": ["EMAE"],
+    "definicion": "Indicador provisorio de la evolución del PIB a precios constantes de 2004. Índice de Laspeyres que agrega el valor agregado a precios básicos de cada actividad económica más los impuestos netos de subsidios a los productos, usando las ponderaciones de las cuentas nacionales base 2004. Serie original sin ajuste estacional.",
+    "unidad_de_medida": "número índice (base 2004=100)",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://registry.sdmx.org/items/codelist.html?urn=urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MEASURE(2.1)",
+      "codigo": "IX",
+      "nota": "Número índice base 2004=100"
+    },
+    "ano_base": "2004",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    ],
+    "publicacion_id": "estimador-mensual-de-actividad-economica",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "emae-variacion-porcentual-original",
+        "emae-indice-desestacionalizado",
+        "emae-variacion-porcentual-desestacionalizada",
+        "emae-indice-tendencia-ciclo"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [
+      {
+        "nombre": "sector_actividad",
+        "etiqueta_humana": "Sector de actividad económica (CIIU Rev.3 / CN2004)",
+        "vocabularios_externos": [
+          {
+            "nombre": "CIIU Rev.3 / CN2004 — Cuentas Nacionales base 2004",
+            "uri": "https://infra.datos.gob.ar/vocabulario/clasificadores_indec#ciiu3-esquema",
+            "codigo": "ciiu3",
+            "etiqueta": "Secciones CIIU Rev.3 usadas en Cuentas Nacionales base 2004"
+          }
+        ],
+        "valores": [
+          {"codigo": "A", "etiqueta": "A - Agricultura, ganadería, caza y silvicultura", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.A. Clasificador: vocabulario/clasificadores_indec, ciiu3:A", "tipo_origen": "literal"},
+          {"codigo": "B", "etiqueta": "B - Pesca", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.B. Clasificador: vocabulario/clasificadores_indec, ciiu3:B", "tipo_origen": "literal"},
+          {"codigo": "C", "etiqueta": "C - Explotación de minas y canteras", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.C. Clasificador: vocabulario/clasificadores_indec, ciiu3:C", "tipo_origen": "literal"},
+          {"codigo": "D", "etiqueta": "D - Industria manufacturera", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.D. Clasificador: vocabulario/clasificadores_indec, ciiu3:D", "tipo_origen": "literal"},
+          {"codigo": "E", "etiqueta": "E - Electricidad, gas y agua", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.E. Clasificador: vocabulario/clasificadores_indec, ciiu3:E", "tipo_origen": "literal"},
+          {"codigo": "F", "etiqueta": "F - Construcción", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.F. Clasificador: vocabulario/clasificadores_indec, ciiu3:F", "tipo_origen": "literal"},
+          {"codigo": "G", "etiqueta": "G - Comercio mayorista, minorista y reparaciones", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.G. Clasificador: vocabulario/clasificadores_indec, ciiu3:G", "tipo_origen": "literal"},
+          {"codigo": "H", "etiqueta": "H - Hoteles y restaurantes", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.H. Clasificador: vocabulario/clasificadores_indec, ciiu3:H", "tipo_origen": "literal"},
+          {"codigo": "I", "etiqueta": "I - Transporte, almacenamiento y comunicaciones", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.I. Clasificador: vocabulario/clasificadores_indec, ciiu3:I", "tipo_origen": "literal"},
+          {"codigo": "J", "etiqueta": "J - Intermediación financiera", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.J. Clasificador: vocabulario/clasificadores_indec, ciiu3:J", "tipo_origen": "literal"},
+          {"codigo": "K", "etiqueta": "K - Actividades inmobiliarias, empresariales y de alquiler", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.K. Clasificador: vocabulario/clasificadores_indec, ciiu3:K", "tipo_origen": "literal"},
+          {"codigo": "L", "etiqueta": "L - Administración pública y defensa", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.L. Clasificador: vocabulario/clasificadores_indec, ciiu3:L", "tipo_origen": "literal"},
+          {"codigo": "M", "etiqueta": "M - Enseñanza", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.M. Clasificador: vocabulario/clasificadores_indec, ciiu3:M", "tipo_origen": "literal"},
+          {"codigo": "N", "etiqueta": "N - Servicios sociales y de salud", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.N. Clasificador: vocabulario/clasificadores_indec, ciiu3:N", "tipo_origen": "literal"},
+          {"codigo": "O", "etiqueta": "O - Otras actividades de servicios comunitarios, sociales y personales", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf sección I.a.O. Clasificador: vocabulario/clasificadores_indec, ciiu3:O", "tipo_origen": "literal"},
+          {"codigo": "IMP", "etiqueta": "Impuestos netos de subsidios a los productos", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', última columna; metodologia_emae_ago_16.pdf sección I.b. Clasificador: vocabulario/clasificadores_indec, ciiu3:impuestos-netos-subsidios. No es sección CIIU.", "tipo_origen": "literal"}
+        ],
+        "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Letras', fila 3; metodologia_emae_ago_16.pdf, sección I.a. El sector P (servicio doméstico) aparece en la metodología pero no como columna separada en los cuadros XLS.",
+        "nivel_confianza": "alto",
+        "notas": "Las letras corresponden a CIIU Rev.3 (base Cuentas Nacionales 2004), NO a ClaNAE 2010 (CIIU Rev.4). Clasificador de referencia: vocabulario/clasificadores_indec, esquema ciiu3."
+      }
+    ],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador_con_dimensiones"
+  },
+  {
+    "id": "emae-variacion-porcentual-original",
+    "nombre_preferido": "Estimador Mensual de Actividad Económica (Var. % original)",
+    "nombre_preferido_en": "Monthly Economic Activity Estimator (Original % change)",
+    "siglas": ["EMAE"],
+    "definicion": "Variación porcentual interanual del EMAE: tasa de cambio del índice de la serie original respecto al mismo mes del año anterior. Se publica tanto a nivel agregado como desagregada por sector de actividad económica.",
+    "unidad_de_medida": "porcentaje",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://registry.sdmx.org/items/codelist.html?urn=urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MEASURE(2.1)",
+      "codigo": "PT",
+      "nota": "Variación porcentual interanual"
+    },
+    "ano_base": "",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    ],
+    "publicacion_id": "estimador-mensual-de-actividad-economica",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "estimador-mensual-de-actividad-economica",
+        "emae-indice-desestacionalizado",
+        "emae-variacion-porcentual-desestacionalizada",
+        "emae-indice-tendencia-ciclo"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [
+      {
+        "nombre": "sector_actividad",
+        "etiqueta_humana": "Sector de actividad económica (CIIU Rev.3 / CN2004)",
+        "vocabularios_externos": [
+          {
+            "nombre": "CIIU Rev.3 / CN2004 — Cuentas Nacionales base 2004",
+            "uri": "https://infra.datos.gob.ar/vocabulario/clasificadores_indec#ciiu3-esquema",
+            "codigo": "ciiu3",
+            "etiqueta": "Secciones CIIU Rev.3 usadas en Cuentas Nacionales base 2004"
+          }
+        ],
+        "valores": [
+          {"codigo": "A", "etiqueta": "A - Agricultura, ganadería, caza y silvicultura", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:A", "tipo_origen": "literal"},
+          {"codigo": "B", "etiqueta": "B - Pesca", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:B", "tipo_origen": "literal"},
+          {"codigo": "C", "etiqueta": "C - Explotación de minas y canteras", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:C", "tipo_origen": "literal"},
+          {"codigo": "D", "etiqueta": "D - Industria manufacturera", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:D", "tipo_origen": "literal"},
+          {"codigo": "E", "etiqueta": "E - Electricidad, gas y agua", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:E", "tipo_origen": "literal"},
+          {"codigo": "F", "etiqueta": "F - Construcción", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:F", "tipo_origen": "literal"},
+          {"codigo": "G", "etiqueta": "G - Comercio mayorista, minorista y reparaciones", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:G", "tipo_origen": "literal"},
+          {"codigo": "H", "etiqueta": "H - Hoteles y restaurantes", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:H", "tipo_origen": "literal"},
+          {"codigo": "I", "etiqueta": "I - Transporte, almacenamiento y comunicaciones", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:I", "tipo_origen": "literal"},
+          {"codigo": "J", "etiqueta": "J - Intermediación financiera", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:J", "tipo_origen": "literal"},
+          {"codigo": "K", "etiqueta": "K - Actividades inmobiliarias, empresariales y de alquiler", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:K", "tipo_origen": "literal"},
+          {"codigo": "L", "etiqueta": "L - Administración pública y defensa", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:L", "tipo_origen": "literal"},
+          {"codigo": "M", "etiqueta": "M - Enseñanza", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:M", "tipo_origen": "literal"},
+          {"codigo": "N", "etiqueta": "N - Servicios sociales y de salud", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:N", "tipo_origen": "literal"},
+          {"codigo": "O", "etiqueta": "O - Otras actividades de servicios comunitarios, sociales y personales", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3. Clasificador: vocabulario/clasificadores_indec, ciiu3:O", "tipo_origen": "literal"},
+          {"codigo": "IMP", "etiqueta": "Impuestos netos de subsidios a los productos", "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', última columna. Clasificador: vocabulario/clasificadores_indec, ciiu3:impuestos-netos-subsidios", "tipo_origen": "literal"}
+        ],
+        "fuente_evidencia": "sh_emae_actividad_base2004.xls, hoja 'Tabla Var Letras', fila 3 (encabezados de columna). Mismos sectores que el índice original.",
+        "nivel_confianza": "alto",
+        "notas": "CIIU Rev.3 (CN2004). Clasificador: vocabulario/clasificadores_indec, esquema ciiu3."
+      }
+    ],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador_con_dimensiones"
+  },
+  {
+    "id": "emae-indice-desestacionalizado",
+    "nombre_preferido": "Estimador Mensual de Actividad Económica (Índice desestacionalizado)",
+    "nombre_preferido_en": "Monthly Economic Activity Estimator (Seasonally adjusted index)",
+    "siglas": ["EMAE"],
+    "definicion": "Serie del EMAE ajustada por variaciones estacionales mediante el método X-13ARIMA-SEATS. Se publica como número índice mensual base 2004=100. Permite comparaciones intermensuales eliminando el efecto de la estacionalidad. Solo se publica a nivel agregado (sin desagregación por sector).",
+    "unidad_de_medida": "número índice (base 2004=100)",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://registry.sdmx.org/items/codelist.html?urn=urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MEASURE(2.1)",
+      "codigo": "IX",
+      "nota": "Número índice base 2004=100"
+    },
+    "ano_base": "2004",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    ],
+    "publicacion_id": "estimador-mensual-de-actividad-economica",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "estimador-mensual-de-actividad-economica",
+        "emae-variacion-porcentual-original",
+        "emae-variacion-porcentual-desestacionalizada",
+        "emae-indice-tendencia-ciclo"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador"
+  },
+  {
+    "id": "emae-variacion-porcentual-desestacionalizada",
+    "nombre_preferido": "Estimador Mensual de Actividad Económica (Var. % desestacionalizada)",
+    "nombre_preferido_en": "Monthly Economic Activity Estimator (Seasonally adjusted % change)",
+    "siglas": ["EMAE"],
+    "definicion": "Variación porcentual mensual de la serie desestacionalizada del EMAE: tasa de cambio del índice desestacionalizado respecto al mes inmediato anterior. Solo se publica a nivel agregado (sin desagregación por sector).",
+    "unidad_de_medida": "porcentaje",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://registry.sdmx.org/items/codelist.html?urn=urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MEASURE(2.1)",
+      "codigo": "PT",
+      "nota": "Variación porcentual mensual"
+    },
+    "ano_base": "",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    ],
+    "publicacion_id": "estimador-mensual-de-actividad-economica",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "estimador-mensual-de-actividad-economica",
+        "emae-variacion-porcentual-original",
+        "emae-indice-desestacionalizado",
+        "emae-indice-tendencia-ciclo"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador"
+  },
+  {
+    "id": "emae-indice-tendencia-ciclo",
+    "nombre_preferido": "Estimador Mensual de Actividad Económica (Índice tendencia-ciclo)",
+    "nombre_preferido_en": "Monthly Economic Activity Estimator (Trend-cycle index)",
+    "siglas": ["EMAE"],
+    "definicion": "Serie del EMAE suavizada para identificar la tendencia de mediano plazo, eliminando tanto la estacionalidad como las fluctuaciones irregulares. Se obtiene como subproducto del proceso de desestacionalización con X-13ARIMA-SEATS. Se publica como número índice mensual base 2004=100. Solo a nivel agregado (sin desagregación por sector).",
+    "unidad_de_medida": "número índice (base 2004=100)",
+    "vocabulario_controlado_unidad": {
+      "nombre": "SDMX CL_UNIT_MEASURE",
+      "uri": "https://registry.sdmx.org/items/codelist.html?urn=urn:sdmx:org.sdmx.infomodel.codelist.Codelist=SDMX:CL_UNIT_MEASURE(2.1)",
+      "codigo": "IX",
+      "nota": "Número índice base 2004=100"
+    },
+    "ano_base": "2004",
+    "periodicidad": {
+      "frecuencia_datos": "mensual",
+      "frecuencia_publicacion": "mensual"
+    },
+    "alcance_geografico": "Nacional",
+    "metodologia_urls": [
+      "https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf"
+    ],
+    "publicacion_id": "estimador-mensual-de-actividad-economica",
+    "relaciones": {
+      "replaces": "",
+      "replaced_by": "",
+      "related": [
+        "estimador-mensual-de-actividad-economica",
+        "emae-variacion-porcentual-original",
+        "emae-indice-desestacionalizado",
+        "emae-variacion-porcentual-desestacionalizada"
+      ],
+      "derivado_de": [],
+      "componente_de": []
+    },
+    "dimensiones": [],
+    "nivel_confianza_global": "alto",
+    "_tipo_clasificacion": "indicador"
+  }
+]
