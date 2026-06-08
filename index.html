@@ -273,6 +273,29 @@
       margin-bottom: 10px;
     }
     .detail-desc { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.6; max-width: 680px; }
+    .codelist-meta { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .codelist-meta:empty { display: none; }
+    .codelist-meta-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .codelist-meta-key {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      min-width: 140px;
+    }
+    .codelist-meta-val {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--gobar-accent);
+      word-break: break-all;
+    }
+    .codelist-meta-val a {
+      color: var(--gobar-accent);
+      text-decoration: none;
+    }
+    .codelist-meta-val a:hover { text-decoration: underline; }
     .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
     .btn {
       display: inline-flex;
@@ -478,6 +501,12 @@
       text-decoration: none;
     }
     .chip:hover { background: var(--gobar-primary); color: var(--gobar-blanco); text-decoration: none; }
+    .chip-tipo { background: rgba(55,188,210,0.12); color: #0e8fa3; }
+    .chip-tipo:hover { background: var(--gobar-accent); color: var(--gobar-blanco); }
+    .chip-ext { text-decoration: none; }
+    .chip-ext::after { content: ' ↗'; font-size: 11px; opacity: 0.6; }
+    .lang-tag-body { background: var(--gobar-gris-bg); color: var(--gobar-gris-oscuro); border: 1px solid #E0E0E0; }
+    .lang-tag-body span { opacity: 0.7; }
 
     /* === PROPIEDADES EXTRA === */
     .propiedades-section {
@@ -667,6 +696,7 @@
           <div id="codelist-icon" class="detail-icon"></div>
           <div id="codelist-title" class="detail-title"></div>
           <div id="codelist-desc" class="detail-desc"></div>
+          <div id="codelist-meta" class="codelist-meta"></div>
           <div class="detail-actions">
             <button id="codelist-back" class="btn btn-ghost">← Volver</button>
             <button id="codelist-download" class="btn btn-accent">⬇ Descargar YAML</button>
@@ -815,6 +845,7 @@
     const estado = {
       vocabData: {},     // id -> { scheme, concepts, conceptMap, childrenMap, roots }
       codelistData: {},  // id -> [{ id, label, description }]
+      codelistMeta: {},  // id -> { source, displayProperty }
       loadStatus: {},    // id -> 'cargando' | 'listo' | 'error'
       pendientes: 0,
       total: 0,
@@ -1165,7 +1196,12 @@
       'https://infra.datos.gob.ar/vocabulario/indicadores-indec/tieneDimension':      { label: 'Dimensiones analíticas',       tipo: 'dim-chips' },
       'https://infra.datos.gob.ar/vocabulario/indicadores-indec/dimensionesCompatibles': { label: 'Combinaciones válidas',     tipo: 'dim-chips' },
       'https://infra.datos.gob.ar/vocabulario/indicadores-indec/publicacion':         { label: 'Publicación de origen',        tipo: 'publicacion' },
-      [URI.SCOPE_NOTE]:                                                                { label: 'Nota de alcance',             tipo: 'literal'   },
+      [URI.SCOPE_NOTE]:                                                                { label: 'Nota de alcance',             tipo: 'literal'    },
+      'http://purl.org/dc/terms/identifier':                                           { label: 'Código',                      tipo: 'literal'    },
+      'http://www.w3.org/2002/07/owl#sameAs':                                          { label: 'Mismo recurso en',            tipo: 'ext-links'  },
+      'http://www.w3.org/2004/02/skos/core#exactMatch':                                { label: 'Coincidencia exacta',         tipo: 'ext-links'  },
+      'https://infra.datos.gob.ar/vocabulario/territorio-argentina/region':            { label: 'Región',                      tipo: 'vocab-chips'},
+      'https://infra.datos.gob.ar/vocabulario/territorio-argentina/pais':              { label: 'País',                        tipo: 'vocab-chips'},
     };
 
     // Etiquetas para unidades QUDT (no declaradas en el TTL)
@@ -1241,6 +1277,23 @@
           if (lv.lit) labels[lv.lang || ''] = lv.v;
         }
 
+        // Denominaciones alternativas por idioma (puede haber varias por idioma)
+        const altLabels = {};
+        for (const lv of (nodos[uri][URI.ALT_LABEL] || [])) {
+          if (lv.lit) {
+            const lang = lv.lang || '';
+            if (!altLabels[lang]) altLabels[lang] = [];
+            altLabels[lang].push(lv.v);
+          }
+        }
+
+        // Tipos de dominio (excluye skos:Concept/Scheme y owl:*/rdf:* infraestructurales)
+        const tipos = getURIRefs(uri, URI.TYPE).filter(t =>
+          t !== URI.CONCEPT && t !== URI.SCHEME &&
+          !t.startsWith('http://www.w3.org/2002/07/owl#') &&
+          !t.startsWith('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
+        );
+
         const definition = getLit(uri, URI.DEFINITION, 'es') || getLit(uri, URI.DEFINITION, 'en') || getLit(uri, URI.DEFINITION, '') || '';
         const notVals    = (nodos[uri][URI.NOTATION] || []);
         const notation   = notVals.length ? notVals[0].v : '';
@@ -1254,7 +1307,7 @@
           predicados[pred] = vals;
         }
 
-        concepts.push({ uri, labels, definition, notation, broader, narrower, predicados });
+        concepts.push({ uri, labels, altLabels, tipos, definition, notation, broader, narrower, predicados });
       }
 
       return { scheme: scheme || { uri: '', title: 'Sin título', description: '' }, concepts, resourceLabels, publicaciones };
@@ -1289,10 +1342,14 @@
         description: strLocal(item.description, 'es')
       });
 
-      if (Array.isArray(data)) return data.map(normalizar);
+      if (Array.isArray(data)) return { source: '', displayProperty: '', valores: data.map(normalizar) };
 
       const items = data.values || data.codes || [];
-      return items.map(normalizar);
+      return {
+        source:          String(data.source          || ''),
+        displayProperty: String(data.display_property || ''),
+        valores:         items.map(normalizar)
+      };
     }
 
     /* === ÁRBOL SKOS === */
@@ -1410,8 +1467,9 @@
           const res = await fetch(cfg.archivo);
           if (!res.ok) throw new Error(res.status);
           const text = await res.text();
-          const valores = parsearYAML(text);
+          const { source, displayProperty, valores } = parsearYAML(text);
           estado.codelistData[cfg.id] = valores;
+          estado.codelistMeta[cfg.id] = { source, displayProperty };
           estado.loadStatus[cfg.id] = 'listo';
           actualizarTarjetaConteo(cfg.id, valores.length);
         } catch {
@@ -1724,6 +1782,28 @@
       document.getElementById('codelist-title').textContent = cfg.nombre;
       document.getElementById('codelist-desc').textContent = cfg.descripcion;
 
+      // Metadata: source + display_property
+      const metaEl = document.getElementById('codelist-meta');
+      vaciar(metaEl);
+      const meta = estado.codelistMeta[id];
+      if (meta && meta.source) {
+        const row1 = crearEl('div', { className: 'codelist-meta-row' });
+        const key1 = crearEl('span', { className: 'codelist-meta-key', textContent: 'Vocabulario de referencia' });
+        const val1 = crearEl('span', { className: 'codelist-meta-val' });
+        const link = crearEl('a', { href: meta.source, target: '_blank', rel: 'noopener noreferrer' });
+        link.textContent = meta.source;
+        val1.appendChild(link);
+        agregar(row1, key1, val1);
+        metaEl.appendChild(row1);
+      }
+      if (meta && meta.displayProperty) {
+        const row2 = crearEl('div', { className: 'codelist-meta-row' });
+        const key2 = crearEl('span', { className: 'codelist-meta-key', textContent: 'Propiedad DCAT' });
+        const val2 = crearEl('span', { className: 'codelist-meta-val', textContent: meta.displayProperty });
+        agregar(row2, key2, val2);
+        metaEl.appendChild(row2);
+      }
+
       // Botones
       document.getElementById('codelist-back').onclick = () => navegarA('#');
       const dlBtn = document.getElementById('codelist-download');
@@ -1802,6 +1882,18 @@
         body.appendChild(div);
       }
 
+      // Tipo de entidad (clases de dominio como Provincia, Región, etc.)
+      if (concepto.tipos && concepto.tipos.length > 0) {
+        const tiposWrap = crearEl('div', { className: 'related-chips' });
+        for (const tipoURI of concepto.tipos) {
+          const lbl = (data.resourceLabels && data.resourceLabels[tipoURI])
+            || tipoURI.split('/').pop().split('#').pop();
+          const chip = crearEl('span', { className: 'chip chip-tipo', textContent: lbl });
+          tiposWrap.appendChild(chip);
+        }
+        campo('Tipo de entidad', tiposWrap);
+      }
+
       // URI
       const uriEl = crearEl('div', { className: 'campo-valor uri-block', textContent: concepto.uri });
       campo('URI', uriEl);
@@ -1810,6 +1902,20 @@
       if (concepto.definition) {
         const defEl = crearEl('div', { className: 'campo-valor', textContent: concepto.definition });
         campo('Definición', defEl);
+      }
+
+      // Denominaciones alternativas
+      if (concepto.altLabels && Object.keys(concepto.altLabels).length > 0) {
+        const altWrap = crearEl('div', { style: 'display:flex;flex-wrap:wrap;gap:8px;' });
+        for (const [lang, vals] of Object.entries(concepto.altLabels)) {
+          for (const val of vals) {
+            const tag = crearEl('span', { className: 'lang-tag lang-tag-body' });
+            const langSpan = crearEl('span', { textContent: lang || 'und' });
+            agregar(tag, langSpan, ' ', val);
+            altWrap.appendChild(tag);
+          }
+        }
+        campo('Denominaciones alternativas', altWrap);
       }
 
       // Broader (Más amplio)
@@ -1845,11 +1951,24 @@
         campo('Notación', notEl);
       }
 
-      // Propiedades técnicas extra (indicadores, etc.)
-      renderPropiedades(concepto, data, body);
+      // Propiedades técnicas extra (indicadores, territorio, etc.)
+      renderPropiedades(concepto, data, body, vocabId);
     }
 
     /* === RESOLUCIÓN DE ETIQUETAS DE RECURSOS === */
+
+    // Genera un nombre legible para una URI externa (Wikidata, DBpedia, georef, etc.)
+    function etiquetaUriExt(uri) {
+      if (uri.includes('wikidata.org/entity/')) return 'Wikidata · ' + uri.split('/entity/')[1];
+      if (uri.includes('dbpedia.org/resource/')) return 'DBpedia · ' + decodeURIComponent(uri.split('/resource/')[1]).replace(/_/g, ' ');
+      if (uri.includes('apis.datos.gob.ar/georef')) return 'API Georef';
+      if (uri.includes('geonames.org')) return 'GeoNames';
+      try {
+        const url = new URL(uri);
+        const seg = url.pathname.split('/').filter(Boolean).pop() || url.hostname;
+        return url.hostname.replace(/^www\./, '') + ' · ' + decodeURIComponent(seg).replace(/_/g, ' ');
+      } catch { return uri; }
+    }
 
     // Resuelve el mejor label para una URI externa, usando múltiples fuentes
     function resolverEtiquetaURI(uri, data) {
@@ -1869,7 +1988,7 @@
     }
 
     // Renderiza la sección de propiedades técnicas extra de un concepto
-    function renderPropiedades(concepto, data, body) {
+    function renderPropiedades(concepto, data, body, vocabId) {
       const predsFiltrados = Object.entries(concepto.predicados || {})
         .filter(([pred]) => PRED_CONFIG[pred]);
       if (predsFiltrados.length === 0) return;
@@ -1957,6 +2076,38 @@
             }
             val.appendChild(card);
           }
+
+        } else if (cfg.tipo === 'ext-links') {
+          // URIs externas → chips con enlace y nombre de fuente amigable
+          const wrap = crearEl('div', { className: 'related-chips' });
+          for (const uriVal of vals.filter(v => !v.lit)) {
+            const chip = crearEl('a', {
+              href: uriVal.v, className: 'chip chip-ext',
+              target: '_blank', rel: 'noopener noreferrer'
+            });
+            chip.textContent = etiquetaUriExt(uriVal.v);
+            wrap.appendChild(chip);
+          }
+          val.appendChild(wrap);
+
+        } else if (cfg.tipo === 'vocab-chips') {
+          // URIs de conceptos del mismo vocabulario → chips enlazados internamente
+          const wrap = crearEl('div', { className: 'related-chips' });
+          for (const uriVal of vals.filter(v => !v.lit)) {
+            const lbl = resolverEtiquetaURI(uriVal.v, data);
+            if (data.mapa && data.mapa[uriVal.v]) {
+              const chip = crearEl('a', {
+                href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(uriVal.v),
+                className: 'chip'
+              });
+              chip.textContent = lbl;
+              wrap.appendChild(chip);
+            } else {
+              const chip = crearEl('span', { className: 'chip', textContent: lbl });
+              wrap.appendChild(chip);
+            }
+          }
+          val.appendChild(wrap);
         }
 
         agregar(row, key, val);
