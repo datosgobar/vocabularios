@@ -1,0 +1,79 @@
+# ================================================================
+# CNO — Clasificador Nacional de Ocupaciones
+# Dirección de Datos Abiertos / Secretaría de Innovación, Ciencia y Tecnología
+# Namespace: https://infra.datos.gob.ar/clasificador/cno/
+#
+# Fuente: INDEC
+# Usos típicos: EPH, censos de población, encuestas de trabajo e ingresos
+# Estándares aplicados: SKOS, DC Terms
+# ================================================================
+
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix cno:    <https://infra.datos.gob.ar/clasificador/cno/> .
+
+<https://infra.datos.gob.ar/clasificador/cno>
+    a owl:Ontology ;
+    dct:title "CNO — Clasificador Nacional de Ocupaciones"@es ;
+    dct:title "CNO — National Occupations Classifier"@en ;
+    dct:description "Clasificador Nacional de Ocupaciones del INDEC. Base de la EPH y censos de población. Publicado y mantenido por la Dirección de Datos Abiertos."@es ;
+    dct:creator <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:publisher <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:created "2026-06-03"^^xsd:date ;
+    dct:modified "2026-06-03"^^xsd:date ;
+    owl:versionInfo "0.1.0" .
+
+
+# 4. CNO
+#    Clasificador Nacional de Ocupaciones
+#    Fuente: INDEC
+#    Usos típicos: EPH, Censos, encuestas de trabajo e ingresos
+#    Estructura: 4 dimensiones (carácter, jerarquía, tecnología,
+#    calificación) + código de 5 dígitos
+# ================================================================
+
+cno:esquema
+    a skos:ConceptScheme ;
+    dct:title "CNO — Clasificador Nacional de Ocupaciones"@es ;
+    dct:title "CNO — National Occupations Classifier"@en ;
+    skos:prefLabel "CNO — Clasificador Nacional de Ocupaciones"@es ;
+    skos:prefLabel "CNO — National Occupations Classifier"@en ;
+    dct:description "Clasificador Nacional de Ocupaciones del INDEC. Organiza las ocupaciones en función de cuatro dimensiones: carácter ocupacional, jerarquía, tecnología y calificación. Se aplica en la EPH, censos de población y otras operaciones estadísticas sobre trabajo. No es directamente comparable con la CIUO (ISCO) de la OIT aunque existen correspondencias parciales."@es ;
+    dct:source <https://www.indec.gob.ar/ftp/cuadros/menusuperior/clasificadores/definiciones_conceptuales_cno.pdf> ;
+    dct:publisher <https://www.indec.gob.ar> ;
+    dct:created "2001-01-01"^^xsd:date ;
+    skos:note "El CNO utiliza una estructura propia de 5 dígitos basada en cuatro dimensiones simultáneas, diferente a la estructura jerárquica estándar de la CIUO/ISCO. Los grandes grupos son: 0 (Dirección), 1-4 (Gestión y administración), 5-7 (Producción y servicios), 8-9 (Técnico-científico y desarrollo tecnológico)."@es ;
+    skos:relatedMatch <https://www.ilo.org/public/english/bureau/stat/isco/> .
+
+# Nota: los conceptos detallados del CNO se agregarán en versión
+# futura a partir del PDF/XLS oficial del INDEC.
+
+
+# ================================================================
+# REFERENCIAS A CLASIFICACIONES EXTERNAS
+# (sin descargar; solo metadatos de identificación)
+# ================================================================
+
+<https://unstats.un.org/unsd/classifications/Econ/isic#Rev4>
+    a skos:ConceptScheme ;
+    skos:prefLabel "CIIU Revisión 4 — Clasificación Industrial Internacional Uniforme de todas las Actividades Económicas"@es ;
+    skos:prefLabel "ISIC Revision 4 — International Standard Industrial Classification of All Economic Activities"@en ;
+    dct:publisher <https://unstats.un.org> ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic.cshtml> .
+
+<https://unstats.un.org/unsd/classifications/Family/Detail/1002>
+    a skos:ConceptScheme ;
+    skos:prefLabel "COICOP — Classification of Individual Consumption According to Purpose (UN)"@en ;
+    skos:prefLabel "COICOP — Clasificación del Consumo Individual por Finalidades (ONU)"@es ;
+    dct:publisher <https://unstats.un.org> ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Family/Detail/1002> .
+
+<https://www.ilo.org/public/english/bureau/stat/isco/>
+    a skos:ConceptScheme ;
+    skos:prefLabel "ISCO — International Standard Classification of Occupations (ILO)"@en ;
+    skos:prefLabel "CIUO — Clasificación Internacional Uniforme de Ocupaciones (OIT)"@es ;
+    dct:publisher <https://www.ilo.org> .

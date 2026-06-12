@@ -75,6 +75,15 @@
       flex-shrink: 0;
     }
     .nav-brand:hover { color: var(--gobar-accent); text-decoration: none; }
+    .nav-left { display: flex; align-items: center; gap: 24px; min-width: 0; }
+    .nav-about-link {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav-about-link:hover { color: var(--gobar-accent); }
     .nav-search-wrap {
       display: flex;
       align-items: center;
@@ -580,6 +589,54 @@
       .prop-key { color: var(--gobar-primary); }
     }
 
+    /* === SOBRE ESTO === */
+    .section-about {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 40px 72px;
+    }
+    .about-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gobar-primary);
+      margin-bottom: 8px;
+    }
+    .about-title {
+      font-family: var(--font-titulos);
+      font-size: 26px;
+      color: var(--gobar-negro);
+      margin: 0 0 32px;
+    }
+    .about-body h3 {
+      font-family: var(--font-titulos);
+      font-size: 17px;
+      color: var(--gobar-negro);
+      margin: 32px 0 8px;
+    }
+    .about-body p {
+      color: var(--gobar-gris-oscuro);
+      line-height: 1.75;
+      margin: 0 0 12px;
+    }
+    .about-body strong { color: var(--gobar-negro); }
+    .about-divider {
+      border: none;
+      border-top: 1px solid var(--gobar-gris-claro);
+      margin: 40px 0;
+    }
+    .about-body blockquote {
+      border-left: 3px solid var(--gobar-accent);
+      margin: 0;
+      padding: 14px 20px;
+      color: var(--gobar-gris-oscuro);
+      background: var(--gobar-gris-bg);
+      border-radius: 0 6px 6px 0;
+      font-style: italic;
+      line-height: 1.75;
+    }
+
     /* === FOOTER === */
     footer {
       background: var(--gobar-primary-darker);
@@ -616,7 +673,10 @@
   <div id="progress-bar" role="progressbar" aria-label="Cargando vocabularios"></div>
 
   <nav role="navigation" aria-label="Navegación principal">
-    <a href="#" class="nav-brand">Vocabularios &amp; Codelists</a>
+    <div class="nav-left">
+      <a href="#" class="nav-brand">Vocabularios &amp; Codelists</a>
+      <a href="#" id="nav-about-link" class="nav-about-link">¿Qué es esto?</a>
+    </div>
     <div class="nav-search-wrap" role="search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -658,6 +718,12 @@
           <div id="grid-codelist" class="cards-grid"></div>
         </div>
       </div>
+
+      <section id="sobre-esto" class="section-about" aria-labelledby="sobre-esto-titulo">
+        <div class="about-eyebrow">Acerca de</div>
+        <h2 id="sobre-esto-titulo" class="about-title">¿Qué es esto?</h2>
+        <div id="sobre-esto-body" class="about-body"></div>
+      </section>
     </div>
 
     <!-- ── Vista Detalle Vocabulario ──────────────────────────────── -->
@@ -774,11 +840,32 @@
           icono: '📊'
         },
         {
-          id: 'clasificadores-indec',
-          nombre: 'Clasificadores INDEC',
-          descripcion: 'Clasificadores para actividades económicas, consumo e impuestos (ClaNAE, COICOP, CNO).',
-          archivo: 'vocabularios/clasificadores-indec.ttl',
-          icono: '🗂️'
+          id: 'clanae',
+          nombre: 'ClaNAE 2010',
+          descripcion: 'Clasificador Nacional de Actividades Económicas. Adaptación argentina de la CIIU Rev.4 (encuestas de empresas).',
+          archivo: 'vocabularios/clasificador-clanae.ttl',
+          icono: '🏭'
+        },
+        {
+          id: 'caes',
+          nombre: 'CAES 2018',
+          descripcion: 'Clasificación de Actividades Económicas para Encuestas Sociodemográficas (EPH, ENGHO).',
+          archivo: 'vocabularios/clasificador-caes.ttl',
+          icono: '👥'
+        },
+        {
+          id: 'coicop',
+          nombre: 'COICOP-AR',
+          descripcion: 'Clasificación del Consumo Individual por Finalidades. Base del IPC y la Canasta Básica.',
+          archivo: 'vocabularios/clasificador-coicop.ttl',
+          icono: '🛒'
+        },
+        {
+          id: 'cno',
+          nombre: 'CNO',
+          descripcion: 'Clasificador Nacional de Ocupaciones. Base de la EPH y censos de población.',
+          archivo: 'vocabularios/clasificador-cno.ttl',
+          icono: '👷'
         }
       ],
       codelists: [
@@ -788,13 +875,6 @@
           descripcion: 'Categorías para clasificar tipos de distribuciones de datasets.',
           archivo: 'codelists/distribution-category.yaml',
           icono: '📋'
-        },
-        {
-          id: 'dataset-accrual-periodicity',
-          nombre: 'Accrual Periodicity',
-          descripcion: 'Periodicidad de actualización de datasets (vocabulario EU Frequency).',
-          archivo: 'codelists/dataset-accrual-periodicity.yaml',
-          icono: '🔄'
         },
         {
           id: 'distribution-mediatype',
@@ -1977,11 +2057,8 @@
       // 2. Concepto en el vocabulario de territorio cargado
       const terrData = estado.vocabData['territorio'];
       if (terrData && terrData.mapa[uri]) return etiqueta(terrData.mapa[uri]);
-      // 3. Frecuencia: buscar por último segmento de URI en la codelist
       const lastSeg = uri.split('/').pop() || uri;
-      const freqData = estado.codelistData['dataset-accrual-periodicity'];
-      if (freqData) { const m = freqData.find(v => v.id === lastSeg); if (m) return m.label; }
-      // 4. Unidades QUDT incorporadas
+      // 3. Unidades QUDT incorporadas
       if (QUDT_LABELS[uri]) return QUDT_LABELS[uri];
       // 5. Último segmento de la URI como fallback
       return lastSeg;
@@ -2151,12 +2228,71 @@
       renderIndex();
     }
 
+    /* === SOBRE ESTO — parser MD mínimo + fetch === */
+
+    function parseMd(texto) {
+      const frag = document.createDocumentFragment();
+      const lineas = texto.split('\n');
+      let parrafo = [];
+
+      function appendInline(el, txt) {
+        txt.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).forEach(p => {
+          if (p.startsWith('**') && p.endsWith('**')) {
+            const s = document.createElement('strong'); s.textContent = p.slice(2, -2); el.appendChild(s);
+          } else if (p.startsWith('*') && p.endsWith('*')) {
+            const em = document.createElement('em'); em.textContent = p.slice(1, -1); el.appendChild(em);
+          } else { el.appendChild(document.createTextNode(p)); }
+        });
+      }
+
+      function vaciarParrafo() {
+        if (!parrafo.length) return;
+        const p = document.createElement('p');
+        appendInline(p, parrafo.join(' ').trim());
+        frag.appendChild(p);
+        parrafo = [];
+      }
+
+      for (const linea of lineas) {
+        if (/^# /.test(linea)) { continue; } // título ya aparece como encabezado de sección
+        if (/^## /.test(linea)) {
+          vaciarParrafo();
+          const h = document.createElement('h3'); h.textContent = linea.slice(3); frag.appendChild(h);
+        } else if (linea.trim() === '---') {
+          vaciarParrafo();
+          const hr = document.createElement('hr'); hr.className = 'about-divider'; frag.appendChild(hr);
+        } else if (/^> /.test(linea)) {
+          vaciarParrafo();
+          const bq = document.createElement('blockquote'); appendInline(bq, linea.slice(2)); frag.appendChild(bq);
+        } else if (linea.trim() === '') {
+          vaciarParrafo();
+        } else {
+          parrafo.push(linea.trim());
+        }
+      }
+      vaciarParrafo();
+      return frag;
+    }
+
+    function cargarSobreEsto() {
+      fetch('docs/vocabularios-codelists-contexto.md')
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(txt => { document.getElementById('sobre-esto-body').appendChild(parseMd(txt)); })
+        .catch(() => {});
+    }
+
     /* === INIT === */
 
     async function init() {
       construirIndex();
       router();
       window.addEventListener('hashchange', router);
+      document.getElementById('nav-about-link').addEventListener('click', e => {
+        e.preventDefault();
+        if (window.location.hash && window.location.hash !== '#') navegarA('#');
+        setTimeout(() => document.getElementById('sobre-esto').scrollIntoView({ behavior: 'smooth' }), 0);
+      });
+      cargarSobreEsto();
       await cargarArchivos();
       // Si ya estamos en una vista de detalle y los datos acaban de cargar, re-renderizar
       const hash = window.location.hash.slice(1) || '';

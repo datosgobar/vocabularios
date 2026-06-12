@@ -1,0 +1,433 @@
+# ================================================================
+# ClaNAE 2010 — Clasificador Nacional de Actividades Económicas
+# Dirección de Datos Abiertos / Secretaría de Innovación, Ciencia y Tecnología
+# Namespace: https://infra.datos.gob.ar/clasificador/clanae/
+#
+# Fuente: INDEC — Disposición Nº 825/2010; Revisión 2017
+# Base: CIIU Revisión 4 (ONU)
+# Usos típicos: encuestas de empresas (ENGE, EMI, EIM, etc.)
+# Estándares aplicados: SKOS, XKOS (DDI Alliance), DC Terms
+# ================================================================
+
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xkos:   <http://rdf-vocabulary.ddialliance.org/xkos#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix clanae: <https://infra.datos.gob.ar/clasificador/clanae/> .
+
+<https://infra.datos.gob.ar/clasificador/clanae>
+    a owl:Ontology ;
+    dct:title "ClaNAE 2010 — Clasificador Nacional de Actividades Económicas"@es ;
+    dct:title "ClaNAE 2010 — National Classifier of Economic Activities"@en ;
+    dct:description "Clasificador Nacional de Actividades Económicas 2010. Adaptación argentina de la CIIU Rev.4. Publicado y mantenido por la Dirección de Datos Abiertos."@es ;
+    dct:creator <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:publisher <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:created "2026-06-03"^^xsd:date ;
+    dct:modified "2026-06-03"^^xsd:date ;
+    owl:versionInfo "0.1.0" .
+
+
+# 1. ClaNAE 2010
+#    Clasificador Nacional de Actividades Económicas
+#    Fuente: INDEC — Disposición Nº 825/2010; Revisión 2017
+#    Base: CIIU Revisión 4 (ONU)
+#    Usos típicos: encuestas de empresas (ENGE, EMI, EIM, etc.)
+# ================================================================
+
+clanae:esquema
+    a skos:ConceptScheme ;
+    dct:title "ClaNAE 2010 — Clasificador Nacional de Actividades Económicas"@es ;
+    dct:title "ClaNAE 2010 — National Classifier of Economic Activities"@en ;
+    skos:prefLabel "ClaNAE 2010 — Clasificador Nacional de Actividades Económicas"@es ;
+    skos:prefLabel "ClaNAE 2010 — National Classifier of Economic Activities"@en ;
+    dct:description "Clasificador Nacional de Actividades Económicas 2010, adaptación argentina de la Clasificación Industrial Internacional Uniforme Revisión 4 (CIIU Rev.4) de las Naciones Unidas. Aprobado por INDEC mediante Disposición Nº 825/2010 y revisado en 2017."@es ;
+    dct:source <https://www.indec.gob.ar/micro_sitios/clanae/default.asp> ;
+    dct:source <https://www.indec.gob.ar/ftp/cuadros/economia/clanae_2010_revision_2017.pdf> ;
+    dct:source <https://www.indec.gob.ar/ftp/cuadros/menusuperior/clasificadores/correspondencia_clanae2010_ciiu4.xls> ;
+    dct:publisher <https://www.indec.gob.ar> ;
+    dct:created "2010-01-01"^^xsd:date ;
+    dct:modified "2017-11-17"^^xsd:date ;
+    # Derivado de CIIU Rev.4 — mismo nivel de sección hasta clase
+    xkos:belongsTo <https://unstats.un.org/unsd/classifications/Econ/isic#Rev4> ;
+    # Estructura jerárquica: sección > división > grupo > clase > subclase
+    xkos:levels (
+        clanae:NivelSeccion
+        clanae:NivelDivision
+        clanae:NivelGrupo
+        clanae:NivelClase
+        clanae:NivelSubclase
+    ) ;
+    skos:hasTopConcept
+        clanae:A , clanae:B , clanae:C , clanae:D , clanae:E ,
+        clanae:F , clanae:G , clanae:H , clanae:I , clanae:J ,
+        clanae:K , clanae:L , clanae:M , clanae:N , clanae:O ,
+        clanae:P , clanae:Q , clanae:R , clanae:S , clanae:T ,
+        clanae:U .
+
+# Niveles jerárquicos
+clanae:NivelSeccion  a xkos:ClassificationLevel ; skos:prefLabel "Sección"@es  ; xkos:depth 1 .
+clanae:NivelDivision a xkos:ClassificationLevel ; skos:prefLabel "División"@es  ; xkos:depth 2 .
+clanae:NivelGrupo    a xkos:ClassificationLevel ; skos:prefLabel "Grupo"@es     ; xkos:depth 3 .
+clanae:NivelClase    a xkos:ClassificationLevel ; skos:prefLabel "Clase"@es     ; xkos:depth 4 .
+clanae:NivelSubclase a xkos:ClassificationLevel ; skos:prefLabel "Subclase"@es  ; xkos:depth 5 .
+
+# ── Secciones (nivel 1) ─────────────────────────────────────────
+# Solo se modelan las secciones. Divisiones, grupos y clases
+# están en el XLS oficial del INDEC y pueden incorporarse
+# progresivamente como conceptos adicionales.
+
+clanae:A
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Agricultura, ganadería, caza, silvicultura y pesca"@es ;
+    skos:prefLabel "Agriculture, forestry and fishing"@en ;
+    skos:notation "A" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionA> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/A> .
+
+clanae:B
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Explotación de minas y canteras"@es ;
+    skos:prefLabel "Mining and quarrying"@en ;
+    skos:notation "B" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionB> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/B> .
+
+clanae:C
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Industrias manufactureras"@es ;
+    skos:prefLabel "Manufacturing"@en ;
+    skos:notation "C" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionC> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/C> .
+
+clanae:D
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Suministro de electricidad, gas, vapor y aire acondicionado"@es ;
+    skos:prefLabel "Electricity, gas, steam and air conditioning supply"@en ;
+    skos:notation "D" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionD> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/D> .
+
+clanae:E
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Suministro de agua; alcantarillado, gestión de desechos y saneamiento"@es ;
+    skos:prefLabel "Water supply; sewerage, waste management and remediation"@en ;
+    skos:notation "E" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionE> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/E> .
+
+clanae:F
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Construcción"@es ;
+    skos:prefLabel "Construction"@en ;
+    skos:notation "F" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionF> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/F> .
+
+clanae:G
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Comercio al por mayor y al por menor; reparación de vehículos automotores y motocicletas"@es ;
+    skos:prefLabel "Wholesale and retail trade; repair of motor vehicles"@en ;
+    skos:notation "G" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionG> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/G> .
+
+clanae:H
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Transporte y almacenamiento"@es ;
+    skos:prefLabel "Transportation and storage"@en ;
+    skos:notation "H" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionH> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/H> .
+
+clanae:I
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Servicios de alojamiento y de comidas"@es ;
+    skos:prefLabel "Accommodation and food service activities"@en ;
+    skos:notation "I" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionI> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/I> .
+
+clanae:J
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Información y comunicaciones"@es ;
+    skos:prefLabel "Information and communication"@en ;
+    skos:notation "J" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionJ> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/J> .
+
+clanae:K
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades financieras y de seguros"@es ;
+    skos:prefLabel "Financial and insurance activities"@en ;
+    skos:notation "K" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionK> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/K> .
+
+clanae:L
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades inmobiliarias"@es ;
+    skos:prefLabel "Real estate activities"@en ;
+    skos:notation "L" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionL> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/L> .
+
+clanae:M
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades profesionales, científicas y técnicas"@es ;
+    skos:prefLabel "Professional, scientific and technical activities"@en ;
+    skos:notation "M" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionM> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/M> .
+
+clanae:N
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades de servicios administrativos y de apoyo"@es ;
+    skos:prefLabel "Administrative and support service activities"@en ;
+    skos:notation "N" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionN> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/N> .
+
+clanae:O
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Administración pública y defensa; planes de seguridad social de afiliación obligatoria"@es ;
+    skos:prefLabel "Public administration and defence; compulsory social security"@en ;
+    skos:notation "O" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionO> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/O> .
+
+clanae:P
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Enseñanza"@es ;
+    skos:prefLabel "Education"@en ;
+    skos:notation "P" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionP> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/P> .
+
+clanae:Q
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Servicios sociales y relacionados con la salud humana"@es ;
+    skos:prefLabel "Human health and social work activities"@en ;
+    skos:notation "Q" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionQ> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/Q> .
+
+clanae:R
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Artes, entretenimiento y recreación"@es ;
+    skos:prefLabel "Arts, entertainment and recreation"@en ;
+    skos:notation "R" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionR> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/R> .
+
+clanae:S
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Otras actividades de servicios"@es ;
+    skos:prefLabel "Other service activities"@en ;
+    skos:notation "S" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionS> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/S> .
+
+clanae:T
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades de los hogares como empleadores; actividades indiferenciadas de producción de bienes y servicios de los hogares para uso propio"@es ;
+    skos:prefLabel "Activities of households as employers"@en ;
+    skos:notation "T" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionT> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/T> .
+
+clanae:U
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:topConceptOf clanae:esquema ;
+    skos:prefLabel "Actividades de organizaciones y órganos extraterritoriales"@es ;
+    skos:prefLabel "Activities of extraterritorial organizations and bodies"@en ;
+    skos:notation "U" ;
+    skos:closeMatch <https://unstats.un.org/unsd/classifications/Econ/isic#SectionU> ;
+    skos:closeMatch <http://data.europa.eu/ux2/nace2/U> .
+
+
+# ── Agrupación ENGE (colección derivada, no nuevos conceptos) ───
+# La ENGE no usa ClaNAE textual: reagrupa secciones y rangos de
+# divisiones en 14 categorías operativas. Se modela como
+# skos:Collection con miembros que apuntan a los conceptos
+# canónicos de sección, más una nota explicando la reagrupación.
+# Así no se duplican conceptos: la colección es una "vista".
+
+clanae:coleccion-enge
+    a skos:Collection ;
+    skos:prefLabel "Agrupaciones sectoriales ENGE (ClaNAE 2010)"@es ;
+    dct:description "Reagrupación de secciones y divisiones del ClaNAE 2010 utilizada por la Encuesta Nacional a Grandes Empresas (ENGE). No corresponde a una apertura textual del ClaNAE: combina secciones completas con subconjuntos de divisiones de la sección C."@es ;
+    dct:source <https://www.indec.gob.ar/uploads/informesdeprensa/enge_01_26EF37859542.pdf> ;
+    skos:member
+        clanae:enge-minas-canteras ,
+        clanae:enge-industria-manufacturera ,
+        clanae:enge-alimentos-bebidas-tabaco ,
+        clanae:enge-textiles-cueros ,
+        clanae:enge-combustibles-quimicos-plasticos ,
+        clanae:enge-minerales-metales ,
+        clanae:enge-maquinarias-equipos-vehiculos ,
+        clanae:enge-otros-industria ,
+        clanae:enge-electricidad-gas-agua ,
+        clanae:enge-construccion ,
+        clanae:enge-comercio ,
+        clanae:enge-transporte-correo ,
+        clanae:enge-servicios-info-comunicaciones ,
+        clanae:enge-otras-actividades .
+
+# Cada agrupación ENGE es un concepto propio que declara
+# cuáles secciones/divisiones ClaNAE agrupa, vía skos:broader
+# (cuando coincide 1:1 con una sección) o via skos:scopeNote
+# (cuando es una selección de divisiones dentro de la sección C).
+
+clanae:enge-minas-canteras
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Minas y canteras (agrupación ENGE)"@es ;
+    skos:notation "B" ;
+    skos:broader clanae:B ;
+    skos:scopeNote "Coincide con la Sección B completa del ClaNAE 2010."@es .
+
+clanae:enge-industria-manufacturera
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Industria manufacturera (agrupación ENGE)"@es ;
+    skos:notation "C" ;
+    skos:broader clanae:C ;
+    skos:scopeNote "Coincide con la Sección C completa del ClaNAE 2010. En la ENGE se desagrega en seis sub-agrupaciones."@es ;
+    skos:narrower
+        clanae:enge-alimentos-bebidas-tabaco ,
+        clanae:enge-textiles-cueros ,
+        clanae:enge-combustibles-quimicos-plasticos ,
+        clanae:enge-minerales-metales ,
+        clanae:enge-maquinarias-equipos-vehiculos ,
+        clanae:enge-otros-industria .
+
+clanae:enge-alimentos-bebidas-tabaco
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Alimentos, bebidas y tabaco (agrupación ENGE)"@es ;
+    skos:prefLabel "Food, beverages and tobacco (ENGE grouping)"@en ;
+    skos:notation "10-11-12" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 10 (Elaboración de alimentos), 11 (Elaboración de bebidas) y 12 (Elaboración de productos de tabaco) del ClaNAE 2010."@es .
+
+clanae:enge-textiles-cueros
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Textiles y cueros (agrupación ENGE)"@es ;
+    skos:prefLabel "Textiles and leather (ENGE grouping)"@en ;
+    skos:notation "13-14-15" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 13 (Fabricación de productos textiles), 14 (Fabricación de prendas de vestir) y 15 (Fabricación de cuero y calzado) del ClaNAE 2010."@es .
+
+clanae:enge-combustibles-quimicos-plasticos
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Combustibles, químicos y plásticos (agrupación ENGE)"@es ;
+    skos:prefLabel "Fuels, chemicals and plastics (ENGE grouping)"@en ;
+    skos:notation "19-20-21-22" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 19 (Fabricación de coque y productos de la refinación del petróleo), 20 (Fabricación de sustancias y productos químicos), 21 (Fabricación de productos farmacéuticos) y 22 (Fabricación de productos de caucho y plástico) del ClaNAE 2010."@es .
+
+clanae:enge-minerales-metales
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Minerales no metálicos, metales y productos de metal (agrupación ENGE)"@es ;
+    skos:prefLabel "Non-metallic minerals, metals and metal products (ENGE grouping)"@en ;
+    skos:notation "23-24-25" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 23 (Fabricación de otros productos minerales no metálicos), 24 (Fabricación de metales comunes) y 25 (Fabricación de productos elaborados de metal, excepto maquinaria y equipo) del ClaNAE 2010."@es .
+
+clanae:enge-maquinarias-equipos-vehiculos
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Maquinarias, equipos y vehículos (agrupación ENGE)"@es ;
+    skos:prefLabel "Machinery, equipment and vehicles (ENGE grouping)"@en ;
+    skos:notation "26-27-28-29-30" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 26-30 del ClaNAE 2010: fabricación de equipo de informática y electrónica, maquinaria y equipo eléctrico, maquinaria y equipo n.c.p., vehículos automotores, otro equipo de transporte."@es .
+
+clanae:enge-otros-industria
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Otros industria manufacturera (agrupación ENGE)"@es ;
+    skos:prefLabel "Other manufacturing (ENGE grouping)"@en ;
+    skos:notation "16-17-18-31-32-33" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Divisiones 16-18 (madera, papel, impresión) y 31-33 (muebles, otras industrias manufactureras, reparación e instalación de maquinaria) del ClaNAE 2010."@es .
+
+clanae:enge-electricidad-gas-agua
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Electricidad, gas, agua, residuos y saneamiento (agrupación ENGE)"@es ;
+    skos:prefLabel "Electricity, gas, water, waste and sanitation (ENGE grouping)"@en ;
+    skos:notation "D+E" ;
+    skos:broader clanae:enge-industria-manufacturera ;
+    skos:scopeNote "Agrupa las secciones D (suministro de electricidad, gas, vapor y aire acondicionado) y E (suministro de agua, alcantarillado, gestión de desechos y saneamiento) completas del ClaNAE 2010."@es ;
+    skos:note "Esta agrupación abarca conceptos de dos secciones ClaNAE distintas (D y E). La relación skos:broader se declara hacia la agrupación de industria manufacturera ENGE por proximidad operativa; los vínculos a clanae:D y clanae:E se expresan en scopeNote para evitar polihierarchía SKOS."@es .
+
+clanae:enge-construccion
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Construcción (agrupación ENGE)"@es ;
+    skos:notation "F" ;
+    skos:broader clanae:F ;
+    skos:scopeNote "Coincide con la Sección F completa del ClaNAE 2010."@es .
+
+clanae:enge-comercio
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Comercio (agrupación ENGE)"@es ;
+    skos:notation "G" ;
+    skos:broader clanae:G ;
+    skos:scopeNote "Coincide con la Sección G completa del ClaNAE 2010."@es .
+
+clanae:enge-transporte-correo
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Transporte, correo y almacenamiento (agrupación ENGE)"@es ;
+    skos:notation "H" ;
+    skos:broader clanae:H ;
+    skos:scopeNote "Coincide con la Sección H completa del ClaNAE 2010. La ENGE incluye la actividad postal (correo) dentro de esta sección."@es .
+
+clanae:enge-servicios-info-comunicaciones
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Servicios de información y comunicaciones (agrupación ENGE)"@es ;
+    skos:notation "J" ;
+    skos:broader clanae:J ;
+    skos:scopeNote "Coincide con la Sección J completa del ClaNAE 2010."@es .
+
+clanae:enge-otras-actividades
+    a skos:Concept ; skos:inScheme clanae:esquema ;
+    skos:prefLabel "Otras actividades (agrupación ENGE)"@es ;
+    skos:notation "resto" ;
+    skos:scopeNote "Resto de actividades no clasificadas en las categorías anteriores. Incluye alojamiento (I), finanzas y seguros (K), actividades inmobiliarias (L), servicios profesionales (M), servicios de apoyo (N), administración pública (O), enseñanza (P), salud (Q), artes y entretenimiento (R), otros servicios (S), y actividades extraterritoriales (U). Ver notas metodológicas de cada edición ENGE para la lista completa de códigos."@es ;
+    skos:note "Agrupación residual ENGE que combina múltiples secciones ClaNAE no codificables en una única relación skos:broader sin generar polihierarchía. Las secciones componentes (I, K, L, M, N, O, P, Q, R, S, U) se documentan en scopeNote."@es .
+
+
+# ================================================================
+
+# ================================================================
+# REFERENCIAS A CLASIFICACIONES EXTERNAS
+# (sin descargar; solo metadatos de identificación)
+# ================================================================
+
+<https://unstats.un.org/unsd/classifications/Econ/isic#Rev4>
+    a skos:ConceptScheme ;
+    skos:prefLabel "CIIU Revisión 4 — Clasificación Industrial Internacional Uniforme de todas las Actividades Económicas"@es ;
+    skos:prefLabel "ISIC Revision 4 — International Standard Industrial Classification of All Economic Activities"@en ;
+    dct:publisher <https://unstats.un.org> ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic.cshtml> .
+

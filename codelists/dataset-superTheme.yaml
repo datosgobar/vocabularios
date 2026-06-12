@@ -98,14 +98,14 @@ values:
       es: Datasets sobre el poder judicial, legislación, delitos, seguridad y derechos humanos.
       en: Datasets on the judiciary, legislation, crime, security and human rights.
 
-  - id: REGI
-    uri: http://publications.europa.eu/resource/authority/data-theme/REGI
+  - id: TERRI
+    uri: https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar/TERRI
     label:
-      es: Regiones y Ciudades
-      en: Regions and Cities
+      es: Territorio
+      en: Territory and Geography
     description:
-      es: Datos de estadísticas regionales, desarrollo territorial, planificación urbana y rural.
-      en: Data on regional statistics, territorial development, urban and rural planning.
+      es: Asuntos vinculados con la geografía y el territorio — división político-administrativa, ecosistemas, geología y recursos hídricos del país.
+      en: Issues related to geography and territory — political-administrative divisions, ecosystems, geology and water resources.
 
   - id: SOCI
     uri: http://publications.europa.eu/resource/authority/data-theme/SOCI
@@ -133,6 +133,15 @@ values:
     description:
       es: Datasets sobre infraestructura vial, transporte público, logística y movilidad.
       en: Datasets on road infrastructure, public transport, logistics and mobility.
+
+  - id: DEFE
+    uri: https://infra.datos.gob.ar/vocabulario/temas-datos-gob-ar/DEFE
+    label:
+      es: Defensa
+      en: Defence
+    description:
+      es: Asuntos vinculados con las Fuerzas Armadas, la defensa territorial, la soberanía y la autodeterminación de la Nación.
+      en: Issues related to the Armed Forces, territorial defence, sovereignty and national self-determination.
 
   - id: sin-tema
     uri: ~

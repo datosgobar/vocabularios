@@ -1,0 +1,56 @@
+# ================================================================
+# CAES 2018 — Clasificación de Actividades Económicas para
+# Encuestas Sociodemográficas
+# Dirección de Datos Abiertos / Secretaría de Innovación, Ciencia y Tecnología
+# Namespace: https://infra.datos.gob.ar/clasificador/caes/
+#
+# Fuente: INDEC
+# Usos típicos: EPH, ENGHO, EPS y otras encuestas a hogares.
+# Estándares aplicados: SKOS, DC Terms
+# ================================================================
+
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix caes:   <https://infra.datos.gob.ar/clasificador/caes/> .
+
+<https://infra.datos.gob.ar/clasificador/caes>
+    a owl:Ontology ;
+    dct:title "CAES 2018 — Clasificación de Actividades Económicas para Encuestas Sociodemográficas"@es ;
+    dct:description "Clasificación de Actividades Económicas para Encuestas Sociodemográficas, versión 2018. Publicado y mantenido por la Dirección de Datos Abiertos."@es ;
+    dct:creator <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:publisher <https://www.argentina.gob.ar/jefatura/innovacion-publica/datos-abiertos> ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:created "2026-06-03"^^xsd:date ;
+    dct:modified "2026-06-03"^^xsd:date ;
+    owl:versionInfo "0.1.0" .
+
+
+# 2. CAES
+#    Clasificación de Actividades Económicas para Encuestas
+#    Sociodemográficas (versión 2018)
+#    Fuente: INDEC
+#    Usos típicos: EPH, ENGHO, EPS y otras encuestas a hogares.
+#    Propósito distinto al ClaNAE: simplifica la clasificación
+#    para que pueda ser aplicada por encuestadores en el campo.
+# ================================================================
+
+caes:esquema
+    a skos:ConceptScheme ;
+    dct:title "CAES — Clasificación de Actividades Económicas para Encuestas Sociodemográficas"@es ;
+    skos:prefLabel "CAES — Clasificación de Actividades Económicas para Encuestas Sociodemográficas"@es ;
+    dct:description "Clasificación de Actividades Económicas para Encuestas Sociodemográficas, versión 2018 (CAES 2018). Desarrollada por INDEC para su uso en encuestas a hogares (EPH, ENGHO, etc.), donde la actividad económica debe ser captada por encuestadores sin especialización estadística. Derivada conceptualmente del ClaNAE 2010 pero con estructura y nivel de detalle distintos."@es ;
+    dct:source <https://www.indec.gob.ar/ftp/cuadros/menusuperior/clasificadores/caes_v2018.xls> ;
+    dct:publisher <https://www.indec.gob.ar> ;
+    dct:created "2018-01-01"^^xsd:date ;
+    dct:modified "2018-01-01"^^xsd:date ;
+    skos:note "La CAES no es directamente equivalente al ClaNAE a nivel de código: permite mapeos pero no correspondencias 1:1 en todos los niveles. Ver tabla de correspondencias oficial del INDEC."@es .
+
+# Nota: los conceptos específicos de la CAES se agregarán en
+# una versión futura a partir del XLS oficial
+# https://www.indec.gob.ar/ftp/cuadros/menusuperior/clasificadores/caes_v2018.xls
+
+
+# ================================================================
