@@ -24,8 +24,3 @@ Proveer esta infraestructura semántica es, además, darles más herramientas a 
 
 Todo esto es la base de los principios **FAIR** (que los datos sean Encontrables, Accesibles, Interoperables y Reutilizables) y de los **datos enlazados** (*linked data*): datos que no viven aislados, sino que se conectan con otros a través de identificadores compartidos. Nuestro vocabulario de temas, por caso, está alineado con la taxonomía europea de datos abiertos, lo que permite que un conjunto de datos publicado en Argentina dialogue con catálogos de otros países.
 
----
-
-## Versión corta (para una tarjeta o copete)
-
-> Acá publicamos los vocabularios y codelists que dan un lenguaje común a los datos del catálogo nacional: listas acordadas de temas, territorios, formatos y otros valores, cada uno con un identificador estable. Estandarizar estos valores hace que los datos sean más fáciles de encontrar, combinar y analizar (por personas y también por sistemas de IA), y es la base de los principios FAIR y de los datos enlazados.

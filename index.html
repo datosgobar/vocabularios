@@ -605,15 +605,15 @@
     }
     .about-title {
       font-family: var(--font-titulos);
-      font-size: 26px;
+      font-size: 36px;
       color: var(--gobar-negro);
       margin: 0 0 32px;
     }
     .about-body h3 {
       font-family: var(--font-titulos);
-      font-size: 17px;
+      font-size: 21px;
       color: var(--gobar-negro);
-      margin: 32px 0 8px;
+      margin: 32px 0 16px;
     }
     .about-body p {
       color: var(--gobar-gris-oscuro);
@@ -819,11 +819,18 @@
     const APP_CONFIG = {
       vocabularios: [
         {
-          id: 'territorio',
-          nombre: 'Territorio',
-          descripcion: 'Unidades territoriales de la República Argentina (país, provincias, regiones).',
-          archivo: 'vocabularios/territorio-argentina.ttl',
+          id: 'territorio-regiones',
+          nombre: 'Regiones',
+          descripcion: 'País y regiones estadísticas de la República Argentina (NOA, NEA, Cuyo, Pampeana, AMBA, Patagonia).',
+          archivo: 'vocabularios/territorio-regiones.ttl',
           icono: '🗺️'
+        },
+        {
+          id: 'territorio-provincias',
+          nombre: 'Provincias',
+          descripcion: 'Las 23 provincias y la Ciudad Autónoma de Buenos Aires.',
+          archivo: 'vocabularios/territorio-provincias.ttl',
+          icono: '📌'
         },
         {
           id: 'tematicas',
@@ -847,26 +854,12 @@
           icono: '🏭'
         },
         {
-          id: 'caes',
-          nombre: 'CAES 2018',
-          descripcion: 'Clasificación de Actividades Económicas para Encuestas Sociodemográficas (EPH, ENGHO).',
-          archivo: 'vocabularios/clasificador-caes.ttl',
-          icono: '👥'
-        },
-        {
           id: 'coicop',
           nombre: 'COICOP-AR',
           descripcion: 'Clasificación del Consumo Individual por Finalidades. Base del IPC y la Canasta Básica.',
           archivo: 'vocabularios/clasificador-coicop.ttl',
           icono: '🛒'
         },
-        {
-          id: 'cno',
-          nombre: 'CNO',
-          descripcion: 'Clasificador Nacional de Ocupaciones. Base de la EPH y censos de población.',
-          archivo: 'vocabularios/clasificador-cno.ttl',
-          icono: '👷'
-        }
       ],
       codelists: [
         {
@@ -1719,6 +1712,23 @@
       } else {
         // Árbol jerárquico
         countEl.textContent = concepts.length + ' concepto' + (concepts.length !== 1 ? 's' : '');
+
+        if (concepts.length === 0) {
+          const wrap = crearEl('div', { style: 'padding: 40px 0;' });
+          const msg = crearEl('p', { style: 'text-align: center; color: var(--gobar-gris); font-size: 14px; margin-bottom: 0;' });
+          msg.textContent = 'Los conceptos de este clasificador no están disponibles aún. Se publicarán en una versión próxima a partir de la fuente oficial del INDEC.';
+          wrap.appendChild(msg);
+          if (data.scheme && data.scheme.description) {
+            const hr = crearEl('hr', { className: 'about-divider', style: 'margin: 24px 0' });
+            const desc = crearEl('p', { style: 'color: var(--gobar-gris-oscuro); font-size: 13px; line-height: 1.7;' });
+            desc.textContent = data.scheme.description;
+            wrap.appendChild(hr);
+            wrap.appendChild(desc);
+          }
+          contenedor.appendChild(wrap);
+          return;
+        }
+
         if (raices.length === 0 && concepts.length > 0) {
           // Sin jerarquía: lista plana
           const ul = crearEl('ul', { className: 'concept-list', role: 'list' });
@@ -2054,9 +2064,11 @@
     function resolverEtiquetaURI(uri, data) {
       // 1. Recursos auxiliares del mismo TTL (dimensiones, grupos, etc.)
       if (data.resourceLabels && data.resourceLabels[uri]) return data.resourceLabels[uri];
-      // 2. Concepto en el vocabulario de territorio cargado
-      const terrData = estado.vocabData['territorio'];
-      if (terrData && terrData.mapa[uri]) return etiqueta(terrData.mapa[uri]);
+      // 2. Concepto en los vocabularios de territorio (regiones o provincias)
+      const terrReg2  = estado.vocabData['territorio-regiones'];
+      const terrProv2 = estado.vocabData['territorio-provincias'];
+      if (terrReg2  && terrReg2.mapa[uri])  return etiqueta(terrReg2.mapa[uri]);
+      if (terrProv2 && terrProv2.mapa[uri]) return etiqueta(terrProv2.mapa[uri]);
       const lastSeg = uri.split('/').pop() || uri;
       // 3. Unidades QUDT incorporadas
       if (QUDT_LABELS[uri]) return QUDT_LABELS[uri];
@@ -2102,11 +2114,15 @@
           const wrap = crearEl('div', { className: 'related-chips' });
           for (const uriVal of vals.filter(v => !v.lit)) {
             const lbl = resolverEtiquetaURI(uriVal.v, data);
-            // Si es un concepto en el vocab de territorio, link; si no, chip de texto
-            const terrData = estado.vocabData['territorio'];
-            if (terrData && terrData.mapa[uriVal.v]) {
+            // Busca el concepto en ambos vocabularios de territorio
+            const terrReg = estado.vocabData['territorio-regiones'];
+            const terrProv = estado.vocabData['territorio-provincias'];
+            const terrVocabId = (terrReg && terrReg.mapa[uriVal.v]) ? 'territorio-regiones'
+                              : (terrProv && terrProv.mapa[uriVal.v]) ? 'territorio-provincias'
+                              : null;
+            if (terrVocabId) {
               const chip = crearEl('a', {
-                href: '#vocab/territorio/concept/' + encodeURIComponent(uriVal.v),
+                href: '#vocab/' + terrVocabId + '/concept/' + encodeURIComponent(uriVal.v),
                 className: 'chip'
               });
               chip.textContent = lbl;
