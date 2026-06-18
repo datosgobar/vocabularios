@@ -1,0 +1,252 @@
+# =============================================================================
+# Vocabulario de Regiones de la República Argentina
+#
+# ConceptScheme: Regiones estadísticas y el País como concepto raíz.
+# Las provincias se referencian mediante skos:narrower con sus URIs canónicas
+# (definidas en territorio-provincias.ttl, mismo espacio de nombres aradm:).
+#
+# Fuentes normativas:
+#   SKOS Reference (W3C):     https://www.w3.org/TR/skos-reference/
+#   GeoSPARQL 1.0 (OGC):      https://www.ogc.org/standard/geosparql/
+#
+# Fuentes de datos:
+#   API Georef (datos.gob.ar): https://apis.datos.gob.ar/georef/api/
+# =============================================================================
+
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix locn:    <http://www.w3.org/ns/locn#> .
+
+# Vocabulario administrativo argentino — mismo espacio de nombres que territorio-provincias
+@prefix aradm:   <https://infra.datos.gob.ar/vocabulario/territorio-argentina/> .
+
+@base <https://infra.datos.gob.ar/vocabulario/territorio-argentina/> .
+
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+<https://infra.datos.gob.ar/vocabulario/territorio-regiones>
+    a skos:ConceptScheme ;
+    dct:title "Regiones de la República Argentina"@es ;
+    dct:title "Regions of the Argentine Republic"@en ;
+    dct:description "Vocabulario controlado de regiones estadísticas de la República Argentina y su país contenedor. Las provincias se definen en el vocabulario complementario territorio-provincias."@es ;
+    dct:description "Controlled vocabulary of statistical regions of the Argentine Republic and its country container. Provinces are defined in the complementary territory-provinces vocabulary."@en ;
+    dct:creator [
+        a foaf:Organization ;
+        foaf:name "Jefatura de Gabinete de Ministros — Secretaría de Innovación, Ciencia y Tecnología - Subsecretaría de Tecnologías de Información y las Comunicaciones"@es
+    ] ;
+    dct:publisher [
+        a foaf:Organization ;
+        foaf:name "Dirección de Datos Abiertos"@es ;
+        foaf:homepage <https://datos.gob.ar>
+    ] ;
+    dct:created "2026-05-15"^^xsd:date ;
+    dct:modified "2026-06-17"^^xsd:date ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:source <https://www.w3.org/TR/skos-reference/> ,
+               <https://apis.datos.gob.ar/georef/> ;
+    owl:versionInfo "1.0" ;
+    skos:hasTopConcept <Pais/Argentina> ;
+    skos:hasTopConcept <Region/NOA> ;
+    skos:hasTopConcept <Region/NEA> ;
+    skos:hasTopConcept <Region/Cuyo> ;
+    skos:hasTopConcept <Region/Pampeana> ;
+    skos:hasTopConcept <Region/AMBA> ;
+    skos:hasTopConcept <Region/Patagonia> .
+
+
+# =============================================================================
+# CLASES DEL VOCABULARIO ADMINISTRATIVO ARGENTINO
+# =============================================================================
+
+aradm:EntidadTerritorial
+    a owl:Class ;
+    rdfs:label "Entidad Territorial"@es ;
+    rdfs:comment "Clase raíz para cualquier entidad territorial del vocabulario."@es .
+
+aradm:Pais
+    a owl:Class ;
+    rdfs:label "País"@es ;
+    rdfs:comment "Entidad de nivel nacional."@es ;
+    rdfs:subClassOf aradm:EntidadTerritorial .
+
+aradm:Region
+    a owl:Class ;
+    rdfs:label "Región"@es ;
+    rdfs:label "Region"@en ;
+    rdfs:comment "División supraprovincial sin estatus político-administrativo, utilizada para fines de análisis y planificación."@es ;
+    rdfs:subClassOf aradm:EntidadTerritorial .
+
+aradm:Provincia
+    a owl:Class ;
+    rdfs:label "Provincia"@es ;
+    rdfs:comment "División administrativa de primer nivel de la República Argentina."@es ;
+    rdfs:subClassOf aradm:EntidadTerritorial .
+
+aradm:CABA
+    a owl:Class ;
+    rdfs:label "Ciudad Autónoma"@es ;
+    rdfs:comment "Ciudad Autónoma de Buenos Aires, jurisdicción de estatus equivalente a provincia."@es ;
+    rdfs:subClassOf aradm:EntidadTerritorial .
+
+aradm:region
+    a owl:ObjectProperty ;
+    rdfs:label "región"@es ;
+    rdfs:comment "Relaciona una provincia o jurisdicción con la región a la que pertenece."@es ;
+    rdfs:domain aradm:EntidadTerritorial ;
+    rdfs:range aradm:Region .
+
+aradm:pais
+    a owl:ObjectProperty ;
+    rdfs:label "país"@es ;
+    rdfs:domain aradm:EntidadTerritorial ;
+    rdfs:range aradm:Pais .
+
+
+# =============================================================================
+# PAÍS: REPÚBLICA ARGENTINA
+# =============================================================================
+
+<Pais/Argentina>
+    a aradm:Pais, skos:Concept ;
+    skos:prefLabel "República Argentina"@es ;
+    skos:prefLabel "Argentine Republic"@en ;
+    skos:altLabel "Argentina"@es ;
+    skos:altLabel "Argentina"@en ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:narrower <Region/NOA>, <Region/NEA>, <Region/Cuyo>,
+                  <Region/Pampeana>, <Region/AMBA>, <Region/Patagonia> ;
+    owl:sameAs <http://dbpedia.org/resource/Argentina> ;
+    dct:identifier "AR" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-75.5 -55.1, -53.6 -55.1, -53.6 -21.7, -75.5 -21.7, -75.5 -55.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-75.5,-55.1],[-53.6,-55.1],[-53.6,-21.7],[-75.5,-21.7],[-75.5,-55.1]]]}"^^rdf:JSON
+    ] .
+
+
+# =============================================================================
+# REGIONES
+# =============================================================================
+
+<Region/NOA>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Noroeste Argentino"@es ;
+    skos:prefLabel "Argentine Northwest"@en ;
+    skos:altLabel "NOA"@es ;
+    skos:definition "Región que comprende las provincias de Catamarca, Jujuy, Salta, Santiago del Estero y Tucumán."@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <Provincia/Catamarca>, <Provincia/Jujuy>,
+                  <Provincia/Salta>, <Provincia/Santiago-del-Estero>, <Provincia/Tucuman> ;
+    dct:identifier "NOA" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-69.7 -31.9, -61.0 -31.9, -61.0 -21.7, -69.7 -21.7, -69.7 -31.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-69.7,-31.9],[-61.0,-31.9],[-61.0,-21.7],[-69.7,-21.7],[-69.7,-31.9]]]}"^^rdf:JSON
+    ] .
+
+
+<Region/NEA>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Noreste Argentino"@es ;
+    skos:prefLabel "Argentine Northeast"@en ;
+    skos:altLabel "NEA"@es ;
+    skos:definition "Región que comprende las provincias de Chaco, Corrientes, Formosa y Misiones."@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <Provincia/Chaco>, <Provincia/Corrientes>,
+                  <Provincia/Formosa>, <Provincia/Misiones> ;
+    dct:identifier "NEA" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-63.3 -30.1, -53.6 -30.1, -53.6 -22.0, -63.3 -22.0, -63.3 -30.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-63.3,-30.1],[-53.6,-30.1],[-53.6,-22.0],[-63.3,-22.0],[-63.3,-30.1]]]}"^^rdf:JSON
+    ] .
+
+
+<Region/Cuyo>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Cuyo"@es ;
+    skos:prefLabel "Cuyo"@en ;
+    skos:definition "Región que comprende las provincias de Mendoza, La Rioja, San Juan y San Luis."@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <Provincia/Mendoza>, <Provincia/San-Juan>, <Provincia/San-Luis>,<Provincia/La-Rioja> ;
+    dct:identifier "CUY" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-70.7 -36.6, -64.9 -36.6, -64.9 -27.9, -70.7 -27.9, -70.7 -36.6))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-70.7,-36.6],[-64.9,-36.6],[-64.9,-27.9],[-70.7,-27.9],[-70.7,-36.6]]]}"^^rdf:JSON
+    ] .
+
+
+<Region/Pampeana>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Región Pampeana"@es ;
+    skos:prefLabel "Pampean Region"@en ;
+    skos:altLabel "Pampeana"@es ;
+    skos:definition "Región que comprende las provincias de Buenos Aires (sin Gran Buenos Aires), Córdoba, Entre Ríos, La Pampa y Santa Fe."@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <Provincia/Buenos-Aires>, <Provincia/Cordoba>,
+                  <Provincia/Entre-Rios>, <Provincia/La-Pampa>, <Provincia/Santa-Fe> ;
+    dct:identifier "PAM" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-68.3 -40.6, -56.3 -40.6, -56.3 -28.0, -68.3 -28.0, -68.3 -40.6))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-68.3,-40.6],[-56.3,-40.6],[-56.3,-28.0],[-68.3,-28.0],[-68.3,-40.6]]]}"^^rdf:JSON
+    ] .
+
+
+<Region/AMBA>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Área Metropolitana de Buenos Aires"@es ;
+    skos:prefLabel "Buenos Aires Metropolitan Area"@en ;
+    skos:altLabel "AMBA"@es ;
+    skos:altLabel "Gran Buenos Aires"@es ;
+    skos:definition "Área metropolitana que comprende la Ciudad Autónoma de Buenos Aires y los 24 partidos del conurbano bonaerense."@es ;
+    skos:scopeNote "Es la única región que no responde a un agrupamiento de unidades político-administrativas sino que pondera una parte de la
+    provincia de Buenos Aires y a CABA"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <CABA/Ciudad-Autonoma-de-Buenos-Aires> ;
+    dct:identifier "AMBA" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-59.2 -34.9, -58.2 -34.9, -58.2 -34.3, -59.2 -34.3, -59.2 -34.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-59.2,-34.9],[-58.2,-34.9],[-58.2,-34.3],[-59.2,-34.3],[-59.2,-34.9]]]}"^^rdf:JSON
+    ] .
+
+
+<Region/Patagonia>
+    a aradm:Region, skos:Concept ;
+    skos:prefLabel "Patagonia"@es ;
+    skos:prefLabel "Patagonia"@en ;
+    skos:definition "Región que comprende las provincias de Chubut, Neuquén, Río Negro, Santa Cruz y Tierra del Fuego, Antártida e Islas del Atlántico Sur."@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-regiones> ;
+    skos:broader <Pais/Argentina> ;
+    skos:narrower <Provincia/Chubut>, <Provincia/Neuquen>,
+                  <Provincia/Rio-Negro>, <Provincia/Santa-Cruz>, <Provincia/Tierra-del-Fuego> ;
+    dct:identifier "PAT" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-75.5 -55.1, -63.7 -55.1, -63.7 -36.5, -75.5 -36.5, -75.5 -55.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-75.5,-55.1],[-63.7,-55.1],[-63.7,-36.5],[-75.5,-36.5],[-75.5,-55.1]]]}"^^rdf:JSON
+    ] .

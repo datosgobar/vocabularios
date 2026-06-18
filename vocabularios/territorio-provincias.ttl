@@ -1,0 +1,528 @@
+# =============================================================================
+# Vocabulario de Provincias de la República Argentina
+#
+# ConceptScheme: Las 23 provincias y la Ciudad Autónoma de Buenos Aires (CABA).
+# Sin relaciones jerárquicas a regiones en este archivo; el vínculo región-provincia
+# está modelado solo en territorio-regiones.ttl (skos:narrower).
+#
+# Fuentes normativas:
+#   SKOS Reference (W3C):     https://www.w3.org/TR/skos-reference/
+#   GeoSPARQL 1.0 (OGC):      https://www.ogc.org/standard/geosparql/
+#
+# Fuentes de datos:
+#   API Georef (datos.gob.ar): https://apis.datos.gob.ar/georef/api/
+# =============================================================================
+
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo:     <http://www.opengis.net/ont/geosparql#> .
+@prefix locn:    <http://www.w3.org/ns/locn#> .
+@prefix wdt:     <http://www.wikidata.org/prop/direct/> .
+@prefix wd:      <http://www.wikidata.org/entity/> .
+
+# Vocabulario administrativo argentino — mismo espacio de nombres que territorio-regiones
+@prefix aradm:   <https://infra.datos.gob.ar/vocabulario/territorio-argentina/> .
+
+@base <https://infra.datos.gob.ar/vocabulario/territorio-argentina/> .
+
+
+# =============================================================================
+# CONCEPT SCHEME
+# =============================================================================
+
+<https://infra.datos.gob.ar/vocabulario/territorio-provincias>
+    a skos:ConceptScheme ;
+    dct:title "Provincias de la República Argentina"@es ;
+    dct:title "Provinces of the Argentine Republic"@en ;
+    dct:description "Vocabulario controlado de las 23 provincias y la Ciudad Autónoma de Buenos Aires. Las provincias se presentan como lista plana; su agrupamiento por región estadística está modelado en el vocabulario territorio-regiones."@es ;
+    dct:description "Controlled vocabulary of the 23 provinces and the Autonomous City of Buenos Aires. Provinces are presented as a flat list; their grouping by statistical region is modelled in the territorio-regiones vocabulary."@en ;
+    dct:creator [
+        a foaf:Organization ;
+        foaf:name "Jefatura de Gabinete de Ministros — Secretaría de Innovación, Ciencia y Tecnología - Subsecretaría de Tecnologías de Información y las Comunicaciones"@es
+    ] ;
+    dct:publisher [
+        a foaf:Organization ;
+        foaf:name "Dirección de Datos Abiertos"@es ;
+        foaf:homepage <https://datos.gob.ar>
+    ] ;
+    dct:created "2026-05-15"^^xsd:date ;
+    dct:modified "2026-06-17"^^xsd:date ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dct:source <https://www.w3.org/TR/skos-reference/> ,
+               <https://apis.datos.gob.ar/georef/> ;
+    owl:versionInfo "1.0" ;
+    skos:hasTopConcept <Provincia/Buenos-Aires> ;
+    skos:hasTopConcept <Provincia/Catamarca> ;
+    skos:hasTopConcept <Provincia/Chaco> ;
+    skos:hasTopConcept <Provincia/Chubut> ;
+    skos:hasTopConcept <Provincia/Cordoba> ;
+    skos:hasTopConcept <Provincia/Corrientes> ;
+    skos:hasTopConcept <Provincia/Entre-Rios> ;
+    skos:hasTopConcept <Provincia/Formosa> ;
+    skos:hasTopConcept <Provincia/Jujuy> ;
+    skos:hasTopConcept <Provincia/La-Pampa> ;
+    skos:hasTopConcept <Provincia/La-Rioja> ;
+    skos:hasTopConcept <Provincia/Mendoza> ;
+    skos:hasTopConcept <Provincia/Misiones> ;
+    skos:hasTopConcept <Provincia/Neuquen> ;
+    skos:hasTopConcept <Provincia/Rio-Negro> ;
+    skos:hasTopConcept <Provincia/Salta> ;
+    skos:hasTopConcept <Provincia/San-Juan> ;
+    skos:hasTopConcept <Provincia/San-Luis> ;
+    skos:hasTopConcept <Provincia/Santa-Cruz> ;
+    skos:hasTopConcept <Provincia/Santa-Fe> ;
+    skos:hasTopConcept <Provincia/Santiago-del-Estero> ;
+    skos:hasTopConcept <Provincia/Tierra-del-Fuego> ;
+    skos:hasTopConcept <Provincia/Tucuman> ;
+    skos:hasTopConcept <CABA/Ciudad-Autonoma-de-Buenos-Aires> .
+
+
+# =============================================================================
+# PROVINCIAS Y JURISDICCIONES
+# (ordenadas alfabéticamente según la API georef de datos.gob.ar)
+# =============================================================================
+
+<Provincia/Buenos-Aires>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Buenos Aires"@es ;
+    skos:prefLabel "Buenos Aires Province"@en ;
+    skos:altLabel "Buenos Aires"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44754 ;
+    owl:sameAs <http://dbpedia.org/resource/Buenos_Aires_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Buenos%20Aires> ;
+    dct:identifier "06" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-63.4 -40.6, -56.3 -40.6, -56.3 -33.0, -63.4 -33.0, -63.4 -40.6))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-63.4,-40.6],[-56.3,-40.6],[-56.3,-33.0],[-63.4,-33.0],[-63.4,-40.6]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Catamarca>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Catamarca"@es ;
+    skos:prefLabel "Catamarca Province"@en ;
+    skos:altLabel "Catamarca"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44756 ;
+    owl:sameAs <http://dbpedia.org/resource/Catamarca_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Catamarca> ;
+    dct:identifier "10" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-69.4 -30.3, -64.6 -30.3, -64.6 -25.2, -69.4 -25.2, -69.4 -30.3))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-69.4,-30.3],[-64.6,-30.3],[-64.6,-25.2],[-69.4,-25.2],[-69.4,-30.3]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Chaco>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia del Chaco"@es ;
+    skos:prefLabel "Chaco Province"@en ;
+    skos:altLabel "Chaco"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44757 ;
+    owl:sameAs <http://dbpedia.org/resource/Chaco_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Chaco> ;
+    dct:identifier "22" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-63.3 -28.1, -58.5 -28.1, -58.5 -24.0, -63.3 -24.0, -63.3 -28.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-63.3,-28.1],[-58.5,-28.1],[-58.5,-24.0],[-63.3,-24.0],[-63.3,-28.1]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Chubut>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia del Chubut"@es ;
+    skos:prefLabel "Chubut Province"@en ;
+    skos:altLabel "Chubut"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q45007 ;
+    owl:sameAs <http://dbpedia.org/resource/Chubut_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Chubut> ;
+    dct:identifier "26" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-72.3 -46.0, -65.5 -46.0, -65.5 -42.0, -72.3 -42.0, -72.3 -46.0))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-72.3,-46.0],[-65.5,-46.0],[-65.5,-42.0],[-72.3,-42.0],[-72.3,-46.0]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Cordoba>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Córdoba"@es ;
+    skos:prefLabel "Córdoba Province"@en ;
+    skos:altLabel "Córdoba"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44759 ;
+    owl:sameAs <http://dbpedia.org/resource/C%C3%B3rdoba_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Cordoba> ;
+    dct:identifier "14" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-65.8 -35.2, -61.7 -35.2, -61.7 -29.4, -65.8 -29.4, -65.8 -35.2))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-65.8,-35.2],[-61.7,-35.2],[-61.7,-29.4],[-65.8,-29.4],[-65.8,-35.2]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Corrientes>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Corrientes"@es ;
+    skos:prefLabel "Corrientes Province"@en ;
+    skos:altLabel "Corrientes"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44758 ;
+    owl:sameAs <http://dbpedia.org/resource/Corrientes_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Corrientes> ;
+    dct:identifier "18" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-59.5 -30.1, -55.6 -30.1, -55.6 -27.0, -59.5 -27.0, -59.5 -30.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-59.5,-30.1],[-55.6,-30.1],[-55.6,-27.0],[-59.5,-27.0],[-59.5,-30.1]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Entre-Rios>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Entre Ríos"@es ;
+    skos:prefLabel "Entre Ríos Province"@en ;
+    skos:altLabel "Entre Ríos"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44762 ;
+    owl:sameAs <http://dbpedia.org/resource/Entre_R%C3%ADos_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Entre%20Rios> ;
+    dct:identifier "30" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-60.2 -34.9, -57.7 -34.9, -57.7 -30.2, -60.2 -30.2, -60.2 -34.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-60.2,-34.9],[-57.7,-34.9],[-57.7,-30.2],[-60.2,-30.2],[-60.2,-34.9]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Formosa>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Formosa"@es ;
+    skos:prefLabel "Formosa Province"@en ;
+    skos:altLabel "Formosa"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44761 ;
+    owl:sameAs <http://dbpedia.org/resource/Formosa_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Formosa> ;
+    dct:identifier "34" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-62.3 -26.5, -57.6 -26.5, -57.6 -22.0, -62.3 -22.0, -62.3 -26.5))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-62.3,-26.5],[-57.6,-26.5],[-57.6,-22.0],[-62.3,-22.0],[-62.3,-26.5]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Jujuy>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Jujuy"@es ;
+    skos:prefLabel "Jujuy Province"@en ;
+    skos:altLabel "Jujuy"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44764 ;
+    owl:sameAs <http://dbpedia.org/resource/Jujuy_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Jujuy> ;
+    dct:identifier "38" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-67.2 -24.5, -63.8 -24.5, -63.8 -21.7, -67.2 -21.7, -67.2 -24.5))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-67.2,-24.5],[-63.8,-24.5],[-63.8,-21.7],[-67.2,-21.7],[-67.2,-24.5]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/La-Pampa>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de La Pampa"@es ;
+    skos:prefLabel "La Pampa Province"@en ;
+    skos:altLabel "La Pampa"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44795 ;
+    owl:sameAs <http://dbpedia.org/resource/La_Pampa_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=La%20Pampa> ;
+    dct:identifier "42" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-68.3 -39.3, -63.4 -39.3, -63.4 -34.5, -68.3 -34.5, -68.3 -39.3))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-68.3,-39.3],[-63.4,-39.3],[-63.4,-34.5],[-68.3,-34.5],[-68.3,-39.3]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/La-Rioja>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de La Rioja"@es ;
+    skos:prefLabel "La Rioja Province"@en ;
+    skos:altLabel "La Rioja"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44796 ;
+    owl:sameAs <http://dbpedia.org/resource/La_Rioja_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=La%20Rioja> ;
+    dct:identifier "46" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-69.7 -31.9, -65.2 -31.9, -65.2 -27.9, -69.7 -27.9, -69.7 -31.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-69.7,-31.9],[-65.2,-31.9],[-65.2,-27.9],[-69.7,-27.9],[-69.7,-31.9]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Mendoza>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Mendoza"@es ;
+    skos:prefLabel "Mendoza Province"@en ;
+    skos:altLabel "Mendoza"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44797 ;
+    owl:sameAs <http://dbpedia.org/resource/Mendoza_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Mendoza> ;
+    dct:identifier "50" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-70.6 -36.6, -66.3 -36.6, -66.3 -32.0, -70.6 -32.0, -70.6 -36.6))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-70.6,-36.6],[-66.3,-36.6],[-66.3,-32.0],[-70.6,-32.0],[-70.6,-36.6]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Misiones>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Misiones"@es ;
+    skos:prefLabel "Misiones Province"@en ;
+    skos:altLabel "Misiones"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44798 ;
+    owl:sameAs <http://dbpedia.org/resource/Misiones_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Misiones> ;
+    dct:identifier "54" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-56.1 -28.1, -53.6 -28.1, -53.6 -25.5, -56.1 -25.5, -56.1 -28.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-56.1,-28.1],[-53.6,-28.1],[-53.6,-25.5],[-56.1,-25.5],[-56.1,-28.1]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Neuquen>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia del Neuquén"@es ;
+    skos:prefLabel "Neuquén Province"@en ;
+    skos:altLabel "Neuquén"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44800 ;
+    owl:sameAs <http://dbpedia.org/resource/Neuqu%C3%A9n_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Neuquen> ;
+    dct:identifier "58" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-71.5 -40.5, -67.0 -40.5, -67.0 -36.5, -71.5 -36.5, -71.5 -40.5))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-71.5,-40.5],[-67.0,-40.5],[-67.0,-36.5],[-71.5,-36.5],[-71.5,-40.5]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Rio-Negro>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Río Negro"@es ;
+    skos:prefLabel "Río Negro Province"@en ;
+    skos:altLabel "Río Negro"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44802 ;
+    owl:sameAs <http://dbpedia.org/resource/R%C3%ADo_Negro_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Rio%20Negro> ;
+    dct:identifier "62" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-71.7 -42.3, -63.7 -42.3, -63.7 -38.7, -71.7 -38.7, -71.7 -42.3))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-71.7,-42.3],[-63.7,-42.3],[-63.7,-38.7],[-71.7,-38.7],[-71.7,-42.3]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Salta>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Salta"@es ;
+    skos:prefLabel "Salta Province"@en ;
+    skos:altLabel "Salta"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44803 ;
+    owl:sameAs <http://dbpedia.org/resource/Salta_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Salta> ;
+    dct:identifier "66" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-67.3 -26.4, -62.3 -26.4, -62.3 -21.9, -67.3 -21.9, -67.3 -26.4))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-67.3,-26.4],[-62.3,-26.4],[-62.3,-21.9],[-67.3,-21.9],[-67.3,-26.4]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/San-Juan>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de San Juan"@es ;
+    skos:prefLabel "San Juan Province"@en ;
+    skos:altLabel "San Juan"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44805 ;
+    owl:sameAs <http://dbpedia.org/resource/San_Juan_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=San%20Juan> ;
+    dct:identifier "70" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-70.7 -32.7, -66.2 -32.7, -66.2 -28.4, -70.7 -28.4, -70.7 -32.7))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-70.7,-32.7],[-66.2,-32.7],[-66.2,-28.4],[-70.7,-28.4],[-70.7,-32.7]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/San-Luis>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de San Luis"@es ;
+    skos:prefLabel "San Luis Province"@en ;
+    skos:altLabel "San Luis"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44818 ;
+    owl:sameAs <http://dbpedia.org/resource/San_Luis_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=San%20Luis> ;
+    dct:identifier "74" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-67.9 -36.0, -64.9 -36.0, -64.9 -31.5, -67.9 -31.5, -67.9 -36.0))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-67.9,-36.0],[-64.9,-36.0],[-64.9,-31.5],[-67.9,-31.5],[-67.9,-36.0]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Santa-Cruz>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Santa Cruz"@es ;
+    skos:prefLabel "Santa Cruz Province"@en ;
+    skos:altLabel "Santa Cruz"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44821 ;
+    owl:sameAs <http://dbpedia.org/resource/Santa_Cruz_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Santa%20Cruz> ;
+    dct:identifier "78" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-73.0 -52.5, -65.5 -52.5, -65.5 -46.0, -73.0 -46.0, -73.0 -52.5))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-73.0,-52.5],[-65.5,-52.5],[-65.5,-46.0],[-73.0,-46.0],[-73.0,-52.5]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Santa-Fe>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Santa Fe"@es ;
+    skos:prefLabel "Santa Fe Province"@en ;
+    skos:altLabel "Santa Fe"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44823 ;
+    owl:sameAs <http://dbpedia.org/resource/Santa_Fe_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Santa%20Fe> ;
+    dct:identifier "82" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-63.5 -34.9, -58.0 -34.9, -58.0 -28.0, -63.5 -28.0, -63.5 -34.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-63.5,-34.9],[-58.0,-34.9],[-58.0,-28.0],[-63.5,-28.0],[-63.5,-34.9]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Santiago-del-Estero>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Santiago del Estero"@es ;
+    skos:prefLabel "Santiago del Estero Province"@en ;
+    skos:altLabel "Santiago del Estero"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44827 ;
+    owl:sameAs <http://dbpedia.org/resource/Santiago_del_Estero_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Santiago%20del%20Estero> ;
+    dct:identifier "86" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-64.9 -29.9, -61.0 -29.9, -61.0 -25.5, -64.9 -25.5, -64.9 -29.9))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-64.9,-29.9],[-61.0,-29.9],[-61.0,-25.5],[-64.9,-25.5],[-64.9,-29.9]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Tierra-del-Fuego>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Tierra del Fuego, Antártida e Islas del Atlántico Sur"@es ;
+    skos:prefLabel "Tierra del Fuego Province"@en ;
+    skos:altLabel "Tierra del Fuego"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44832 ;
+    owl:sameAs <http://dbpedia.org/resource/Tierra_del_Fuego_Province,_Argentina> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Tierra%20del%20Fuego> ;
+    dct:identifier "94" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-75.5 -55.1, -64.0 -55.1, -64.0 -52.5, -75.5 -52.5, -75.5 -55.1))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-75.5,-55.1],[-64.0,-55.1],[-64.0,-52.5],[-75.5,-52.5],[-75.5,-55.1]]]}"^^rdf:JSON
+    ] .
+
+<Provincia/Tucuman>
+    a aradm:Provincia, skos:Concept ;
+    skos:prefLabel "Provincia de Tucumán"@es ;
+    skos:prefLabel "Tucumán Province"@en ;
+    skos:altLabel "Tucumán"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q44829 ;
+    owl:sameAs <http://dbpedia.org/resource/Tucum%C3%A1n_Province> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Tucuman> ;
+    dct:identifier "90" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-66.0 -28.0, -64.5 -28.0, -64.5 -26.0, -66.0 -26.0, -66.0 -28.0))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-66.0,-28.0],[-64.5,-28.0],[-64.5,-26.0],[-66.0,-26.0],[-66.0,-28.0]]]}"^^rdf:JSON
+    ] .
+
+
+# =============================================================================
+# CIUDAD AUTÓNOMA DE BUENOS AIRES (CABA)
+# Jurisdicción de estatus equivalente a provincia (Decreto-Ley 15/58 y CN Art. 129)
+# =============================================================================
+
+<CABA/Ciudad-Autonoma-de-Buenos-Aires>
+    a aradm:CABA, skos:Concept ;
+    skos:prefLabel "Ciudad Autónoma de Buenos Aires"@es ;
+    skos:prefLabel "Autonomous City of Buenos Aires"@en ;
+    skos:altLabel "CABA"@es ;
+    skos:altLabel "Buenos Aires"@es ;
+    skos:inScheme <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    skos:topConceptOf <https://infra.datos.gob.ar/vocabulario/territorio-provincias> ;
+    aradm:pais <Pais/Argentina> ;
+    owl:sameAs wd:Q1486 ;
+    owl:sameAs <http://dbpedia.org/resource/Buenos_Aires> ;
+    skos:exactMatch <https://apis.datos.gob.ar/georef/api/provincias?nombre=Ciudad%20Aut%C3%B3noma%20de%20Buenos%20Aires> ;
+    dct:identifier "02" ;
+    geo:hasGeometry [
+        a geo:Geometry ;
+        geo:asWKT "POLYGON((-58.53 -34.70, -58.33 -34.70, -58.33 -34.53, -58.53 -34.53, -58.53 -34.70))"^^geo:wktLiteral ;
+        locn:geometry "{\"type\":\"Polygon\",\"coordinates\":[[[-58.5315,-34.7055],[-58.3351,-34.7055],[-58.3351,-34.5265],[-58.5315,-34.5265],[-58.5315,-34.7055]]]}"^^rdf:JSON
+    ] .
