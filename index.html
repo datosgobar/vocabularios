@@ -914,6 +914,33 @@
       ]
     };
 
+    /* === BASE Y MAPEO DE URIs CANÓNICAS ===
+       BASE: prefijo desde donde se sirven la SPA y los datos.
+         - en infra.datos.gob.ar los archivos cuelgan de /infra-vocabularios/
+         - en cualquier otro host (GitHub Pages, local) se usan rutas relativas
+       ORIGIN_DATOS: origen con el que están construidas las URIs dentro de los TTL.
+       URI_MAP: para cada vocabulario, la URI (path) de su página de esquema y los
+         prefijos bajo los que viven las URIs de sus conceptos. Territorio es especial:
+         el esquema es /vocabulario/territorio-{regiones,provincias} pero los conceptos
+         cuelgan de /vocabulario/territorio-argentina/{Pais,Region,Provincia}/... */
+    const BASE = (location.hostname === 'infra.datos.gob.ar') ? '/infra-vocabularios/' : './';
+    const ORIGIN_DATOS = 'https://infra.datos.gob.ar';
+    const URI_MAP = {
+      'territorio-regiones':   { uri: '/vocabulario/territorio-regiones',
+                                 conceptPrefixes: ['/vocabulario/territorio-argentina/Pais',
+                                                   '/vocabulario/territorio-argentina/Region'] },
+      'territorio-provincias': { uri: '/vocabulario/territorio-provincias',
+                                 conceptPrefixes: ['/vocabulario/territorio-argentina/Provincia'] },
+      'tematicas':             { uri: '/vocabulario/temas-datos-gob-ar',
+                                 conceptPrefixes: ['/vocabulario/temas-datos-gob-ar'] },
+      'indicadores-indec':     { uri: '/vocabulario/indicadores-indec',
+                                 conceptPrefixes: ['/vocabulario/indicadores-indec'] },
+      'clanae':                { uri: '/clasificador/clanae',
+                                 conceptPrefixes: ['/clasificador/clanae'] },
+      'coicop':                { uri: '/clasificador/coicop',
+                                 conceptPrefixes: ['/clasificador/coicop'] }
+    };
+
     /* === ESTADO === */
     const estado = {
       vocabData: {},     // id -> { scheme, concepts, conceptMap, childrenMap, roots }
@@ -1469,7 +1496,7 @@
     function renderTarjeta(cfg, tipo) {
       const card = crearEl('a', {
         className: 'card',
-        href: '#' + tipo + '/' + cfg.id,
+        href: (tipo === 'codelist' ? hrefCodelist(cfg.id) : hrefVocab(cfg.id)),
         'data-card-id': cfg.id,
         'aria-label': cfg.nombre
       });
@@ -1519,7 +1546,7 @@
       const tareasVocab = APP_CONFIG.vocabularios.map(async cfg => {
         estado.loadStatus[cfg.id] = 'cargando';
         try {
-          const res = await fetch(cfg.archivo);
+          const res = await fetch(BASE + cfg.archivo);
           if (!res.ok) throw new Error(res.status);
           const text = await res.text();
           const { scheme, concepts, resourceLabels, publicaciones } = parsearTTL(text);
@@ -1537,7 +1564,7 @@
       const tareasCodelist = APP_CONFIG.codelists.map(async cfg => {
         estado.loadStatus[cfg.id] = 'cargando';
         try {
-          const res = await fetch(cfg.archivo);
+          const res = await fetch(BASE + cfg.archivo);
           if (!res.ok) throw new Error(res.status);
           const text = await res.text();
           const { source, displayProperty, valores } = parsearYAML(text);
@@ -1634,7 +1661,7 @@
 
       const conceptId = encodeURIComponent(uri);
       const link = crearEl('a', {
-        href: '#vocab/' + vocabId + '/concept/' + conceptId,
+        href: hrefConcepto(uri),
         className: 'tree-label-link'
       });
       link.textContent = label;
@@ -1694,7 +1721,7 @@
         for (const c of matches) {
           const li = crearEl('li', { className: 'concept-item' });
           const nameDiv = crearEl('div', { className: 'concept-item-name' });
-          const link = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(c.uri) });
+          const link = crearEl('a', { href: hrefConcepto(c.uri) });
           link.textContent = etiqueta(c);
           nameDiv.appendChild(link);
           li.appendChild(nameDiv);
@@ -1735,7 +1762,7 @@
           for (const c of concepts) {
             const li = crearEl('li', { className: 'concept-item' });
             const nameDiv = crearEl('div', { className: 'concept-item-name' });
-            const link = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(c.uri) });
+            const link = crearEl('a', { href: hrefConcepto(c.uri) });
             link.textContent = etiqueta(c);
             nameDiv.appendChild(link);
             li.appendChild(nameDiv);
@@ -1790,7 +1817,7 @@
       // Breadcrumb
       const bc = document.getElementById('vocab-breadcrumb');
       vaciar(bc);
-      const home = crearEl('a', { href: '#', textContent: 'Inicio' });
+      const home = crearEl('a', { href: hrefIndex(), textContent: 'Inicio' });
       agregar(bc, home, crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' }), cfg.nombre);
 
       // Header
@@ -1808,7 +1835,7 @@
       document.getElementById('vocab-back').onclick = () => navegarA('#');
       const dlBtn = document.getElementById('vocab-download');
       dlBtn.onclick = () => {
-        const a = crearEl('a', { href: cfg.archivo, download: cfg.id + '.ttl' });
+        const a = crearEl('a', { href: BASE + cfg.archivo, download: cfg.id + '.ttl' });
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
       };
 
@@ -1864,7 +1891,7 @@
       // Breadcrumb
       const bc = document.getElementById('codelist-breadcrumb');
       vaciar(bc);
-      const home = crearEl('a', { href: '#', textContent: 'Inicio' });
+      const home = crearEl('a', { href: hrefIndex(), textContent: 'Inicio' });
       agregar(bc, home, crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' }), cfg.nombre);
 
       // Header
@@ -1898,7 +1925,7 @@
       document.getElementById('codelist-back').onclick = () => navegarA('#');
       const dlBtn = document.getElementById('codelist-download');
       dlBtn.onclick = () => {
-        const a = crearEl('a', { href: cfg.archivo, download: cfg.id + '.yaml' });
+        const a = crearEl('a', { href: BASE + cfg.archivo, download: cfg.id + '.yaml' });
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
       };
 
@@ -1917,10 +1944,15 @@
       const data = estado.vocabData[vocabId];
       const cfg  = APP_CONFIG.vocabularios.find(v => v.id === vocabId);
 
-      if (!data || !cfg) { navegarA('#vocab/' + vocabId); return; }
+      if (!cfg) { navegarA('#'); return; }
+      if (!data) { return; }  // datos aún no cargados; init() re-llama a router() al terminar
 
       const concepto = data.mapa[conceptURI];
-      if (!concepto) { navegarA('#vocab/' + vocabId); return; }
+      if (!concepto) {
+        // sólo redirige si el vocab ya terminó de cargar y el concepto no existe
+        if (estado.loadStatus[vocabId] === 'listo') { navegarA('#vocab/' + vocabId); return; }
+        return;
+      }
 
       mostrarVista('view-concept');
 
@@ -1929,8 +1961,8 @@
       // Breadcrumb
       const bc = document.getElementById('concept-breadcrumb');
       vaciar(bc);
-      const home   = crearEl('a', { href: '#', textContent: 'Inicio' });
-      const vocabA = crearEl('a', { href: '#vocab/' + vocabId, textContent: cfg.nombre });
+      const home   = crearEl('a', { href: hrefIndex(), textContent: 'Inicio' });
+      const vocabA = crearEl('a', { href: hrefVocab(vocabId), textContent: cfg.nombre });
       const sep1   = crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' });
       const sep2   = crearEl('span', { className: 'sep', textContent: '›', 'aria-hidden': 'true' });
       agregar(bc, home, sep1, vocabA, sep2, label);
@@ -2013,7 +2045,7 @@
       if (broaderConceptos.length > 0) {
         const chips = crearEl('div', { className: 'related-chips' });
         for (const bc2 of broaderConceptos) {
-          const chip = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(bc2.uri), className: 'chip' });
+          const chip = crearEl('a', { href: hrefConcepto(bc2.uri), className: 'chip' });
           chip.textContent = etiqueta(bc2);
           chips.appendChild(chip);
         }
@@ -2025,7 +2057,7 @@
       if (narrowerConceptos.length > 0) {
         const chips = crearEl('div', { className: 'related-chips' });
         for (const nc of narrowerConceptos) {
-          const chip = crearEl('a', { href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(nc.uri), className: 'chip' });
+          const chip = crearEl('a', { href: hrefConcepto(nc.uri), className: 'chip' });
           chip.textContent = etiqueta(nc);
           chips.appendChild(chip);
         }
@@ -2122,7 +2154,7 @@
                               : null;
             if (terrVocabId) {
               const chip = crearEl('a', {
-                href: '#vocab/' + terrVocabId + '/concept/' + encodeURIComponent(uriVal.v),
+                href: hrefConcepto(uriVal.v),
                 className: 'chip'
               });
               chip.textContent = lbl;
@@ -2190,7 +2222,7 @@
             const lbl = resolverEtiquetaURI(uriVal.v, data);
             if (data.mapa && data.mapa[uriVal.v]) {
               const chip = crearEl('a', {
-                href: '#vocab/' + vocabId + '/concept/' + encodeURIComponent(uriVal.v),
+                href: hrefConcepto(uriVal.v),
                 className: 'chip'
               });
               chip.textContent = lbl;
@@ -2212,36 +2244,84 @@
 
     /* === ROUTER === */
 
-    function navegarA(hash) {
-      window.location.hash = hash;
+    // --- Constructores de URL (paths reales, no hash) ---
+    function urlIndex()       { return BASE; }
+    function urlVocab(id)     { return (URI_MAP[id] ? URI_MAP[id].uri : '/vocabulario/' + id) + '/'; }
+    function urlCodelist(id)  { return '/codelist/' + id + '/'; }
+    function urlConcepto(uri) { return (uri && uri.indexOf(ORIGIN_DATOS) === 0) ? uri.slice(ORIGIN_DATOS.length) : uri; }
+
+    // alias usados al construir los href de los links
+    const hrefIndex    = urlIndex;
+    const hrefVocab    = urlVocab;
+    const hrefCodelist = urlCodelist;
+    const hrefConcepto = urlConcepto;
+
+    // Navega a una URL real sin recargar (History API)
+    function navegar(url) {
+      history.pushState({}, '', url);
+      window.scrollTo(0, 0);
+      router();
+    }
+
+    // Compat: acepta URLs nuevas o los '#...' del esquema viejo (back buttons, guards)
+    function navegarA(dest) {
+      let url = dest;
+      if (dest === '#' || dest === '' || dest == null) url = urlIndex();
+      else if (dest.indexOf('#vocab/') === 0)    url = urlVocab(dest.slice(7).split('/')[0]);
+      else if (dest.indexOf('#codelist/') === 0) url = urlCodelist(dest.slice(10).split('/')[0]);
+      navegar(url);
+    }
+
+    // pathname actual -> ruta lógica { tipo, id, conceptUri }
+    function rutaActual() {
+      let p = decodeURIComponent(location.pathname).replace(/\/+$/, '');
+      if (p === '' || p === '/infra-vocabularios') return { tipo: 'index' };
+
+      const cl = APP_CONFIG.codelists.find(c => ('/codelist/' + c.id) === p);
+      if (cl) return { tipo: 'codelist', id: cl.id };
+
+      const voc = APP_CONFIG.vocabularios.find(c => urlVocab(c.id).replace(/\/$/, '') === p);
+      if (voc) return { tipo: 'vocab', id: voc.id };
+
+      for (const c of APP_CONFIG.vocabularios) {
+        const prefs = (URI_MAP[c.id] && URI_MAP[c.id].conceptPrefixes)
+                    || [(URI_MAP[c.id] ? URI_MAP[c.id].uri : '/vocabulario/' + c.id)];
+        for (const pref of prefs) {
+          if (p.indexOf(pref + '/') === 0) {
+            return { tipo: 'concepto', id: c.id, conceptUri: ORIGIN_DATOS + p };
+          }
+        }
+      }
+      return { tipo: 'index' };
     }
 
     function router() {
-      const hash = window.location.hash.slice(1) || '';
-      const partes = hash.split('/');
-
-      if (!hash || hash === '/' ) {
-        renderIndex();
-        return;
-      }
-
-      if (partes[0] === 'vocab') {
-        const id = partes[1] || '';
-        if (partes[2] === 'concept' && partes[3]) {
-          renderConcepto(id, decodeURIComponent(partes[3]));
-        } else {
-          renderVocab(id);
-        }
-        return;
-      }
-
-      if (partes[0] === 'codelist') {
-        renderCodelist(partes[1] || '');
-        return;
-      }
-
-      // Fallback al índice
+      const r = rutaActual();
+      if (r.tipo === 'vocab')    { renderVocab(r.id); return; }
+      if (r.tipo === 'codelist') { renderCodelist(r.id); return; }
+      if (r.tipo === 'concepto') { renderConcepto(r.id, r.conceptUri); return; }
       renderIndex();
+    }
+
+    // Intercepta clicks en links internos para navegar sin recargar
+    function esRutaInterna(href) {
+      return !!href && href.charAt(0) === '/' && (
+        href === BASE ||
+        href.indexOf('/vocabulario/') === 0 ||
+        href.indexOf('/clasificador/') === 0 ||
+        href.indexOf('/codelist/') === 0 ||
+        href.indexOf('/infra-vocabularios') === 0
+      );
+    }
+    function interceptarClicks(e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest ? e.target.closest('a') : null;
+      if (!a) return;
+      if (a.target === '_blank' || a.hasAttribute('download')) return;
+      const href = a.getAttribute('href');
+      if (!esRutaInterna(href)) return;
+      e.preventDefault();
+      navegar(href);
     }
 
     /* === SOBRE ESTO — parser MD mínimo + fetch === */
@@ -2291,7 +2371,7 @@
     }
 
     function cargarSobreEsto() {
-      fetch('docs/vocabularios-codelists-contexto.md')
+      fetch(BASE + 'docs/vocabularios-codelists-contexto.md')
         .then(r => r.ok ? r.text() : Promise.reject())
         .then(txt => { document.getElementById('sobre-esto-body').appendChild(parseMd(txt)); })
         .catch(() => {});
@@ -2301,18 +2381,17 @@
 
     async function init() {
       construirIndex();
-      router();
-      window.addEventListener('hashchange', router);
+      window.addEventListener('popstate', router);
+      document.addEventListener('click', interceptarClicks);
       document.getElementById('nav-about-link').addEventListener('click', e => {
         e.preventDefault();
-        if (window.location.hash && window.location.hash !== '#') navegarA('#');
+        navegarA('#');
         setTimeout(() => document.getElementById('sobre-esto').scrollIntoView({ behavior: 'smooth' }), 0);
       });
       cargarSobreEsto();
-      await cargarArchivos();
-      // Si ya estamos en una vista de detalle y los datos acaban de cargar, re-renderizar
-      const hash = window.location.hash.slice(1) || '';
-      if (hash && hash !== '/') router();
+      router();                 // primera pintura (índice o esqueleto del detalle)
+      await cargarArchivos();   // carga de TTL/YAML en paralelo
+      router();                 // re-pinta la vista actual ya con los datos cargados
     }
 
     document.addEventListener('DOMContentLoaded', init);
