@@ -75,13 +75,20 @@
       top: 0;
       z-index: 100;
     }
+    /* Logo de datos.gob.ar, filete y nombre del sitio, como la cabecera de la landing */
     .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
       font-weight: 700;
       font-size: 16px;
       color: var(--gobar-blanco);
       text-decoration: none;
+      white-space: nowrap;
       flex-shrink: 0;
     }
+    .nav-brand img { height: 28px; width: auto; display: block; }
+    .nav-brand > span { padding-left: 14px; border-left: 1px solid rgba(255,255,255,0.35); }
     .nav-brand:hover { color: var(--gobar-accent-claro); text-decoration: none; }
     .nav-left { display: flex; align-items: center; gap: 24px; min-width: 0; }
     .nav-about-link {
@@ -241,6 +248,16 @@
       flex: 1;
     }
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    /* Formato del archivo en el pie de la tarjeta: la única etiqueta con fondo que queda */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .badge-ttl { background: rgba(179,105,237,0.15); color: var(--gobar-primary); }
+    .badge-yaml { background: #FDF6E6; color: #7A5710; }
     .card-count { font-size: 11px; color: var(--gobar-gris); }
     .spinner {
       display: inline-block;
@@ -622,11 +639,18 @@
       .tile.grande { font-size: 40px; }
       .section-header { flex-direction: column; align-items: flex-start; }
       .detail-actions { flex-direction: column; }
-      .nav-search-wrap { max-width: 160px; }
     }
-    @media (max-width: 480px) {
+    /* Con el logo, la barra no entra en una fila: la búsqueda pasa abajo a todo el ancho */
+    @media (max-width: 880px) {
       nav { height: auto; flex-wrap: wrap; row-gap: 8px; padding: 10px 20px; }
       .nav-search-wrap { max-width: none; }
+    }
+    @media (max-width: 480px) {
+      .nav-brand { gap: 10px; font-size: 14px; }
+      .nav-brand img { height: 22px; }
+      .nav-brand > span { padding-left: 10px; }
+      .nav-brand-extra { display: none; }  /* en angosto queda "Vocabularios" para que entre "¿Qué es esto?" */
+      .nav-left { gap: 16px; }
       .cards-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 26px; }
     }
@@ -637,14 +661,14 @@
 
   <nav role="navigation" aria-label="Navegación principal">
     <div class="nav-left">
-      <a href="/" class="nav-brand">Vocabularios &amp; Codelists</a>
-      <a href="#" id="nav-about-link" class="nav-about-link">¿Qué es esto?</a>
+      <a href="/" id="nav-brand" class="nav-brand"><img id="nav-logo" src="/img/datos-gob-ar-blanco.png" alt="datos.gob.ar" width="823" height="160"><span>Vocabularios<span class="nav-brand-extra"> &amp; Codelists</span></span></a>
+      <a href="/acerca-de/" id="nav-about-link" class="nav-about-link">¿Qué es esto?</a>
     </div>
     <div class="nav-search-wrap" role="search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      <input id="nav-search" type="search" placeholder="Buscar vocabulario..." aria-label="Buscar vocabulario o codelist">
+      <input id="nav-search" type="search" placeholder="Buscar..." aria-label="Buscar vocabulario o codelist">
     </div>
   </nav>
 
@@ -690,10 +714,13 @@
           <div id="grid-codelist" class="cards-grid"></div>
         </div>
       </div>
+    </div>
 
+    <!-- ── Vista Acerca de ────────────────────────────────────────── -->
+    <div id="view-about" class="view">
       <section id="sobre-esto" class="section-about" aria-labelledby="sobre-esto-titulo">
         <div class="about-eyebrow">Acerca de</div>
-        <h2 id="sobre-esto-titulo" class="about-title">¿Qué es esto?</h2>
+        <h1 id="sobre-esto-titulo" class="about-title">¿Qué es esto?</h1>
         <div id="sobre-esto-body" class="about-body"></div>
       </section>
     </div>
@@ -1499,18 +1526,18 @@
         className: 'card',
         href: (tipo === 'codelist' ? hrefCodelist(cfg.id) : hrefVocab(cfg.id)),
         'data-card-id': cfg.id,
-        'data-formato': tipo === 'vocab' ? 'TTL' : 'YAML',
         'aria-label': cfg.nombre
       });
 
       const nameEl  = crearEl('div', { className: 'card-name', textContent: cfg.nombre });
       const descEl  = crearEl('div', { className: 'card-desc', textContent: cfg.descripcion });
       const footEl  = crearEl('div', { className: 'card-footer' });
+      const badgeEl = crearEl('span', { className: 'badge badge-' + (tipo === 'vocab' ? 'ttl' : 'yaml'), textContent: tipo === 'vocab' ? 'TTL' : 'YAML' });
       const statusEl = crearEl('div', { className: 'card-status' });
       const spinnerEl = crearEl('span', { className: 'spinner', 'aria-hidden': 'true' });
       const loadTxt  = crearEl('span', { textContent: 'cargando…' });
       agregar(statusEl, spinnerEl, loadTxt);
-      agregar(footEl, statusEl);
+      agregar(footEl, badgeEl, statusEl);
       const iconEl = crearEl('div', { className: 'icono card-icon' });
       pintarIcono(iconEl, cfg.icono);
       agregar(card, iconEl, nameEl, descEl, footEl);
@@ -1523,8 +1550,7 @@
       const card = document.querySelector('[data-card-id="' + id + '"] .card-status');
       if (!card) return;
       vaciar(card);
-      const formato = card.closest('.card').dataset.formato;
-      const countEl = crearEl('span', { className: 'card-count', textContent: conteo + ' entradas · ' + formato });
+      const countEl = crearEl('span', { className: 'card-count', textContent: conteo + ' entradas' });
       card.appendChild(countEl);
       card.className = 'card-count';
     }
@@ -2236,6 +2262,7 @@
 
     // --- Constructores de URL (paths reales, no hash) ---
     function urlIndex()       { return BASE; }
+    function urlAcerca()      { return BASE + 'acerca-de/'; }
     function urlVocab(id)     { return (URI_MAP[id] ? URI_MAP[id].uri : '/vocabulario/' + id) + '/'; }
     function urlCodelist(id)  { return '/codelist/' + id + '/'; }
     function urlConcepto(uri) { return (uri && uri.indexOf(ORIGIN_DATOS) === 0) ? uri.slice(ORIGIN_DATOS.length) : uri; }
@@ -2266,6 +2293,7 @@
     function rutaActual() {
       let p = decodeURIComponent(location.pathname).replace(/\/+$/, '');
       if (p === '' || p === '/infra-vocabularios') return { tipo: 'index' };
+      if (p === urlAcerca().replace(/\/$/, '')) return { tipo: 'acerca' };
 
       const cl = APP_CONFIG.codelists.find(c => ('/codelist/' + c.id) === p);
       if (cl) return { tipo: 'codelist', id: cl.id };
@@ -2290,6 +2318,7 @@
       if (r.tipo === 'vocab')    { renderVocab(r.id); return; }
       if (r.tipo === 'codelist') { renderCodelist(r.id); return; }
       if (r.tipo === 'concepto') { renderConcepto(r.id, r.conceptUri); return; }
+      if (r.tipo === 'acerca')   { mostrarVista('view-about'); return; }
       renderIndex();
     }
 
@@ -2297,6 +2326,7 @@
     function esRutaInterna(href) {
       return !!href && href.charAt(0) === '/' && (
         href === urlIndex() ||
+        href === urlAcerca() ||
         href.indexOf('/vocabulario/') === 0 ||
         href.indexOf('/clasificador/') === 0 ||
         href.indexOf('/codelist/') === 0 ||
@@ -2373,11 +2403,10 @@
       construirIndex();
       window.addEventListener('popstate', router);
       document.addEventListener('click', interceptarClicks);
-      document.getElementById('nav-about-link').addEventListener('click', e => {
-        e.preventDefault();
-        navegarA('#');
-        setTimeout(() => document.getElementById('sobre-esto').scrollIntoView({ behavior: 'smooth' }), 0);
-      });
+      // En infra.datos.gob.ar el sitio cuelga de /infra-vocabularios/
+      document.getElementById('nav-brand').href = urlIndex();
+      document.getElementById('nav-logo').src = BASE + 'img/datos-gob-ar-blanco.png';
+      document.getElementById('nav-about-link').href = urlAcerca();
       cargarSobreEsto();
       router();                 // primera pintura (índice o esqueleto del detalle)
       await cargarArchivos();   // carga de TTL/YAML en paralelo
